@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300');
+
+html{
+max-width: 100%;
+overflow-x: hidden;
+}
+body{
+  font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Condensed', sans-serif;
+max-width: 100%;
+overflow-x: hidden;
+color: #000;
+background-color: #eaeaea;
+}
+
+table.table thead tr,table.table tbody tr{
+	font-size: 12px;
+}
+
+#show{
+	max-height: 30px;
+}
+#search{
+	width: 50%;
+	height: 25px;
+}
+
+#row1 {
+	background-color: #fff;
+}
+#row1 div:nth-child(1) p:nth-child(1){
+	font-size: 20px;
+}
+#row1 div:nth-child(2) p, #row1 div:nth-child(3) p{
+	font-size: 16px;
+}
+
+#row2{
+	background-color: #fff;
+	margin-top: 10px;
+}
+
+#row3{
+	background-color: #fff;
+}
+
+.span1{
+	color: green;
+}
+@media screen and (max-width: 480px){
+table.table thead tr th:nth-child(3), 
+table.table tbody tr td:nth-child(3),
+table.table tbody tr td:nth-child(4),
+table.table tbody tr td:nth-child(4),
+table.table tbody tr td:nth-child(5),
+table.table tbody tr td:nth-child(5){
+	width: 25px;
+}
+}

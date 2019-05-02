@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <title>Coinvit</title>
+      <!-- Tell the browser to be responsive to screen width -->
+      <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+      <!-- Bootstrap 3.3.7 -->
+      <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
+      <!-- Theme style -->
+      <link rel="stylesheet" href="../dist/css/AdminLTE.css">
+      <!-- Fixed Column -->
+      <link rel="stylesheet" type="text/css" href="../dist/css/column-fixed.css">
+      <!-- Scrollbar Custom -->
+      <link rel="stylesheet" type="text/css" href="../dist/css/scrollbar-custom.css">
+      <!-- Custom Layout -->
+      <link rel="stylesheet" type="text/css" href="../dist/css/custom-layout.css">
+      <!-- Size Custom -->
+      <link rel="stylesheet" type="text/css" href="../dist/css/size-custom.css">
+      <style type="text/css">
+         body{
+         width: 1590px;
+         overflow-x: scroll;
+         }
+         .info-box {
+             background: #2b3441;
+             color: #fff;
+          }
+      </style>
+      <!-- Google Font -->
+      <link rel="stylesheet"
+         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+   </head>
+   <body>
+      <div class="wrapper">
+      <header class="main-header">
+         <nav>
+            <!-- Navbar Right Menu -->
+            <div class="collapse navbar-collapse navbar-color">
+            <ul class="nav navbar-nav navbar-right">
+               <li><a href="balance.php">Markets</a></li>
+               <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  Centralize <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li><a tabindex="-1" href="#">Wallet</a></li>
+                     <li><a tabindex="-1" href="#">Orders</a></li>
+                     <li><a tabindex="-1" href="#">History</a></li>
+                  </ul>
+               </li>
+               <li class="dropdown">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  Decentralize <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                     <li><a tabindex="-1" href="#">Wallet</a></li>
+                     <li><a tabindex="-1" href="#">Orders</a></li>
+                     <li><a tabindex="-1" href="#">History</a></li>
+                  </ul>
+               </li>
+               <li>
+                  <a href="#">
+                  <img src="https://upload.wikimedia.org/wikipedia/commons/d/db/Google_Translate_Icon.png" width="20" height="20">    
+                  </a>
+               </li>
+               <li>
+                  <a href="#">
+                  <i class="fa fa-moon-o"></i>    
+                  </a>
+               </li>
+               <li>
+                  <a href="#" data-toggle="modal" data-target="#modal-lr">
+                  Login / Register 
+                  </a>
+               </li>
+               <li>
+                  <a href="#">
+                  <i class="fa fa-wifi text-green"></i>    
+                  </a>
+               </li>
+               <li>
+                  <button type="button" class="btn btn-warning btn-lg btn-block" style="height: 52px;">Self Advertise</button>
+               </li>
+            </ul>
+         </nav>
+      </header>
+      <!-- Left side column. contains the logo and sidebar -->
+      <section style="width: 100%; background-color: #2b3441; color : #fff;">
+         <div class="container text-center">
+            <section style="margin-top: 22px; margin-bottom: 30px;">
+               <h1 style="font-size: 42px;">BALANCES, DEPOSITS & WITHDRAWALS</h1>
+               <h2 style="font-size: 19px; margin-top: 8px;">Estimated value of holdings: $0.00 USD / 0.00000000 BTC</h2>
+            </section>
+            <div id="" style="margin-top: 20px; margin-right: auto; margin-bottom: 20px; margin-left: auto; width: 65%;">
+               <div class="progress xs">
+                  <div class="progress-bar progress-bar-aqua" style="width: 20%" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
+                  </div>
+               </div>
+               <!-- End progress -->
+               <div class="description" style="margin-top: 0.2em;">
+                  $<span id="wdRemaining">0.00</span> remaining of $<span id="wdLimit">0.00</span> USD <a href="/profile" class="standard">daily limit</a>.
+               </div>
+               <!-- End description -->
+            </div>
+            <div class="info-box" style="">
+               <div class="info-box-content" style="margin-right: 90px;">
+                  <!-- Market History -->
+                  <table class="table" id="balanceTable" width="100%" cellspacing="0">
+                     <thead>
+                        <tr>
+                           <th>Coin</th>
+                           <th>Name</th>
+                           <th>Total Balance</th>
+                           <th>On Orders</th>
+                           <th>BTC Value</th>
+                           <th>Actions</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td class="text-left">ARDR</td>
+                           <td class="text-left">Ardor</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left"><a href="#">Deposit</a> | <a href="#">Withdraw</a></td>
+                        </tr>
+                        <tr>
+                           <td class="text-left">ARDR</td>
+                           <td class="text-left">Ardor</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left"><a href="#">Deposit</a> | <a href="#">Withdraw</a></td>
+                        </tr>
+                        <tr>
+                           <td class="text-left">ARDR</td>
+                           <td class="text-left">Ardor</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left"><a href="#">Deposit</a> | <a href="#">Withdraw</a></td>
+                        </tr>
+                        <tr>
+                           <td class="text-left">ARDR</td>
+                           <td class="text-left">Ardor</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left">0.00000000</td>
+                           <td class="text-left"><a href="#">Deposit</a> | <a href="#">Withdraw</a></td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <!-- End Balance Table -->
+                  <p class="pad">Looking for your <a href="/depositHistory" class="standard">Deposit &amp; Withdrawal History</a>?</p>
+               </div>
+               <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->   
+         </div>
+         <!-- End container -->
+      </section>
+      <footer class="main-footer" style="margin-left: 0;">
+         <div class="row">
+            <div class="col-md-3 col-sm-3 col-xs-3">
+               <h1>ABOUT COINVIT</h1>
+               <h4><a href="https://t.me/FRASINDO">Contact Us</a></h4>
+               <h4><a href="#">Privacy Policy</a></h4>
+               <h4><a href="#">Terms of Use</a></h4>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3">
+               <h1>SUPPORT</h1>
+               <h4><a href="#">++ Contact Support ++</a></h4>
+               <h4><a href="#">Guides</a></h4>
+               <h4><a href="#">++ SUBMIT A TOKEN ++</a></h4>
+               <h4><a href="#">REPORT Abuse</a></h4>
+               <h4><a href="#">API Documentation</a></h4>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3">
+               <h1>NEWS</h1>
+               <h4><a href="http://www.frasindo.com/media/">Press Release</a></h4>
+               <h4><a href="https://twitter.com/frascoin">Follow us on Twitter</a></h4>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3 text-center">
+               <button type="button" class="btn btn-warning btn-lg btn-block" style="margin-top: 20px;">Self Advertise</button>
+               <label>
+               <a href="https://t.me/FRASINDO">
+               <i class="fa fa-telegram logo-socmed"></i>
+               </a>
+               </label>
+               <label>
+               <a href="https://www.facebook.com/frasindo/">
+               <i class="fa fa-facebook-square logo-socmed"></i>
+               </a>
+               </label>
+               <label>
+               <a href="https://twitter.com/frascoin">
+               <i class="fa fa-twitter logo-socmed"></i>   
+               </a>
+               </label>
+               <label>
+               <a href="">
+               <i class="fa fa-reddit logo-socmed"></i>
+               </a>
+               </label>
+               <label>
+               <a href="">
+               <i class="fa fa-medium logo-socmed"></i>
+               </a>
+               </label>
+               <label>
+               <a href="">
+               <i class="fa fa-instagram logo-socmed"></i>
+               </a>              
+               </label>
+            </div>
+            <div class="col-md-3 col-sm-3 col-xs-3">
+            </div>
+         </div>
+      </footer>
+   </body>
+   <!-- jQuery 3 -->
+   <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+   <!-- Bootstrap 3.3.7 -->
+   <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+   <!-- DataTables -->
+   <script src="../bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+   <script src="../bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+   <!-- AdminLTE App -->
+   <script src="../dist/js/adminlte.min.js"></script>
+   <!-- SlimScroll -->
+   <script src="../bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+   <script src="../dist/js/pages/dashboard2.js"></script>
+   <!-- AdminLTE for demo purposes -->
+   <script src="../dist/js/demo.js"></script>
+   <!-- Resources -->
+   <script type="text/javascript">
+      $(function () {
+       
+       $('#balanceTable').DataTable({
+         'paging'      : false,
+         'searching'   : true,
+         'info'        : false,
+         'lengthChange': false,
+         'pagingType'  : 'full_numbers',
+         'responsive'  : true,
+         "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+         'autoWidth'   : false
+       })
+      })
+   </script>
+</html>

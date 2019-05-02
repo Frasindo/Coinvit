@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300');
+
+body{
+  font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Condensed', sans-serif;
+
+}
+
+h1,h2,h3,h4{
+  font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Condensed', sans-serif;
+}
+.swiper-container {
+      width: 100%;
+      height: 100px;
+       }
+.swiper-wrapper .swiper-slide{
+   background-color: #fff;
+   color: red;
+}
+
+
+.con1{
+        padding-left: 75px;
+        padding-right: 75px;
+      }
+
+      .con3{
+        border: 1px solid #D8D8D8; 
+      }
+
+      #footer1{
+        background-color: #252424;
+        padding-left: 75px;
+        padding-right: 75px;
+        padding-top: 35px;
+      }
+
+      .font1 a{
+        font-size: 16px;
+        color: #878383;
+      }
+
+      .font2{
+        font-size: 23px;
+      }
+
+      .font3 {
+        font-size: 13px;
+      }
+
+      #dis2 {
+        display: none;
+      }
+
+      .navbar{
+        /*background-color: #2B3441 !important;*/
+        }
+
+      @media screen and (max-width: 480px){
+        .con1 {
+          padding-left: 15px;
+          padding-right:15px;
+        }
+        #dis{
+          display: none;
+        }
+        #footer1{
+          padding-left: 15px;
+          padding-right:15px;
+          background-color: #252424;
+          padding-top: 10px;
+        }
+        .font1{
+        font-size: 10px;
+      }
+        .font2{
+          font-size: 15px;
+        }
+
+        #dis2{
+          display: inline-block;
+        }
+
+        }
+
+        #logo1{
+          border-top: 1px solid #D8D8D8;
+          border-bottom: 1px solid #D8D8D8;
+        }

@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300');
+
+html{
+max-width: 100%;
+overflow-x: hidden;
+}
+body{
+  font-family: 'Roboto', sans-serif !important;
+font-family: 'Roboto Condensed', sans-serif !important;
+background-color: #EFEFEF;
+color: black;
+max-width: 100%;
+overflow-x: hidden;
+}
+
+h1,h2,h3,h4{
+  font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Condensed', sans-serif;
+}
+	
+	.ikon{
+      color: black !important;
+    }
+
+    .con1{
+        padding-left: 75px;
+        padding-right: 75px;
+      }
+
+      #myTab2{
+        background-color: #12161C;
+       }
+
+      .con3{
+        border: 1px solid #D8D8D8; 
+      }
+
+      #footer1{
+        background-color: #252424;
+        padding-left: 75px;
+        padding-right: 75px;
+      }
+
+      .font1 a{
+        font-size: 16px;
+        color: #878383;
+      }
+
+      .font3 {
+        font-size: 13px;
+      }
+
+      h4{
+      	color: black !important;
+      }
+      .table{
+      	color: black !important;
+      }
+
+      tbody tr{
+      	background-color: white !important;
+      }
+	  .clrchange{
+	  	color: deeppink;
+	  }
+	  .clrchange0{
+	  	color: black !important;
+	  }  
+	  .clrchange1{
+	  	color: black;
+	  	background-color: silver !important;
+	  }
+
+    #span1{
+      color: black !important;
+    }
+      #dis2 {
+        display: none;
+      }
+
+      #head1{
+        color: black;
+      }
+      .navbar{
+        /*background-color: #e3f2fd !important;*/
+      	background-color: whitesmoke !important;
+      }
+      .nav .nav-link{
+        color: black;
+        background-color: white;
+        border-bottom: 1px solid white;
+      }
+      .nav .nav-link.active,
+        .nav .show > .nav-link {
+          color: #007bff;
+          background-color: white;
+          border-bottom: 1px solid #fff;
+        }
+      ul#pills-tab2.nav.nav-pills.nav-fill.nav-justified{
+        font-size: 10px;
+      }
+
+
+      .tradingview-widget-container{
+        /*background-color: #2B3441;*/
+      }
+
+      .depthwidget{
+        width: 100px;
+        position: absolute;
+        right: 20px;
+        up: 0px;
+        z-index: 1;
+        background-color: silver;
+        color: black;
+        border: 1px solid #2B3441;
+        height: 37px;
+      }
+
+      .candlewidget{
+        width: 100px;
+        position: absolute;
+        right: 20px;
+        up: 0px;
+        z-index: 1;
+        background-color: silver;
+        color: black;
+        border: 1px solid #2B3441;
+        display: none;
+        height: 37px;
+      }
+
+      #bodymodal{
+        height: 450px;
+      }
+
+      .thead1{
+        color: white;
+        background-image: none !important;
+        background-color: midnightblue;
+      }
+
+      #trade1{
+        background-color: #007bff;
+        color: white;
+      }
+      .btn1{
+        border-style: none;
+        width:50%; 
+        height: 40px; 
+        color: #fff; 
+        background-color: mediumorchid;
+        border-left: 2px solid mediumorchid;
+        border-top: : 2px solid mediumorchid;
+        border-bottom: 2px solid mediumorchid;
+      }
+
+      .btn12{
+        border-style: none;
+        width:50%; 
+        height: 40px; 
+        color: #000; 
+        background-color: transparent;
+        border-left: 2px solid mediumorchid;
+        border-top: 2px solid mediumorchid;
+        border-bottom: 2px solid mediumorchid;
+      }
+
+
+
+      .btn2{
+        border-style: none;
+        width:50%; 
+        height: 40px;
+        color: #000; 
+        background-color: transparent; 
+        border-right: 2px solid mediumorchid;
+        border-top: 2px solid mediumorchid;
+        border-bottom: 2px solid mediumorchid;
+      }
+
+      .btn21{
+        border-style: none;
+        width:50%;
+        height: 40px; 
+        color: #fff; 
+        background-color: mediumorchid;
+        border-right: 2px solid mediumorchid;
+        border-top: : 2px solid mediumorchid;
+        border-bottom: 2px solid mediumorchid;
+      }
+
+
+      .tabtab1{
+        display: none;
+      }
+      
+
+      #chartdiv{
+        width: 100%;
+        height: 300px;
+      }
+      
+      .tabtable0, .tabtable3, .tabtable4{
+        height: 250px;
+        display: block;
+        overflow: auto;
+      }
+      
+      .tabtable1{
+        overflow: auto;
+        max-height: 250px;
+      }
+      
+      .tabtable2{
+        display: block;
+        overflow: auto;
+        height: 250px;
+      }
+
+      #table1 thead tr, #table1 tbody tr{
+        font-size: 11px;
+      }
+
+      .gradasi1{
+      	background-image: linear-gradient( to left,rgba(255,0,0,0.2) 20%, #fff) !important;
+      }
+
+      .gradasi2{
+      	background-image: linear-gradient( to left,rgba(255,0,0,0.2) 40%, #fff) !important;
+      }
+		
+	  .gradasi3{
+	  	background-image: linear-gradient( to left,rgba(255,0,0,0.2) 20%, #fff) !important;
+	  }
+	  .gradasi4{
+	  	background-image: linear-gradient( to left,rgba(255,0,0,0.2) 80%, #fff) !important;
+	  }
+	  .gradasi5{
+	  	background-image: linear-gradient(to left, rgba(0,128,0,0.3) 60%, #fff) !important;
+	  }
+	  .gradasi6{
+	  	background-image: linear-gradient(to left, rgba(0,128,0,0.3) 60%, #fff) !important;
+	  }
+	  .gradasi7{
+	  	background-image: linear-gradient(to left,rgba(0,128,0,0.3) 20%, #fff) !important;
+	  }
+
+      .spread{
+          margin-bottom: 0; 
+      }
+
+      .fras1{
+        background-image: linear-gradient(to right, crimson, springgreen);
+        font-size: 15px;
+        word-spacing: 12px;
+      }
+
+      .fras2{
+        background-image: linear-gradient(to left, crimson, springgreen);
+        font-size: 15px;
+        word-spacing: 12px;
+      }
+
+      .cntr{
+        color: dodgerblue;
+        font-size: 14px !important;
+        margin-bottom: 0;
+      }
+
+      #boxchat, #boxfooter{
+      	background-color: white !important;
+      }
+
+
+      @media screen and (max-width: 480px){
+        .con1 {
+          padding-left: 15px;
+          padding-right:15px;
+        }
+        #dis{
+          display: none;
+        }
+        #footer1{
+          padding-left: 15px;
+          padding-right:15px;
+        }
+        .font1{
+        font-size: 10px;
+      }
+        .font2{
+          font-size: 15px;
+        }
+
+        #dis2{
+          display: inline-block;
+        }
+
+        .depthwidget{
+          width: 140px;
+          padding: 4px 0px 4px 0px;
+        }
+
+        .candlewidget{
+          width: 140px;
+          padding: 4px 0px 4px 0px;
+        }
+
+        }
+
+        @media screen and (max-width: 395px){
+          .font2{
+            font-size: 13px;
+          }
+        }
+
+         
+        

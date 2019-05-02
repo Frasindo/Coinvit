@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto:300');
+
+html{
+max-width: 100%;
+overflow-x: hidden;
+}
+body{
+  font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Condensed', sans-serif;
+max-width: 100%;
+overflow-x: hidden;
+color: #000;
+}
+
+h1,h2,h3,h4{
+  font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Condensed', sans-serif;
+}
+.swiper-container {
+      width: 100%;
+      height: 100px;
+       }
+.swiper-wrapper .swiper-slide{
+   background-color: #fff;
+   color: red;
+}
+
+
+.table-sm thead tr:hover td, .table-sm tbody tr:hover th {
+      background-color: #9ea29e;
+    }
+.changetheme button{
+  color: #000;
+}
+.changetheme1{
+  display: none;
+}
+.changetheme1 button{
+  color: #fff;
+}
+
+
+.con1{
+        padding-left: 75px;
+        padding-right: 75px;
+      }
+
+      .con3{
+        border: 1px solid #D8D8D8; 
+      }
+
+      #footer1{
+        background-color: #252424;
+        padding-left: 75px;
+        padding-right: 75px;
+        padding-top: 35px;
+      }
+
+      .font1 a{
+        font-size: 16px;
+        color: #878383;
+      }
+
+      .font2{
+        font-size: 23px;
+      }
+
+      .font3 {
+        font-size: 13px;
+      }
+
+      #dis2 {
+        display: none;
+      }
+
+      .nav .nav-link{
+        color: black;
+        border-bottom: 1px solid #eaeaea;
+      }
+      .nav .nav-link.active,
+        .nav .show > .nav-link {
+          color: #007bff;
+          border-bottom: 1px solid #007bff;
+        }
+      #nav-tab{
+        font-size: 14px;
+      }
+
+      #nav-tab input{
+        margin-top: 3px;
+        /*padding: 3px;*/
+        border: 1px solid #999999;
+        border-radius: 4px;
+        width: 100%;
+      }
+
+      #carouselExampleIndicators{
+        height: 90px;
+      }
+
+      .carousel-indicators{
+        bottom: 0px !important;
+        margin-bottom: 0px;
+        margin-top: 16px;
+      }
+
+      .carousel-indicators li.active{
+        background-color: black;
+      }
+      .carousel-indicators li{
+        background-color: lightgray;
+      }
+      .carousel-control-prev{
+        width: 6%;
+      }
+      .carousel-control-next{
+        width: 6%;
+      }
+      .carousel-control-prev-icon{
+       background-image: url(https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-left-01-512.png);
+      }
+      .carousel-control-next-icon{
+        background-image: url(https://cdn3.iconfinder.com/data/icons/faticons/32/arrow-right-01-512.png);
+      }
+
+      #coin-asset thead tr, #coin-asset tbody tr{
+        font-size: 12px;
+      }
+      #coin-asset thead tr th:nth-child(1){
+        width: 25px;
+      }
+
+      #coin-asset thead tr th:nth-child(2){ 
+        width: 30px;
+      }
+
+      #flex1 div:nth-child(1) p:nth-child(1){
+          font-size: 20px;
+          text-align: center;
+          /*color: red;*/
+      }
+
+      #flex1 div:nth-child(2) p, #flex1 div:nth-child(3) p{
+          font-size: 15px;
+          margin-bottom: 3px !important;
+          /*color: red;*/
+      }
+
+
+      #row1 h4{
+        font-size: 16px;
+        margin-bottom: 0px;
+        color: red;
+      }
+
+      .row1p1{
+        font-size: 18px; color: black;
+      }
+      .row1p2{
+        color: green;
+      }
+
+      #btntkn{
+        width: 90%;
+        height: 20px;
+        /*background-color: #007bff;*/
+        color: #fff;
+        /*border: 0.2px solid rgb(153, 153, 153);*/
+      }
+
+      .btn{
+        font-size: 12px !important;
+        padding-top: 2px !important;
+      }
+
+      footer a{
+        color: #00d665;
+      }
+
+      footer .col-12 {
+        height: 100px;
+      }
+      footer .col-12 h4{
+        font-size: .9rem;
+        color: rgba(255,255,255,0.8);
+      }
+      footer .col-6{
+        height: 200px;
+      }
+      
+
+      @media screen and (max-width: 480px){
+        .con1 {
+          padding-left: 15px;
+          padding-right:15px;
+        }
+        #dis{
+          display: none;
+        }
+        #footer1{
+          padding-left: 15px;
+          padding-right:15px;
+          background-color: #252424;
+          padding-top: 10px;
+        }
+        .font1{
+        font-size: 10px;
+      }
+        .font2{
+          font-size: 15px;
+        }
+
+        #dis2{
+          display: inline-block;
+        }
+
+        }
+
+        #logo1{
+          border-top: 1px solid #D8D8D8;
+          border-bottom: 1px solid #D8D8D8;
+        }
