@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(InitialUsers::class);
+      $this->call(InitialUsers::class);
+      $this->call(InitialBlockchain::class);
     }
 }
