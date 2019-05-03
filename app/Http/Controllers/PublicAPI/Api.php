@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Coinvit\User;
 use Coinvit\TabelKegiatan;
 use Coinvit\Http\Controllers\Controller;
+use Coinvit\Token;
+use Coinvit\Blockchain;
 use Auth;
 class Api extends Controller
 {
@@ -35,8 +37,40 @@ class Api extends Controller
         return response()->json(["status"=>0,"msg"=>"Credential Expired"]);
       }
     }
-    public function listtoken()
+    public function listtoken($id='ardor',$add="")
     {
-      // code...
+      if ($id == 'ardor') {
+        $get = new ArdorTrade();
+        $list = $get->Token();
+        if ($add == "add") {
+          $id = Blockchain::where(["name"=>"Ardor"])->first()->id_blockchain;
+          $addlist = [];
+          foreach ($list->assets as $key => $value) {
+            $addlist[] = ["id_token"=>$value->asset,"name"=>$value->name,"issuer"=>$value->accountRS,"decimal"=>$value->decimals,"desc"=>$value->description,"id_blockchain"=>$id];
+          }
+          if (Token::insert($addlist)) {
+            return response()->json(["status"=>1,"msg"=>"Data Saved"]);
+          }else {
+            return response()->json(["status"=>0,"msg"=>"Data not Saved"]);
+          }
+        }elseif ($add == "update") {
+          $oldtoken = Token::all();
+          foreach ($oldtoken as $key => $value) {
+            foreach ($list->assets as $k => $v) {
+              if ($value->id_token == $v->asset) {
+                $compose = ["name"=>$v->name,"issuer"=>$v->accountRS,"decimal"=>$v->decimals,"desc"=>$v->description];
+                if (!Token::where(["id_token"=>$v->asset])->update($compose)) {
+                  return response()->json(["status"=>0,"msg"=>"Updated Error on Asset := {$v->asset} with Name {{$v->name}}"]);
+                }
+              }
+            }
+          }
+          return response()->json(["status"=>1,"msg"=>"Data Updated"]);
+        }
+        $getData = Token::all();
+        return response()->json($getData);
+      }elseif ($id == 'stellar') {
+
+      }
     }
 }
