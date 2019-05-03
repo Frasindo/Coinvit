@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class Token
- * 
+ *
  * @property string $id_token
  * @property string $name
  * @property float $decimal
@@ -19,7 +19,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property int $id_blockchain
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \Coinvit\Blockchain $blockchain
  * @property \Coinvit\TokenStatistic $token_statistic
  *
@@ -44,7 +44,8 @@ class Token extends Eloquent
 		'name',
 		'decimal',
 		'icon',
-		'id_blockchain'
+		'id_blockchain',
+		'created_at'
 	];
 
 	public function blockchain()
