@@ -12,9 +12,11 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
+  Route::get('/',"Front\Home@index");
   Route::get('/api',"PublicAPI\Api@index");
   Route::post('/api/login',"PublicAPI\Api@login");
   Route::get('/api/validation',"PublicAPI\Api@validation");
+  Route::get('/api/token/{id?}/{add?}',"PublicAPI\Api@listtoken");
 });
 Route::group(['middleware' => ['member']], function () {
   Route::get('/member',"AuthAPI\Api@index");
