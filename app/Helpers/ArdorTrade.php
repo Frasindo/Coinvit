@@ -145,5 +145,12 @@ class ArdorTrade
       return false;
     }
   }
-
+  public function Token($search='')
+  {
+    if ($search == '') {
+      return $this->ardor->request("get","getAllAssets");
+    }else {
+      return [];
+    }
+  }
 }
