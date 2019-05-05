@@ -14,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
       require_once app_path('Helpers/ArdorHelper.php');
+      require_once app_path('Helpers/ExchangeHelper.php');
       require_once app_path('Helpers/ArdorTrade.php');
     }
 

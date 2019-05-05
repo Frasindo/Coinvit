@@ -73,4 +73,37 @@ class Api extends Controller
 
       }
     }
+    public function orderbook($asset='',$address='')
+    {
+      if ($asset != '') {
+        if ($address != '') {
+          $obj = new ArdorTrade($address);
+          $obj->setAsset($asset);
+          $ask = $obj->MyAskHistory();
+          $bid = $obj->MyBidHistory();
+          if ($ask == false) {
+            $ask = [];
+          }
+          if ($bid == false) {
+            $bid = [];
+          }
+          return ["status"=>1,"data"=>["ask"=>$ask,"bid"=>$bid]];
+        }else {
+          $obj = new ArdorTrade(null,null);
+          $obj->setAsset($asset);
+          $ask = $obj->AskHistory();
+          $bid = $obj->BidHistory();
+          if ($ask == false) {
+            $ask = [];
+          }
+          if ($bid == false) {
+            $bid = [];
+          }
+          return ["status"=>1,"data"=>["ask"=>$ask,"bid"=>$bid]];
+        }
+      }else {
+        return response()->json(["status"=>0,"msg"=>"Fill Asset"]);
+      }
+
+    }
 }

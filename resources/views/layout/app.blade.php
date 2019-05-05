@@ -175,7 +175,7 @@
                <li><a href="{{url("/")}}">Markets</a></li>
                <li><a href="{{url("/exchange")}}">Exchange</a></li>
                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="{{url("/exchange")}}">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="{{url("/exchange/cex")}}">
                   Centralize <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">
@@ -185,7 +185,7 @@
                   </ul>
                </li>
                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="exchange.html">
+                  <a class="dropdown-toggle" data-toggle="dropdown" href="{{url("/exchange/dex")}}">
                   Decentralize <span class="caret"></span>
                   </a>
                   <ul class="dropdown-menu">

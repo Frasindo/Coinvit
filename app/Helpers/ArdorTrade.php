@@ -16,7 +16,7 @@ class ArdorTrade
     $this->public_key = $public_key;
     $this->ardor = new ArdorHelper("http://178.150.207.53:27876");
   }
-  public function setAssets($assets='')
+  public function setAsset($assets='')
   {
       $this->asset = (string) $assets;
   }
@@ -110,7 +110,7 @@ class ArdorTrade
     $obj = $this->ardor;
     $history = $obj->request("get","getAccountCurrentAskOrders",["chain"=>2,"account"=>$this->public_key,"asset"=>$this->asset]);
     if (count($history->askOrders) > 0) {
-      return $history->askOrders;
+      return $this->convertNQT($history->askOrders);
     }else {
       return false;
     }
@@ -120,17 +120,27 @@ class ArdorTrade
     $obj = $this->ardor;
     $history = $obj->request("get","getAccountCurrentBidOrders",["chain"=>2,"account"=>$this->public_key,"asset"=>$this->asset]);
     if (count($history->bidOrders) > 0) {
-      return $history->bidOrders;
+      return $this->convertNQT($history->bidOrders);
     }else {
       return false;
     }
+  }
+  public function convertNQT($data=[],$qnt=["quantityQNT","priceNQTPerShare"])
+  {
+    $obj = $this->ardor;
+    foreach ($data as $key => &$value) {
+      foreach ($qnt as $k => $v) {
+        $value->{$v} = $obj->normalNum($value->{$v});
+      }
+    }
+    return $data;
   }
   public function AskHistory()
   {
     $obj = $this->ardor;
     $history = $obj->request("get","getAskOrders",["chain"=>2,"asset"=>$this->asset]);
     if (count($history->askOrders) > 0) {
-      return $history->askOrders;
+      return $this->convertNQT($history->askOrders);
     }else {
       return false;
     }
@@ -140,7 +150,7 @@ class ArdorTrade
     $obj = $this->ardor;
     $history = $obj->request("get","getBidOrders",["chain"=>2,"asset"=>$this->asset]);
     if (count($history->bidOrders) > 0) {
-      return $history->bidOrders;
+      return $this->convertNQT($history->bidOrders);
     }else {
       return false;
     }
