@@ -1,5 +1,5 @@
 <?php
-
+use Helpers\ArdorTrade;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +14,9 @@
 Route::group(['middleware' => ['web']], function () {
   Route::get('/',"Front\Home@index");
   Route::get('/test',function(){
-    echo spread(0.5054123,0.4906813);
+    $obj = new ArdorTrade();
+    $date = $obj->loopDates("2015-01-01","2015-01-05");
+    return response()->json($date);
   });
   Route::get('/api',"PublicAPI\Api@index");
   Route::post('/api/login',"PublicAPI\Api@login");
