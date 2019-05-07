@@ -163,4 +163,46 @@ class ArdorTrade
       return [];
     }
   }
+  public function convertTimestamp($epoch=0,$reverse = false)
+  {
+    $begin = strtotime("2018-01-01 00:00:00 +0000");
+    if ($reverse) {
+      return ($epoch  - $begin + 500);
+    }else {
+      return ($epoch  + $begin - 500);
+    }
+  }
+  public function LastTrade()
+  {
+    $obj = $this->ardor;
+    $last = $obj->request("get","getLastTrades",["chain"=>2,"assets"=>$this->asset]);
+    if (isset($last->trades[0]->priceNQTPerShare)) {
+      return $obj->normalNum($last->trades[0]->priceNQTPerShare);
+    }else {
+      return 0;
+    }
+  }
+  public function loopDates($start_date,$end_date)
+  {
+    $data = [];
+    while (strtotime($start_date) <= strtotime($end_date)) {
+        $data[] = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));
+    }
+    return $data;
+  }
+  public function Volume($asset = null,$start,$end)
+  {
+
+    if ($asset == null) {
+      $asset = $this->asset;
+    }
+
+  }
+  public function Statistic($asset = null)
+  {
+    if ($asset == null) {
+      $asset = $this->asset;
+    }
+
+  }
 }
