@@ -104,7 +104,7 @@
          <ul class="nav nav-tabs" role="tablist">
             <!-- Favorites Asset -->
             <li role="presentation">
-               <a href="#fav" aria-controls="favorite" role="tab" data-toggle="tab">
+               <a href="#favorite" class="tab_asset" data-token="favorite" aria-controls="favorite" role="tab" data-toggle="tab">
                <i class="fa fa-star text-yellow"></i>
                Favorites
                </a>
@@ -112,19 +112,10 @@
             <!-- END Favorites Asset -->
             <!-- Asset Tab -->
             <li role="presentation">
-               <a href="#xlm" aria-controls="xlm" role="tab" data-toggle="tab">Stellar</a>
+               <a href="#token" class="tab_asset" data-token="ardor" aria-controls="ardor" role="tab" data-toggle="tab">ARDOR</a>
             </li>
             <li role="presentation">
-               <a href="#ardor" aria-controls="ardor" role="tab" data-toggle="tab">ARDOR</a>
-            </li>
-            <li role="presentation">
-               <a href="#btc" aria-controls="btc" role="tab" data-toggle="tab">Bitcoin</a>
-            </li>
-            <li role="presentation">
-               <a href="#eth" aria-controls="eth" role="tab" data-toggle="tab">Ethereum</a>
-            </li>
-            <li role="presentation">
-               <a href="#usdt" aria-controls="eth" role="tab" data-toggle="tab">USDT</a>
+               <a href="#token" class="tab_asset" data-token="stellar" aria-controls="stellar" role="tab" data-toggle="tab">STELLAR</a>
             </li>
             <!-- END Asset Tab -->
             <!-- Search Asset -->
@@ -134,78 +125,34 @@
             <!-- END Search Asset -->
          </ul>
          <div class="tab-content">
-            <div role="tabpanel" class="tab-pane" id="fav">
-               <!-- Market History -->
-               <table class="table table-hover">
-                  <thead>
-                     <tr>
-                        <th style="width: 25px;"></th>
-                        <th style="width: 145px;">MARKET</th>
-                        <th style="width: 150px;">CURRENCY</th>
-                        <th style="width: 150px;">VOLUME</th>
-                        <th style="width: 142px;">% CHANGE</th>
-                        <th style="width: 145px;">LAST PRICE</th>
-                        <th style="width: 165px;">24HR HIGH</th>
-                        <th style="width: 160px;">24HR LOW</th>
-                        <th style="width: 155px;">% SPREAD</th>
-                        <th style="width: 150px;">ADDED</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr id="fav-asset">
-                        <td><i class="fa fa-star text-yellow"></i></td>
-                        <td style="width: 150px;">FRAS-XLM</td>
-                        <td style="width: 150px;">Frasindo Rent</td>
-                        <td style="width: 150px;">1286578.70</td>
-                        <td class="text-red" style="width: 150px;">-0.1 <i class="fa fa-caret-down"></i></td>
-                        <td style="width: 150px;">7154.88900000</td>
-                        <td style="width: 165px;">7325.00000000</td>
-                        <td style="width: 165px;">7011.00000000</td>
-                        <td style="width: 160px;">0.0</td>
-                        <td style="width: 160px;">05/31/2018</td>
-                     </tr>
-                     <tr id="fav-asset">
-                        <td><i class="fa fa-star text-yellow"></i></td>
-                        <td style="width: 150px;">BTC-USDT</td>
-                        <td style="width: 150px;">Bitcoin</td>
-                        <td style="width: 150px;">1286578.70</td>
-                        <td class="text-red" style="width: 150px;">-0.1 <i class="fa fa-caret-down"></i></td>
-                        <td style="width: 150px;">7154.88900000</td>
-                        <td style="width: 165px;">7325.00000000</td>
-                        <td style="width: 165px;">7011.00000000</td>
-                        <td style="width: 160px;">0.0</td>
-                        <td style="width: 160px;">05/31/2018</td>
-                     </tr>
-                     <tr id="fav-asset">
-                        <td><i class="fa fa-star text-yellow"></i></td>
-                        <td style="width: 150px;">XLM-BTC</td>
-                        <td style="width: 150px;">Stellar Lumens</td>
-                        <td style="width: 150px;">1286578.70</td>
-                        <td class="text-red" style="width: 150px;">-0.1 <i class="fa fa-caret-down"></i></td>
-                        <td style="width: 150px;">7154.88900000</td>
-                        <td style="width: 165px;">7325.00000000</td>
-                        <td style="width: 165px;">7011.00000000</td>
-                        <td style="width: 160px;">0.0</td>
-                        <td style="width: 160px;">05/31/2018</td>
-                     </tr>
-                     <tr id="fav-asset">
-                        <td><i class="fa fa-star text-yellow"></i></td>
-                        <td style="width: 150px;">WARNA-XLM</td>
-                        <td style="width: 150px;">Warnamu</td>
-                        <td style="width: 150px;">1286578.70</td>
-                        <td class="text-red" style="width: 150px;">-0.1 <i class="fa fa-caret-down"></i></td>
-                        <td style="width: 150px;">7154.88900000</td>
-                        <td style="width: 165px;">7325.00000000</td>
-                        <td style="width: 165px;">7011.00000000</td>
-                        <td style="width: 160px;">0.0</td>
-                        <td style="width: 160px;">05/31/2018</td>
-                     </tr>
-                  </tbody>
-               </table>
-               <!-- End Market History -->
-            </div>
-            <!-- End tab-pane -->
-            <div role="tabpanel" class="tab-pane active" id="xlm">
+           <div role="tabpanel" class="tab-pane active" id="favorite">
+              <!-- Choose Asset TOKEN / FIAT -->
+              <div class="text-center">
+                 <h4>FAVORITE ASSETS</h4>
+              </div>
+              <!-- Market History -->
+              <table class="table table-hover coin-asset" >
+                 <thead>
+                    <tr>
+                       <th style="width: 25px;"></th>
+                       <th style="width: 145px;">MARKET</th>
+                       <th style="width: 150px;">CURRENCY</th>
+                       <th style="width: 150px;">VOLUME</th>
+                       <th style="width: 142px;">% CHANGE</th>
+                       <th style="width: 145px;">LAST PRICE</th>
+                       <th style="width: 165px;">24HR HIGH</th>
+                       <th style="width: 160px;">24HR LOW</th>
+                       <th style="width: 155px;">% SPREAD</th>
+                       <th style="width: 150px;">ADDED</th>
+                    </tr>
+                 </thead>
+                 <tbody>
+
+                 </tbody>
+              </table>
+              <!-- End Market History -->
+           </div>
+           <div role="tabpanel" class="tab-pane" id="token">
                <!-- Choose Asset TOKEN / FIAT -->
                <div class="text-center">
                   <!-- Image hover -->
@@ -218,96 +165,42 @@
                   <!-- END Choose Asset TOKEN / FIAT -->
                </div>
                <!-- Market History -->
-               <table class="table table-hover" id="coin-asset">
+               <table class="table table-hover coin-asset" >
                   <thead>
                      <tr>
-                        <th style="width: 25px;"></th>
-                        <th style="width: 145px;">MARKET</th>
-                        <th style="width: 150px;">CURRENCY</th>
-                        <th style="width: 150px;">VOLUME</th>
-                        <th style="width: 142px;">% CHANGE</th>
-                        <th style="width: 145px;">LAST PRICE</th>
-                        <th style="width: 165px;">24HR HIGH</th>
-                        <th style="width: 160px;">24HR LOW</th>
-                        <th style="width: 155px;">% SPREAD</th>
-                        <th style="width: 150px;">ADDED</th>
+                        <th style="width:5%"></th>
+                        <th style="width:10%">MARKET</th>
+                        <th style="width:15%">CURRENCY</th>
+                        <th style="width:10%">VOLUME</th>
+                        <th style="width:10%">% CHANGE</th>
+                        <th style="width:10%">LAST PRICE</th>
+                        <th style="width:10%">24HR HIGH</th>
+                        <th style="width:10%">24HR LOW</th>
+                        <th style="width:10%">% SPREAD</th>
+                        <th style="width:10%">ADDED</th>
                      </tr>
                   </thead>
                   <tbody>
-                     <tr data-href="trade.html">
-                        <td class="cc" id="cc"><span><i class="fa fa-star-o text-yellow"></i></span></td>
-                        <td style="width: 150px;">FRAS-XLM</td>
-                        <td style="width: 150px;"><img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 20px; height: 20px;margin-right: 5px;" class="logo-icon"> Frasindo Rent</td>
-                        <td style="width: 150px;">1286578.70</td>
-                        <td class="text-red" style="width: 150px;">-0.1 <i class="fa fa-caret-down"></i></td>
-                        <td style="width: 150px;">7154.88900000</td>
-                        <td style="width: 165px;">7325.00000000</td>
-                        <td style="width: 165px;">7011.00000000</td>
-                        <td style="width: 160px;">0.0</td>
-                        <td style="width: 160px;">05/31/2018</td>
-                     </tr>
                      <tr>
-                        <td class="cc" id="cc"><span><i class="fa fa-star-o text-yellow"></i></span></td>
-                        <td style="width: 150px;">USD-BTC</td>
-                        <td style="width: 150px;"><img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 20px; height: 20px;margin-right: 5px;" class="logo-icon"> Bitcoin</td>
-                        <td style="width: 150px;">1286578.70</td>
-                        <td class="text-red" style="width: 150px;">-0.1 <i class="fa fa-caret-down"></i></td>
-                        <td style="width: 150px;">7154.88900000</td>
-                        <td style="width: 165px;">7325.00000000</td>
-                        <td style="width: 165px;">7011.00000000</td>
-                        <td style="width: 160px;">0.0</td>
-                        <td style="width: 160px;">05/31/2018</td>
+                        <td><span class="fav" data-id=""><i class="fa fa-star-o text-yellow"></i></span></td>
+                        <td >FRAS-XLM</td>
+                        <td ><img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 20px; height: 20px;margin-right: 5px;" class="logo-icon"> Frasindo Rent</td>
+                        <td >1286578.70</td>
+                        <td><p class="text-red">-0.1 <i class="fa fa-caret-down"></i></p></td>
+                        <td>7154.88900000</td>
+                        <td>7325.00000000</td>
+                        <td>7011.00000000</td>
+                        <td>
+                          0.0
+                        </td>
+                        <td>05/31/2018</td>
                      </tr>
-                     <tr>
-                        <td class="cc" id="cc"><span><i class="fa fa-star-o text-yellow"></i></span></td>
-                        <td style="width: 150px;">USD-BTC</td>
-                        <td style="width: 150px;"><img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 20px; height: 20px;margin-right: 5px;" class="logo-icon"> Bitcoin</td>
-                        <td style="width: 150px;">1286578.70</td>
-                        <td class="text-red" style="width: 150px;">-0.1 <i class="fa fa-caret-down"></i></td>
-                        <td style="width: 150px;">7154.88900000</td>
-                        <td style="width: 165px;">7325.00000000</td>
-                        <td style="width: 165px;">7011.00000000</td>
-                        <td style="width: 160px;">0.0</td>
-                        <td style="width: 160px;">05/31/2018</td>
-                     </tr>
-                     <tr>
-                        <td class="cc" id="cc"><span><i class="fa fa-star-o text-yellow"></i></span></td>
-                        <td style="width: 150px;">USD-BTC</td>
-                        <td style="width: 150px;"><img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 20px; height: 20px;margin-right: 5px;" class="logo-icon"> Bitcoin</td>
-                        <td style="width: 150px;">1286578.70</td>
-                        <td class="text-red" style="width: 150px;">-0.1 <i class="fa fa-caret-down"></i></td>
-                        <td style="width: 150px;">7154.88900000</td>
-                        <td style="width: 165px;">7325.00000000</td>
-                        <td style="width: 165px;">7011.00000000</td>
-                        <td style="width: 160px;">0.0</td>
-                        <td style="width: 160px;">05/31/2018</td>
-                     </tr>
-                     <tr>
-                        <td class="cc" id="cc"><span><i class="fa fa-star-o text-yellow"></i></span></td>
-                        <td style="width: 150px;">USD-BTC</td>
-                        <td style="width: 150px;"><img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 20px; height: 20px;margin-right: 5px;" class="logo-icon"> Bitcoin</td>
-                        <td style="width: 150px;">1286578.70</td>
-                        <td class="text-red" style="width: 150px;">-0.1 <i class="fa fa-caret-down"></i></td>
-                        <td style="width: 150px;">7154.88900000</td>
-                        <td style="width: 165px;">7325.00000000</td>
-                        <td style="width: 165px;">7011.00000000</td>
-                        <td style="width: 160px;">0.0</td>
-                        <td style="width: 160px;">05/31/2018</td>
-                     </tr>
+
                   </tbody>
                </table>
                <!-- End Market History -->
             </div>
-            <!-- End tab-pane -->
-            <div role="tabpanel" class="tab-pane" id="btc">
-            </div>
-            <!-- End tab-pane -->
-            <div role="tabpanel" class="tab-pane" id="eth">
-            </div>
-            <!-- End tab-pane -->
-            <div role="tabpanel" class="tab-pane" id="xlm">
-            </div>
-            <!-- End tab-pane -->
+
          </div>
          <!-- End tab-content -->
       </div>
@@ -364,10 +257,39 @@
          axis   : "y"
        });
 
-
+       $('.coin-asset-fav').DataTable({
+         'paging'      : true,
+         'searching'   : false,
+         'info'        : false,
+         'lengthChange': false,
+         'pageLength'  : 15,
+         'pagingType'  : 'full_numbers',
+         'responsive'  : true,
+         "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+         'autoWidth'   : false
+       })
+       var asset_tabel = $('.coin-asset').DataTable({
+          'paging'      : true,
+          'searching'   : false,
+          'info'        : false,
+          'lengthChange': false,
+          'pageLength'  : 15,
+          'pagingType'  : 'full_numbers',
+          'responsive'  : true,
+          "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+          'autoWidth'   : false
+        })
       $('#coin-asset').on( 'click', 'tbody tr', function () {
         window.location.href = $(this).data('href');
       });
+      $(".tab_asset").on('click', function(event) {
+        event.preventDefault();
+        $token = $(this).data("token");
+        console.log("Token "+$token);
+
+      });
+
+
    });
 </script>
 @endsection
