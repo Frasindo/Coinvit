@@ -87,7 +87,7 @@ class Api extends Controller
           if ($bid == false) {
             $bid = [];
           }
-          return ["status"=>1,"data"=>["ask"=>$ask,"bid"=>$bid]];
+          return response()->json(["status"=>1,"data"=>["ask"=>$ask,"bid"=>$bid]]);
         }else {
           $obj = new ArdorTrade(null,null);
           $obj->setAsset($asset);
@@ -99,7 +99,7 @@ class Api extends Controller
           if ($bid == false) {
             $bid = [];
           }
-          return ["status"=>1,"data"=>["ask"=>$ask,"bid"=>$bid]];
+          return response()->json(["status"=>1,"data"=>["ask"=>$ask,"bid"=>$bid]]);
         }
       }else {
         return response()->json(["status"=>0,"msg"=>"Fill Asset"]);
