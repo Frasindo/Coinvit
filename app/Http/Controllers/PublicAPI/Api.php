@@ -46,9 +46,10 @@ class Api extends Controller
           $id = Blockchain::where(["name"=>"Ardor"])->first()->id_blockchain;
           $addlist = [];
           foreach ($list->assets as $key => $value) {
-            $addlist[] = ["id_token"=>$value->asset,"name"=>$value->name,"issuer"=>$value->accountRS,"decimal"=>$value->decimals,"desc"=>$value->description,"id_blockchain"=>$id];
+            $addlist[] = ["id_token"=>$value->asset,"name"=>$value->name,"issuer"=>$value->accountRS,"decimal"=>$value->decimals,"desc"=>$value->description,"id_blockchain"=>$id,"created_at"=>Date("Y-m-d H:i:s")];
           }
           if (Token::insert($addlist)) {
+            $get->Statistic(null,date("Y-m-d"));
             return response()->json(["status"=>1,"msg"=>"Data Saved"]);
           }else {
             return response()->json(["status"=>0,"msg"=>"Data not Saved"]);
@@ -65,6 +66,7 @@ class Api extends Controller
               }
             }
           }
+          $get->Statistic(null,date("Y-m-d"));
           return response()->json(["status"=>1,"msg"=>"Data Updated"]);
         }
         $getData = Token::all();
