@@ -17,7 +17,6 @@ class CreateTokenStatistic extends Migration
           $table->bigIncrements('id_statistic');
           $table->string('id_token');
           $table->double('volume');
-          $table->double('change');
           $table->double('price');
           $table->double('price_low');
           $table->double('price_high');
