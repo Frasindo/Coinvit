@@ -11,7 +11,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
 
 /**
  * Class TokenStatistic
- * 
+ *
  * @property int $id_statistic
  * @property string $id_token
  * @property float $volume
@@ -22,7 +22,7 @@ use Reliese\Database\Eloquent\Model as Eloquent;
  * @property float $spread
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
- * 
+ *
  * @property \Coinvit\Token $token
  *
  * @package Coinvit
@@ -52,7 +52,8 @@ class TokenStatistic extends Eloquent
 		'price',
 		'price_low',
 		'price_high',
-		'spread'
+		'spread',
+		'created_at',
 	];
 
 	public function token()
