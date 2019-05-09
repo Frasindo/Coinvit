@@ -135,20 +135,26 @@ class ArdorTrade
     }
     return $data;
   }
-  public function AskHistory()
+  public function AskHistory($asset = "")
   {
+    if ($asset == "") {
+      $asset = $this->asset;
+    }
     $obj = $this->ardor;
-    $history = $obj->request("get","getAskOrders",["chain"=>2,"asset"=>$this->asset]);
+    $history = $obj->request("get","getAskOrders",["chain"=>2,"asset"=>$asset]);
     if (count($history->askOrders) > 0) {
       return $this->convertNQT($history->askOrders);
     }else {
       return false;
     }
   }
-  public function BidHistory()
+  public function BidHistory($asset = "")
   {
+    if ($asset == "") {
+      $asset = $this->asset;
+    }
     $obj = $this->ardor;
-    $history = $obj->request("get","getBidOrders",["chain"=>2,"asset"=>$this->asset]);
+    $history = $obj->request("get","getBidOrders",["chain"=>2,"asset"=>$asset]);
     if (count($history->bidOrders) > 0) {
       return $this->convertNQT($history->bidOrders);
     }else {
@@ -172,21 +178,31 @@ class ArdorTrade
       return ($epoch  + $begin - 500);
     }
   }
-  public function LastTrade()
+  public function LastTrade($asset = "")
   {
     $obj = $this->ardor;
-    $last = $obj->request("get","getLastTrades",["chain"=>2,"assets"=>$this->asset]);
+    if ($asset == '') {
+      $asset = $this->asset;
+    }
+    $last = $obj->request("get","getLastTrades",["chain"=>2,"assets"=>$asset]);
     if (isset($last->trades[0]->priceNQTPerShare)) {
       return $obj->normalNum($last->trades[0]->priceNQTPerShare);
     }else {
       return 0;
     }
   }
-  public function loopDates($start_date,$end_date)
+  public function loopDates($start_date,$end_date,$nxtmode = false)
   {
+    $date = $start_date;
+    $end_date = $end_date;
     $data = [];
-    while (strtotime($start_date) <= strtotime($end_date)) {
-        $data[] = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));
+    while (strtotime($date) <= strtotime($end_date)) {
+        if ($nxtmode) {
+          $data[]  = $this->convertTimestamp(strtotime($date),true);
+        }else {
+          $data[]  = $date;
+        }
+         $date = date ("Y-m-d", strtotime("+1 day", strtotime($date)));
     }
     return $data;
   }
@@ -196,13 +212,104 @@ class ArdorTrade
     if ($asset == null) {
       $asset = $this->asset;
     }
-
+    $obj = $this->ardor;
+    $dates = $this->loopDates($start,$end,true);
+    $vol = 0;
+    foreach ($dates as $key => $value) {
+        $get = $obj->request("get","getTrades",["chain"=>2,"asset"=>$asset,"timestamp"=>$value]);
+        if (!isset($get->trades) || count($get->trades) < 1) {
+          $vol = $vol + 0;
+        }else {
+          foreach ($get->trades as $k => $v) {
+            $vol = $vol + $v->quantityQNT;
+          }
+        }
+    }
+    return $obj->normalNum($vol);
   }
-  public function Statistic($asset = null)
+  public function timeHL($asset,$timestamp=null)
   {
     if ($asset == null) {
       $asset = $this->asset;
     }
-
+    $obj = $this->ardor;
+    if ($timestamp != null) {
+      $get = $obj->request("get","getTrades",["chain"=>2,"asset"=>$asset,"timestamp"=>$timestamp]);
+    }else {
+      $get = $obj->request("get","getTrades",["chain"=>2,"asset"=>$asset]);
+    }
+    if (!isset($get->trades) || count($get->trades) < 1) {
+      return 0;
+    }else {
+      $res = [];
+      foreach ($get->trades as $key => $value) {
+          $res[] = $value->quantityQNT;
+      }
+      if (count($res) > 0) {
+        if ($obj->normalNum(min($res)) == null || $obj->normalNum(max($res)) == null) {
+          return ["low"=>0,"max"=>0];
+        }
+        return ["low"=>$obj->normalNum(min($res)),"max"=>$obj->normalNum(max($res))];
+      }else {
+        return ["low"=>0,"max"=>0];
+      }
+    }
+  }
+  public function spread($up,$down)
+  {
+    return (($up-$down)*100)/$up;
+  }
+  public function Statistic($asset = null,$date,$save=true)
+  {
+    $time = $this->convertTimestamp(strtotime($date),true);
+    if ($asset == null) {
+      $token = \Coinvit\Token::all();
+    }else {
+      $token = \Coinvit\Token::where(["id_token"=>$asset])->get();
+    }
+    $data = [];
+    $limit = 0;
+    foreach ($token as $key => $value) {
+      $id = $value->id_token;
+      $asset = $id;
+      $vol = $this->Volume($value->id_token,$date,$date);
+      $lp = $this->LastTrade();
+      $hl = $this->timeHL($asset,$time);
+      $spread = function($asset){
+        $a = $this->BidHistory($asset);
+        $b = $this->AskHistory($asset);
+        if ($a == FALSE || $b == FALSE) {
+          return 0;
+        }
+        $ac = [];
+        foreach ($a as $key => $value) {
+          $ac[] = $value->priceNQTPerShare;
+        }
+        $bc = [];
+        foreach ($b as $key => $value) {
+          $bc[] = $value->priceNQTPerShare;
+        }
+        return $this->spread(min($bc),max($ac));
+      };
+      $s = $spread($asset);
+      $h = $hl["max"];
+      $l = $hl["low"];
+      if ($h == null) {
+        $h = 0;
+      }
+      if ($l == null) {
+        $l = 0;
+      }
+      $data[] = ["id_token"=>$id,"volume"=>$vol,"price"=>$lp,"price_low"=>$h,"price_high"=>$l,"spread"=>$s,"created_at"=>date("Y-m-d H:i:s")];
+    }
+    if ($save) {
+      $set = \Coinvit\TokenStatistic::insert($data);
+      if ($set) {
+        return ["status"=>1];
+      }else {
+        return ["status"=>0];
+      }
+    }
+    return $data;
   }
 }
