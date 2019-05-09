@@ -15,7 +15,7 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/',"Front\Home@index");
   Route::get('/test',function(){
     $obj = new ArdorTrade();
-    $date = $obj->loopDates("2015-01-01","2015-01-05");
+    $date = $obj->Statistic(null,"2019-05-01");
     return response()->json($date);
   });
   Route::get('/api',"PublicAPI\Api@index");
