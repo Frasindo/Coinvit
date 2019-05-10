@@ -10,19 +10,17 @@ use Helpers\ArdorTrade;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::group(['middleware' => ['web']], function () {
   Route::get('/',"Front\Home@index");
   Route::get('/test',function(){
-    $obj = new ArdorTrade();
-    $date = $obj->Statistic(null,"2019-05-01");
-    return response()->json($date);
+  
   });
   Route::get('/api',"PublicAPI\Api@index");
   Route::post('/api/login',"PublicAPI\Api@login");
   Route::get('/api/validation',"PublicAPI\Api@validation");
   Route::get('/api/token/{id?}/{add?}',"PublicAPI\Api@listtoken");
   Route::get('/api/orderbook/{asset?}/{address?}',"PublicAPI\Api@orderbook");
+  Route::get('/api/token_list/{block}',"PublicAPI\Api@tokentable");
 });
 Route::group(['middleware' => ['member']], function () {
   Route::get('/member',"AuthAPI\Api@index");
