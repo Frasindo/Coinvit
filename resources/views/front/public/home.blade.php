@@ -120,7 +120,7 @@
             <!-- END Asset Tab -->
             <!-- Search Asset -->
             <li class="pull-right">
-               <input type="text" name="" style="margin: 3px; padding: 3px; border: 1px solid #999999;     border-radius: 4px;" placeholder="Search">
+               <input type="text" id="searchbox" style="margin: 3px; padding: 3px; border: 1px solid #999999;     border-radius: 4px;" placeholder="Search">
             </li>
             <!-- END Search Asset -->
          </ul>
@@ -181,21 +181,6 @@
                      </tr>
                   </thead>
                   <tbody>
-                     <tr>
-                        <td><span class="fav" data-id=""><i class="fa fa-star-o text-yellow"></i></span></td>
-                        <td >FRAS-XLM</td>
-                        <td ><img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 20px; height: 20px;margin-right: 5px;" class="logo-icon"> Frasindo Rent</td>
-                        <td >1286578.70</td>
-                        <td><p class="text-red">-0.1 <i class="fa fa-caret-down"></i></p></td>
-                        <td>7154.88900000</td>
-                        <td>7325.00000000</td>
-                        <td>7011.00000000</td>
-                        <td>
-                          0.0
-                        </td>
-                        <td>05/31/2018</td>
-                     </tr>
-
                   </tbody>
                </table>
                <!-- End Market History -->
@@ -270,7 +255,7 @@
        })
        var asset_tabel = $('.coin-asset').DataTable({
           'paging'      : true,
-          'searching'   : false,
+          'searching'   : true,
           'info'        : false,
           'lengthChange': false,
           'pageLength'  : 15,
@@ -279,14 +264,22 @@
           "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
           'autoWidth'   : false
         })
-      $('#coin-asset').on( 'click', 'tbody tr', function () {
-        window.location.href = $(this).data('href');
-      });
+        $(".dataTables_filter").remove();
       $(".tab_asset").on('click', function(event) {
         event.preventDefault();
         $token = $(this).data("token");
         console.log("Token "+$token);
-
+        asset_tabel.ajax.url("{{url("api/token_list")}}/"+$token).load();
+        $(".dataTables_filter").remove();
+      });
+      $("#searchbox").on('keyup change', function(event) {
+        console.log("Search");
+        console.log($(this).val());
+        // if (asset_tabel.search() == $(this).val()) {
+        asset_tabel.search($(this).val()).draw();
+        // }else {
+          // console.log("Not Found");
+        // }
       });
 
 
