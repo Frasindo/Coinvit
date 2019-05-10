@@ -108,4 +108,56 @@ class Api extends Controller
       }
 
     }
+    public function tokentable($block="")
+    {
+      // datatablesConvert();
+      if ($block == "") {
+        return response()->json(["data"=>[]]);
+      }elseif ($block == "ardor") {
+        $ardor = \Coinvit\Token::all();
+        $data = [];
+        foreach ($ardor as $key => $value) {
+          $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();
+          $now = $getStat[0];
+          $vol = $now->volume;
+          if (!isset($getStat[1]->price)) {
+            $change = '<p class="text-default">0</p>';
+          }else {
+            $change = ($now->price - $getStat[1]->price);
+            if ($change > 0) {
+              $change = '<p class="text-green">'.number_format($change).' <i class="fa fa-caret-up"></i></p>';
+            }elseif($change < 0) {
+              $change = '<p class="text-red">'.number_format($change).' <i class="fa fa-caret-down"></i></p>';
+            }
+          }
+
+          $data[] = ["no"=>'<span class="fav" data-id="'.$value->id_token.'"><i class="fa fa-star-o text-yellow"></i></span>',"name_market"=>$value->name.' - IGNIS',"name"=>$value->name,"volume"=>number_format($vol,4),"change"=>$change,"last_price"=>number_format($now->price,6),"h"=>number_format($now->price_high,4),"l"=>number_format($now->price_low,4),"spread"=>number_format($now->spread,4),"created_at"=>date("Y/m/d",strtotime($value->created_at))];
+        }
+        $vol = null;
+        usort($data,'sort_vol');
+        return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at");
+      }
+    }
+    public function topgain($block='ardor')
+    {
+      $ardor = \Coinvit\Token::all();
+      $data = [];
+      foreach ($ardor as $key => $value) {
+        $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();
+        $now = $getStat[0];
+        $vol = $now->volume;
+        if (!isset($getStat[1]->price)) {
+          $change = '<p class="text-default">0</p>';
+        }else {
+          $change = ($now->price - $getStat[1]->price);
+          if ($change > 0) {
+            $change = '<p class="text-green">'.number_format($change).' <i class="fa fa-caret-up"></i></p>';
+          }elseif($change < 0) {
+            $change = '<p class="text-red">'.number_format($change).' <i class="fa fa-caret-down"></i></p>';
+          }
+        }
+
+        $data[] = ["name"=>$value->name,"change"=>$change,"icon"=>$value->icon,"price"=>""];
+      }
+    }
 }
