@@ -184,7 +184,7 @@ class ArdorTrade
     if ($asset == '') {
       $asset = $this->asset;
     }
-    $last = $obj->request("get","getLastTrades",["chain"=>2,"assets"=>$asset]);
+    $last = $obj->request("get","getTrades",["chain"=>2,"asset"=>$asset]);
     if (isset($last->trades[0]->priceNQTPerShare)) {
       return $obj->normalNum($last->trades[0]->priceNQTPerShare);
     }else {
@@ -243,7 +243,7 @@ class ArdorTrade
     }else {
       $res = [];
       foreach ($get->trades as $key => $value) {
-          $res[] = $value->quantityQNT;
+          $res[] = $value->priceNQTPerShare;
       }
       if (count($res) > 0) {
         if ($obj->normalNum(min($res)) == null || $obj->normalNum(max($res)) == null) {
@@ -273,7 +273,7 @@ class ArdorTrade
       $id = $value->id_token;
       $asset = $id;
       $vol = $this->Volume($value->id_token,$date,$date);
-      $lp = $this->LastTrade();
+      $lp = $this->LastTrade($asset);
       $hl = $this->timeHL($asset,$time);
       $spread = function($asset){
         $a = $this->BidHistory($asset);
