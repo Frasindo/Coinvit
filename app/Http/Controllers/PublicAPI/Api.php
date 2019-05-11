@@ -2,6 +2,7 @@
 
 namespace Coinvit\Http\Controllers\PublicAPI;
 use Helpers\ArdorHelper;
+use Helpers\ExchangeHelper;
 use Helpers\ArdorTrade;
 use Illuminate\Http\Request;
 use Coinvit\User;
@@ -55,7 +56,7 @@ class Api extends Controller
             return response()->json(["status"=>0,"msg"=>"Data not Saved"]);
           }
         }elseif ($add == "update") {
-          $oldtoken = Token::all();
+          $oldtoken = Token::where(["id_blockchain"=>1])->get();
           foreach ($oldtoken as $key => $value) {
             foreach ($list->assets as $k => $v) {
               if ($value->id_token == $v->asset) {
@@ -69,7 +70,7 @@ class Api extends Controller
           $get->Statistic(null,date("Y-m-d"));
           return response()->json(["status"=>1,"msg"=>"Data Updated"]);
         }
-        $getData = Token::all();
+        $getData = Token::where(["id_blockchain"=>1])->get();
         return response()->json($getData);
       }elseif ($id == 'stellar') {
 
@@ -140,7 +141,7 @@ class Api extends Controller
         usort($data,'sort_vol');
         return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at");
       }elseif ($block == "ardor") {
-        $ardor = \Coinvit\Token::all();
+        $ardor = \Coinvit\Token::where(["id_blockchain"=>1])->get();
         $data = [];
         foreach ($ardor as $key => $value) {
           $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();
@@ -173,26 +174,72 @@ class Api extends Controller
         return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at");
       }
     }
-    public function topgain($block='ardor')
+    public function topgain($block='')
     {
-      $ardor = \Coinvit\Token::all();
-      $data = [];
-      foreach ($ardor as $key => $value) {
-        $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();
-        $now = $getStat[0];
-        $vol = $now->volume;
-        if (!isset($getStat[1]->price)) {
-          $change = '<p class="text-default">0</p>';
-        }else {
-          $change = ($now->price - $getStat[1]->price);
-          if ($change > 0) {
-            $change = '<p class="text-green">'.number_format($change).' <i class="fa fa-caret-up"></i></p>';
-          }elseif($change < 0) {
-            $change = '<p class="text-red">'.number_format($change).' <i class="fa fa-caret-down"></i></p>';
+      if ($block == '' || $block == "favorite") {
+        $ardor = \Coinvit\TokenFavorite::all();
+        $data = [];
+        foreach ($ardor as $key => $value) {
+          $value = $value->token;
+          $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();
+          $now = $getStat[0];
+          $vol = $now->volume;
+          $lp = $now->price;
+          if (!isset($getStat[1]->price)) {
+            $change = '<p class="text-default">0</p>';
+          }else {
+            $change = ($now->price - $getStat[1]->price);
+            if ($change > 0) {
+              $change = '<p class="text-green">'.number_format($change).' <i class="fa fa-caret-up"></i></p>';
+            }elseif($change < 0) {
+              $change = '<p class="text-red">'.number_format($change).' <i class="fa fa-caret-down"></i></p>';
+            }
           }
+          if (strtoupper($value->blockchain->name) == "ARDOR") {
+            $priceUSD = convertCrypto("IGNIS","USD");
+          }elseif (strtoupper($value->blockchain->name) == "STELLAR") {
+            $priceUSD = convertCrypto("XLM","USD");
+          }
+          $icon = url("assets/logo/blank.png");
+          if ($value->icon != null) {
+            $icon = $value->icon;
+          }
+          $priceUSD = $priceUSD * $lp;
+          $data[] = ["name"=>$value->name,"change"=>$change,"icon"=>$icon,"price"=>number_format($lp,6),"price_usd"=>number_format($priceUSD,4),"volume"=>$vol];
+          return $data;
         }
-
-        $data[] = ["name"=>$value->name,"change"=>$change,"icon"=>$value->icon,"price"=>""];
+      }elseif ($block == "ardor") {
+        $ardor = \Coinvit\Token::where(["id_blockchain"=>1])->get();
+        $data = [];
+        foreach ($ardor as $key => $value) {
+          $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();
+          $now = $getStat[0];
+          $vol = $now->volume;
+          $lp = $now->price;
+          if (!isset($getStat[1]->price)) {
+            $change = '<p class="text-default">0</p>';
+          }else {
+            $change = ($now->price - $getStat[1]->price);
+            if ($change > 0) {
+              $change = '<p class="text-green">'.number_format($change).' <i class="fa fa-caret-up"></i></p>';
+            }elseif($change < 0) {
+              $change = '<p class="text-red">'.number_format($change).' <i class="fa fa-caret-down"></i></p>';
+            }
+          }
+          if (strtoupper($value->blockchain->name) == "ARDOR") {
+            $priceUSD = convertCrypto("IGNIS","USD");
+          }elseif (strtoupper($value->blockchain->name) == "STELLAR") {
+            $priceUSD = convertCrypto("XLM","USD");
+          }
+          $icon = url("assets/logo/blank.png");
+          if ($value->icon != null) {
+            $icon = $value->icon;
+          }
+          $priceUSD = $priceUSD * $lp;
+          $data[] = ["name"=>$value->name,"change"=>$change,"icon"=>$icon,"price"=>number_format($lp,6),"price_usd"=>number_format($priceUSD,4),"volume"=>$vol];
+          return $data;
+        }
       }
+
     }
 }
