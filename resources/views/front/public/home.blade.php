@@ -47,54 +47,19 @@
                <p class="for-twentyfive space-an">24hr Volume:</p>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 text-left">
-               <p class="for-twentyfive">0.99600000 USD</p>
-               <p class="for-twentyfive">1295170.80 USD</p>
+               <p class="for-twentyfive" id="lp_btc">{{number_format(convertCrypto("BTC","USD"))}} USD</p>
+               <p class="for-twentyfive" id="vol_btc">{{number_format(convertCrypto("BTC","USD",true)->volume_24h)}} USD</p>
             </div>
          </div>
          <div class="col-lg-4 col-md-4 col-sm-3">
-            <img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" class="img-logo-asset-exchange">
+            <img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" class="img-logo-asset-exchange" style="width:auto;height:80px">
          </div>
       </div>
    </div>
    <!-- ./box-body -->
    <div class="box-footer hideline-asset">
-      <div class="row">
-         <div class="col-lg-3-ads col-md-3 col-sm-3">
-            <img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" class="market-icon">
-            <div class="text-right tablet-view-asset" style="margin-right: 8px;">
-               <p style="color: #c3c3c3;" class="space-an">Top Volume</p>
-               <p style="font-size: 1.250em;" class="space-an">Bitcon (BTC)</p>
-               <p style="font-size: 1.250em; font-weight: bold;" class="space-an">625971.56 USD</p>
-               <p style="font-size: 0.938em;" class="text-red asset-komp space-an"><i class="fa fa-caret-down"></i> 0.8%</p>
-            </div>
-         </div>
-         <div class="col-lg-3-ads col-md-3 col-sm-3">
-            <img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" class="market-icon">
-            <div class="text-right tablet-view-asset" style="margin-right: 8px;">
-               <p style="color: #c3c3c3;" class="space-an">Top Volume</p>
-               <p style="font-size: 1.250em;" class="space-an">Bitcon (BTC)</p>
-               <p style="font-size: 1.250em; font-weight: bold;" class="space-an">625971.56 USD</p>
-               <p style="font-size: 0.938em;" class="text-red asset-komp space-an"><i class="fa fa-caret-down"></i> 0.8%</p>
-            </div>
-         </div>
-         <div class="col-lg-3-ads col-md-3 col-sm-3">
-            <img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" class="market-icon">
-            <div class="text-right tablet-view-asset" style="margin-right: 8px;">
-               <p style="color: #c3c3c3;" class="space-an">Top Volume</p>
-               <p style="font-size: 1.250em;" class="space-an">Bitcon (BTC)</p>
-               <p style="font-size: 1.250em; font-weight: bold;" class="space-an">625971.56 USD</p>
-               <p style="font-size: 0.938em;" class="text-red asset-komp space-an"><i class="fa fa-caret-down"></i> 0.8%</p>
-            </div>
-         </div>
-         <div class="col-lg-3-ads col-md-3 col-sm-3">
-            <img src="//bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" class="market-icon">
-            <div class="text-right tablet-view-asset" style="margin-right: 8px;">
-               <p style="color: #c3c3c3;" class="space-an">Top Volume</p>
-               <p style="font-size: 1.250em;" class="space-an">Bitcon (BTC)</p>
-               <p style="font-size: 1.250em; font-weight: bold;" class="space-an">625971.56 USD</p>
-               <p style="font-size: 0.938em;" class="text-red asset-komp space-an"><i class="fa fa-caret-down"></i> 0.8%</p>
-            </div>
-         </div>
+      <div class="row" id="topgain">
+
       </div>
       <!-- /.box-footer -->
    </div>
@@ -265,13 +230,33 @@
           "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
           'autoWidth'   : false
         })
-        $(".dataTables_filter").remove();
+      $.get("{{url("api/topgain/favorite")}}",function (res) {
+        $template = function(icon,name,price,change){
+          temp = '<div class="col-lg-3-ads col-md-3 col-sm-3"><img src="'+icon+'" class="market-icon"><div class="text-right tablet-view-asset" style="margin-right: 8px;"><p style="color: #c3c3c3;" class="space-an">Top Gain</p><p style="font-size: 1.250em;" class="space-an">'+name+'</p><p style="font-size: 1.250em; font-weight: bold;" class="space-an">'+price+' USD</p><p style="font-size: 0.938em;" class="asset-komp space-an">'+change+'</div></div>';
+          return temp;
+        };
+        $("#topgain").html("");
+        for (var i = 0; i < res.length; i++) {
+          $("#topgain").append($template(res[i].icon,res[i].name,res[i].price_usd,res[i].change));
+        }
+      });
+      $(".dataTables_filter").remove();
       $(".tab_asset").on('click', function(event) {
         event.preventDefault();
         $token = $(this).data("token");
         console.log("Token "+$token);
         asset_tabel.ajax.url("{{url("api/token_list")}}/"+$token).load();
         $(".dataTables_filter").remove();
+        $.get("{{url("api/topgain/")}}"+"/"+$token,function (res) {
+          $template = function(icon,name,price,change){
+            temp = '<div class="col-lg-3-ads col-md-3 col-sm-3"><img src="'+icon+'" class="market-icon"><div class="text-right tablet-view-asset" style="margin-right: 8px;"><p style="color: #c3c3c3;" class="space-an">Top Gain</p><p style="font-size: 1.250em;" class="space-an">'+name+'</p><p style="font-size: 1.250em; font-weight: bold;" class="space-an">'+price+' USD</p><p style="font-size: 0.938em;" class="asset-komp space-an">'+change+'</div></div>';
+            return temp;
+          };
+          $("#topgain").html("");
+          for (var i = 0; i < res.length; i++) {
+            $("#topgain").append($template(res[i].icon,res[i].name,res[i].price_usd,res[i].change));
+          }
+        });
       });
       $("#searchbox").on('keyup change', function(event) {
         console.log("Search");
