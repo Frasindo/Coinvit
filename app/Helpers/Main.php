@@ -16,3 +16,6 @@ function datatablesConvert($res=[],$select="")
 function sort_vol($a, $b) {
     return $a['volume'] < $b['volume'];
 }
+function sort_change($a, $b) {
+    return $a['change'] < $b['change'];
+}
