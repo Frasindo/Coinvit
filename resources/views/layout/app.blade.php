@@ -457,6 +457,9 @@
 <!-- Dropdown Hover -->
 <script src="{{asset("dist/js/dropdown-hover.js")}}"></script>
 <script type="text/javascript">
+    function errorImg(){
+      $(".tokenachor").attr("src","{{url('assets/logo/blank.png')}}")
+    }
     function on() {
         document.getElementById("overlay").style.display = "block";
     }
