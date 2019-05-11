@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
       $this->call(InitialUsers::class);
       $this->call(InitialBlockchain::class);
+      $this->call(IntialFavorites::class);
     }
 }
