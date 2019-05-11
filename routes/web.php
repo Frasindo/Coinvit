@@ -13,7 +13,7 @@ use Helpers\ArdorTrade;
 Route::group(['middleware' => ['web']], function () {
   Route::get('/',"Front\Home@index");
   Route::get('/test',function(){
-  
+
   });
   Route::get('/api',"PublicAPI\Api@index");
   Route::post('/api/login',"PublicAPI\Api@login");
@@ -21,6 +21,7 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/api/token/{id?}/{add?}',"PublicAPI\Api@listtoken");
   Route::get('/api/orderbook/{asset?}/{address?}',"PublicAPI\Api@orderbook");
   Route::get('/api/token_list/{block}',"PublicAPI\Api@tokentable");
+  Route::get('/api/topgain/{block}',"PublicAPI\Api@topgain");
 });
 Route::group(['middleware' => ['member']], function () {
   Route::get('/member',"AuthAPI\Api@index");
