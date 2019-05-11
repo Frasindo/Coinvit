@@ -185,34 +185,31 @@ class Api extends Controller
           $now = $getStat[0];
           $vol = $now->volume;
           $lp = $now->price;
+          $c = 0;
           if (!isset($getStat[1]->price)) {
             $change = '<p class="text-default">0</p>';
           }else {
             $change = ($now->price - $getStat[1]->price);
+            $c = $change;
             if ($change > 0) {
               $change = '<p class="text-green">'.number_format($change,2).' <i class="fa fa-caret-up"></i></p>';
             }elseif($change < 0) {
               $change = '<p class="text-red">'.number_format($change,2).' <i class="fa fa-caret-down"></i></p>';
             }
           }
-          if (strtoupper($value->blockchain->name) == "ARDOR") {
-            $priceUSD = convertCrypto("IGNIS","USD");
-          }elseif (strtoupper($value->blockchain->name) == "STELLAR") {
-            $priceUSD = convertCrypto("XLM","USD");
-          }
+
           $icon = url("assets/logo/blank.png");
           if ($value->icon != null) {
             $icon = $value->icon;
           }
-          $priceUSD = $priceUSD * $lp;
-          $data[] = ["name"=>$value->name,"change"=>$change,"icon"=>$icon,"price"=>number_format($lp,6),"price_usd"=>number_format($priceUSD,4),"volume"=>$vol];
+          $data[] = ["id_token"=>$value->id_token,"name"=>$value->name,"change"=>$change,"c_unformat"=>$c,"icon"=>$icon,"price"=>$lp,"volume"=>$vol];
 
         }
         usort($data,"sort_change");
         $top = [];
         $limit = 4;
         foreach ($data as $key => $value) {
-          if ($value["change"] > 0 || $value["name"] == "FRAS") {
+          if ($value["c_unformat"] > 0 || $value["name"] == "FRAS") {
             $top[] = $value;
           }
           if (count($top) == $limit) {
@@ -231,6 +228,15 @@ class Api extends Controller
           }
         }
         $data = $top;
+        foreach ($data as $y => &$e) {
+          $check = \Coinvit\Token::where(["id_token"=>$e["id_token"]])->first();
+          if (strtoupper($check->blockchain->name) == "ARDOR") {
+            $priceUSD = convertCrypto("IGNIS","USD");
+          }elseif (strtoupper($check->blockchain->name) == "STELLAR") {
+            $priceUSD = convertCrypto("XLM","USD");
+          }
+          $e["price_usd"] = number_format($priceUSD * $e["price"],6);
+        }
         return $data;
       }elseif ($block == "ardor") {
         $ardor = \Coinvit\Token::where(["id_blockchain"=>1])->get();
@@ -240,33 +246,29 @@ class Api extends Controller
           $now = $getStat[0];
           $vol = $now->volume;
           $lp = $now->price;
+          $c = 0;
           if (!isset($getStat[1]->price)) {
             $change = '<p class="text-default">0</p>';
           }else {
             $change = ($now->price - $getStat[1]->price);
+            $c = $change;
             if ($change > 0) {
               $change = '<p class="text-green">'.number_format($change,2).' <i class="fa fa-caret-up"></i></p>';
             }elseif($change < 0) {
               $change = '<p class="text-red">'.number_format($change,2).' <i class="fa fa-caret-down"></i></p>';
             }
           }
-          if (strtoupper($value->blockchain->name) == "ARDOR") {
-            $priceUSD = convertCrypto("IGNIS","USD");
-          }elseif (strtoupper($value->blockchain->name) == "STELLAR") {
-            $priceUSD = convertCrypto("XLM","USD");
-          }
           $icon = url("assets/logo/blank.png");
           if ($value->icon != null) {
             $icon = $value->icon;
           }
-          $priceUSD = $priceUSD * $lp;
-          $data[] = ["name"=>$value->name,"change"=>$change,"icon"=>$icon,"price"=>number_format($lp,6),"price_usd"=>number_format($priceUSD,4),"volume"=>$vol];
+          $data[] = ["id_token"=>$value->id_token,"name"=>$value->name,"change"=>$change,"c_unformat"=>$c,"icon"=>$icon,"price"=>$lp,"volume"=>$vol];
         }
         usort($data,"sort_change");
         $top = [];
         $limit = 4;
         foreach ($data as $key => $value) {
-          if ($value["change"] > 0 || $value["name"] == "FRAS") {
+          if ($value["c_unformat"] > 0 || $value["name"] == "FRAS") {
             $top[] = $value;
           }
           if (count($top) == $limit) {
@@ -285,6 +287,15 @@ class Api extends Controller
           }
         }
         $data = $top;
+        foreach ($data as $y => &$e) {
+          $check = \Coinvit\Token::where(["id_token"=>$e["id_token"]])->first();
+          if (strtoupper($check->blockchain->name) == "ARDOR") {
+            $priceUSD = convertCrypto("IGNIS","USD");
+          }elseif (strtoupper($check->blockchain->name) == "STELLAR") {
+            $priceUSD = convertCrypto("XLM","USD");
+          }
+          $e["price_usd"] = number_format($priceUSD * $e["price"],6);
+        }
         return $data;
       }
 
