@@ -125,9 +125,9 @@ class Api extends Controller
           }else {
             $change = ($now->price - $getStat[1]->price);
             if ($change > 0) {
-              $change = '<p class="text-green">'.number_format($change).' <i class="fa fa-caret-up"></i></p>';
+              $change = '<p class="text-green">'.number_format($change,2).' <i class="fa fa-caret-up"></i></p>';
             }elseif($change < 0) {
-              $change = '<p class="text-red">'.number_format($change).' <i class="fa fa-caret-down"></i></p>';
+              $change = '<p class="text-red">'.number_format($change,2).' <i class="fa fa-caret-down"></i></p>';
             }
           }
           if ($value->icon != null) {
@@ -152,9 +152,9 @@ class Api extends Controller
           }else {
             $change = ($now->price - $getStat[1]->price);
             if ($change > 0) {
-              $change = '<p class="text-green">'.number_format($change).' <i class="fa fa-caret-up"></i></p>';
+              $change = '<p class="text-green">'.number_format($change,2).' <i class="fa fa-caret-up"></i></p>';
             }elseif($change < 0) {
-              $change = '<p class="text-red">'.number_format($change).' <i class="fa fa-caret-down"></i></p>';
+              $change = '<p class="text-red">'.number_format($change,2).' <i class="fa fa-caret-down"></i></p>';
             }
           }
           if ($value->icon != null) {
@@ -190,9 +190,9 @@ class Api extends Controller
           }else {
             $change = ($now->price - $getStat[1]->price);
             if ($change > 0) {
-              $change = '<p class="text-green">'.number_format($change).' <i class="fa fa-caret-up"></i></p>';
+              $change = '<p class="text-green">'.number_format($change,2).' <i class="fa fa-caret-up"></i></p>';
             }elseif($change < 0) {
-              $change = '<p class="text-red">'.number_format($change).' <i class="fa fa-caret-down"></i></p>';
+              $change = '<p class="text-red">'.number_format($change,2).' <i class="fa fa-caret-down"></i></p>';
             }
           }
           if (strtoupper($value->blockchain->name) == "ARDOR") {
@@ -206,8 +206,32 @@ class Api extends Controller
           }
           $priceUSD = $priceUSD * $lp;
           $data[] = ["name"=>$value->name,"change"=>$change,"icon"=>$icon,"price"=>number_format($lp,6),"price_usd"=>number_format($priceUSD,4),"volume"=>$vol];
-          return $data;
+
         }
+        usort($data,"sort_change");
+        $top = [];
+        $limit = 4;
+        foreach ($data as $key => $value) {
+          if ($value["change"] > 0 || $value["name"] == "FRAS") {
+            $top[] = $value;
+          }
+          if (count($top) == $limit) {
+            $fras = false;
+            foreach ($top as $k => $v) {
+              if ($v["name"] == "FRAS") {
+                $fras = true;
+                break;
+              }
+            }
+            if ($fras) {
+              break;
+            }else {
+              unset($top[(count($top) - 1)]);
+            }
+          }
+        }
+        $data = $top;
+        return $data;
       }elseif ($block == "ardor") {
         $ardor = \Coinvit\Token::where(["id_blockchain"=>1])->get();
         $data = [];
@@ -221,9 +245,9 @@ class Api extends Controller
           }else {
             $change = ($now->price - $getStat[1]->price);
             if ($change > 0) {
-              $change = '<p class="text-green">'.number_format($change).' <i class="fa fa-caret-up"></i></p>';
+              $change = '<p class="text-green">'.number_format($change,2).' <i class="fa fa-caret-up"></i></p>';
             }elseif($change < 0) {
-              $change = '<p class="text-red">'.number_format($change).' <i class="fa fa-caret-down"></i></p>';
+              $change = '<p class="text-red">'.number_format($change,2).' <i class="fa fa-caret-down"></i></p>';
             }
           }
           if (strtoupper($value->blockchain->name) == "ARDOR") {
@@ -237,8 +261,31 @@ class Api extends Controller
           }
           $priceUSD = $priceUSD * $lp;
           $data[] = ["name"=>$value->name,"change"=>$change,"icon"=>$icon,"price"=>number_format($lp,6),"price_usd"=>number_format($priceUSD,4),"volume"=>$vol];
-          return $data;
         }
+        usort($data,"sort_change");
+        $top = [];
+        $limit = 4;
+        foreach ($data as $key => $value) {
+          if ($value["change"] > 0 || $value["name"] == "FRAS") {
+            $top[] = $value;
+          }
+          if (count($top) == $limit) {
+            $fras = false;
+            foreach ($top as $k => $v) {
+              if ($v["name"] == "FRAS") {
+                $fras = true;
+                break;
+              }
+            }
+            if ($fras) {
+              break;
+            }else {
+              unset($top[(count($top) - 1)]);
+            }
+          }
+        }
+        $data = $top;
+        return $data;
       }
 
     }
