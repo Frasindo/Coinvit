@@ -300,7 +300,7 @@ class ArdorTrade
       if ($l == null) {
         $l = 0;
       }
-      $data[] = ["id_token"=>$id,"volume"=>$vol,"price"=>$lp,"price_low"=>$h,"price_high"=>$l,"spread"=>$s,"created_at"=>date("Y-m-d H:i:s")];
+      $data[] = ["id_token"=>$id,"volume"=>$vol,"price"=>$lp,"price_low"=>$l,"price_high"=>$h,"spread"=>$s,"created_at"=>date("Y-m-d H:i:s")];
     }
     if ($save) {
       $set = \Coinvit\TokenStatistic::insert($data);
