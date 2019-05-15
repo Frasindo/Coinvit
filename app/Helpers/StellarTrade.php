@@ -31,7 +31,11 @@ class StellarTrade
           }
         }
       }
-      return $data;
+      if (count($data) > 0) {
+        return $data;
+      }else {
+        return false;
+      }
     }else {
       return false;
     }
@@ -41,7 +45,7 @@ class StellarTrade
     $x = $this->stellar_node->request("assets",["asset_issuer"=>$issuer]);
     return $x;
   }
-  public function Tokenlist($limit=200,$to_page=2,$save=true)
+  public function Tokenlist($limit=200,$to_page=2,$save=true,$update=false)
   {
     $count = 1;
     $pagingurl = "";
@@ -71,10 +75,8 @@ class StellarTrade
       }
     }
     // $pure = array_unique($data);
-    // return $data;  
-    $guzzle = new Client();
-    $config = ["timeout"=>0.5,"verify"=>false,"headers"=>["Accept"=>"text/plain","Content-Type"=>"text/plain"]];
-    if ($save) {
+    // return $data;
+    if ($update == true) {
       $d = [];
       $icon = null;
       $desc = null;
@@ -96,6 +98,9 @@ class StellarTrade
           $icon = null;
           $desc = null;
         }
+        if ($toml == false) {
+          continue;
+        }
         $verify = ["code","name","issuer","display_decimals","desc","conditions","image"];
         if (isset($toml["desc"])) {
           $desc = $toml["desc"];
@@ -105,14 +110,62 @@ class StellarTrade
         }
         $d[] = ["id_token"=>(md5($value->paging_token)),"issuer"=>$value->asset_issuer,"name"=>$value->asset_code,"decimal"=>$value->decimal,"icon"=>$icon,"desc"=>$desc,"id_blockchain"=>2,"created_at"=>date("Y-m-d H:i:s"),"toml"=>$value->toml];
       }
-      $ins = \Coinvit\Token::insert($d);
-      if ($ins) {
-        return ["status"=>1,"msg"=>"Success"];
-      }else {
-        return ["status"=>0,"msg"=>"Failed"];
+      $list = \Coinvit\Token::where(["id_blockchain"=>2])->get();
+      foreach ($list as $key => $value) {
+          foreach ($d as $k => $v) {
+            if ($v["id_token"] == $value->id_token) {
+              $up = new \Coinvit\Token();
+              $up->icon = $v["icon"];
+              $up->desc = $v["desc"];
+              $up->name = $v["name"];
+              $up->save();
+            }
+          }
       }
+      return ["status"=>1,"msg"=>"Updated"];
     }else {
-      return $data;
+      $guzzle = new Client();
+      $config = ["timeout"=>0.5,"verify"=>false,"headers"=>["Accept"=>"text/plain","Content-Type"=>"text/plain"]];
+      if ($save) {
+        $d = [];
+        $icon = null;
+        $desc = null;
+        foreach ($data as $key => $value) {
+          if ($value->asset_code == "FRAS") {
+            $config = ["timeout"=>5,"verify"=>false,"headers"=>["Accept"=>"text/plain","Content-Type"=>"text/plain"]];
+          }
+          try {
+            $guzzled = $guzzle->get($value->toml,$config);
+            $guzzled = $guzzled->getBody()->getContents();
+            $toml = $this->tomlparser($guzzled,$value->asset_code);
+          } catch (\GuzzleHttp\Exception\ConnectException $e) {
+            continue;
+          } catch (\GuzzleHttp\Exception\ClientException $e) {
+            continue;
+          } catch (\GuzzleHttp\Exception\ServerException $e) {
+            continue;
+          }catch (\Yosymfony\Toml\Exception\ParseException $e) {
+            $icon = null;
+            $desc = null;
+          }
+          $verify = ["code","name","issuer","display_decimals","desc","conditions","image"];
+          if (isset($toml["desc"])) {
+            $desc = $toml["desc"];
+          }
+          if (isset($toml["image"])) {
+            $icon = $toml["image"];
+          }
+          $d[] = ["id_token"=>(md5($value->paging_token)),"issuer"=>$value->asset_issuer,"name"=>$value->asset_code,"decimal"=>$value->decimal,"icon"=>$icon,"desc"=>$desc,"id_blockchain"=>2,"created_at"=>date("Y-m-d H:i:s"),"toml"=>$value->toml];
+        }
+        $ins = \Coinvit\Token::insert($d);
+        if ($ins) {
+          return ["status"=>1,"msg"=>"Success"];
+        }else {
+          return ["status"=>0,"msg"=>"Failed"];
+        }
+      }else {
+        return $data;
+      }
     }
   }
   public function Statistic()
