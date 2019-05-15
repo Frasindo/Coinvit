@@ -209,9 +209,11 @@
 
        $('.coin-asset-fav').DataTable({
          'paging'      : true,
-         'searching'   : false,
+         'searching'   : true,
          'info'        : false,
          'lengthChange': false,
+         'processing' :true,
+         'serveside'   :true,
          'pageLength'  : 15,
          'pagingType'  : 'full_numbers',
          'responsive'  : true,
@@ -219,8 +221,8 @@
          'autoWidth'   : false
        })
        var asset_tabel = $('.coin-asset').DataTable({
-          'paging'      : true,
-          'searching'   : true,
+          "processing": true,
+          "serverSide": true,
           'info'        : false,
           'lengthChange': false,
           'pageLength'  : 15,
