@@ -148,7 +148,7 @@ class StellarTrade
             $icon = null;
             $desc = null;
           }
-          if ($toml != false) {
+          if ($toml == false) {
             continue;
           }
           $verify = ["code","name","issuer","display_decimals","desc","conditions","image"];
