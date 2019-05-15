@@ -2,6 +2,7 @@
 
 namespace Coinvit\Http\Controllers\PublicAPI;
 use Helpers\ArdorHelper;
+use Helpers\StellarTrade;
 use Helpers\ExchangeHelper;
 use Helpers\ArdorTrade;
 use Illuminate\Http\Request;
@@ -73,8 +74,9 @@ class Api extends Controller
         $getData = Token::where(["id_blockchain"=>1])->get();
         return response()->json($getData);
       }elseif ($id == 'stellar') {
-        $get = new StellarTrade();
-        
+        $set = new StellarTrade();
+        $s = $set->Tokenlist(200,30);
+        return $s;
       }
     }
     public function orderbook($asset='',$address='')
@@ -110,11 +112,13 @@ class Api extends Controller
       }
 
     }
-    public function tokentable($block="")
+    public function tokentable(Request $req,$block="")
     {
       // datatablesConvert();
+      $reqget = $req->all();
       if ($block == "" || $block == "favorite") {
-        $ardor = \Coinvit\TokenFavorite::all();
+        $total = \Coinvit\TokenFavorite::count();
+        $ardor = \Coinvit\TokenFavorite::offset($reqget["start"])->limit($reqget["length"])->get();
         $data = [];
         foreach ($ardor as $key => $value) {
           $value = $value->token;
@@ -140,9 +144,10 @@ class Api extends Controller
         }
         $vol = null;
         usort($data,'sort_vol');
-        return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at");
+        return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at",$total);
       }elseif ($block == "ardor") {
-        $ardor = \Coinvit\Token::where(["id_blockchain"=>1])->get();
+        $total = \Coinvit\Token::where(["id_blockchain"=>1])->count();
+        $ardor = \Coinvit\Token::where(["id_blockchain"=>1])->offset($reqget["start"])->limit($reqget["length"])->where("name","like",'%'.$reqget["search"]["value"].'%')->get();
         $data = [];
         foreach ($ardor as $key => $value) {
           $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();
@@ -172,39 +177,62 @@ class Api extends Controller
         }
         $vol = null;
         usort($data,'sort_vol');
-        return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at");
+        return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at",$total);
       }elseif ($block == "stellar") {
-        $ardor = \Coinvit\Token::where(["id_blockchain"=>2])->get();
+        $total = \Coinvit\Token::where(["id_blockchain"=>2])->count();
+        $stellar = \Coinvit\Token::where(["id_blockchain"=>2])->offset($reqget["start"])->limit($reqget["length"])->where("name","like",'%'.$reqget["search"]["value"].'%')->get();
         $data = [];
-        foreach ($ardor as $key => $value) {
+        foreach ($stellar as $key => $value) {
           $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();
-          $now = $getStat[0];
-          $vol = $now->volume;
-          if (!isset($getStat[1]->price)) {
-            $change = '<p class="text-default">0</p>';
-          }else {
-            $change = ($now->price - $getStat[1]->price);
-            if ($change > 0) {
-              $change = '<p class="text-green">'.number_format($change,2).' <i class="fa fa-caret-up"></i></p>';
-            }elseif($change < 0) {
-              $change = '<p class="text-red">'.number_format($change,2).' <i class="fa fa-caret-down"></i></p>';
+          if (count($getStat) > 0) {
+            $now = $getStat[0];
+            $vol = $now->volume;
+            if (!isset($getStat[1]->price)) {
+              $change = '<p class="text-default">0</p>';
+            }else {
+              $change = ($now->price - $getStat[1]->price);
+              if ($change > 0) {
+                $change = '<p class="text-green">'.number_format($change,2).' <i class="fa fa-caret-up"></i></p>';
+              }elseif($change < 0) {
+                $change = '<p class="text-red">'.number_format($change,2).' <i class="fa fa-caret-down"></i></p>';
+              }
             }
-          }
-          if ($value->icon != null) {
-            $icon = '<img src="'.$value->icon.'" style="width: 20px; height: 20px;margin-right: 5px;" onerror="errorImg()" class="logo-icon">';
+            if ($value->icon != null) {
+              $icon = '<img src="'.$value->icon.'" style="width: 20px; height: 20px;margin-right: 5px;" onerror="errorImg()" class="logo-icon">';
+            }else {
+              $icon = '<img src="'.$value->icon.'" style="width: 20px; height: 20px;margin-right: 5px;" onerror="errorImg()" class="logo-icon tokenachor">';
+            }
+            $cekFav = \Coinvit\TokenFavorite::where(["id_token"=>$value->id_token])->count();
+            $no = '<span class="fav" data-id="'.$value->id_token.'"><i class="fa fa-star-o text-yellow"></i></span>';
+            if ($cekFav > 0) {
+              $no = '<span class="fav" data-id="'.$value->id_token.'"><i class="fa fa-star text-yellow"></i></span>';
+            }
+            $data[] = ["no"=>$no,"name_market"=>$value->name.' - XLM',"name"=>$icon.$value->name,"volume"=>number_format($vol,4),"change"=>$change,"last_price"=>number_format($now->price,6),"h"=>number_format($now->price_high,4),"l"=>number_format($now->price_low,4),"spread"=>number_format($now->spread,4),"created_at"=>date("Y/m/d",strtotime($value->created_at))];
           }else {
-            $icon = '<img src="'.$value->icon.'" style="width: 20px; height: 20px;margin-right: 5px;" onerror="errorImg()" class="logo-icon tokenachor">';
+            if ($value->icon != null) {
+              $icon = '<img src="'.$value->icon.'" style="width: 20px; height: 20px;margin-right: 5px;" onerror="errorImg()" class="logo-icon">';
+            }else {
+              $icon = '<img src="'.$value->icon.'" style="width: 20px; height: 20px;margin-right: 5px;" onerror="errorImg()" class="logo-icon tokenachor">';
+            }
+            $cekFav = \Coinvit\TokenFavorite::where(["id_token"=>$value->id_token])->count();
+            $no = '<span class="fav" data-id="'.$value->id_token.'"><i class="fa fa-star-o text-yellow"></i></span>';
+            if ($cekFav > 0) {
+              $no = '<span class="fav" data-id="'.$value->id_token.'"><i class="fa fa-star text-yellow"></i></span>';
+            }
+            $data[] = ["no"=>$no,"name_market"=>$value->name.' - XLM',"name"=>$icon.$value->name,"volume"=>number_format(0,4),"change"=>0,"last_price"=>number_format(0,6),"h"=>number_format(0,4),"l"=>number_format(0,4),"spread"=>number_format(0,4),"created_at"=>date("Y/m/d",strtotime($value->created_at))];
           }
-          $cekFav = \Coinvit\TokenFavorite::where(["id_token"=>$value->id_token])->count();
-          $no = '<span class="fav" data-id="'.$value->id_token.'"><i class="fa fa-star-o text-yellow"></i></span>';
-          if ($cekFav > 0) {
-            $no = '<span class="fav" data-id="'.$value->id_token.'"><i class="fa fa-star text-yellow"></i></span>';
-          }
-          $data[] = ["no"=>$no,"name_market"=>$value->name.' - IGNIS',"name"=>$icon.$value->name,"volume"=>number_format($vol,4),"change"=>$change,"last_price"=>number_format($now->price,6),"h"=>number_format($now->price_high,4),"l"=>number_format($now->price_low,4),"spread"=>number_format($now->spread,4),"created_at"=>date("Y/m/d",strtotime($value->created_at))];
         }
         $vol = null;
         usort($data,'sort_vol');
-        return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at");
+        $limit = 19;
+        foreach ($data as $key => &$value) {
+            if ($value["name"] == "FRAS") {
+              $temp = $data[0];
+              $data[0] = $data[$key];
+              $data[$key] = $temp;
+            }
+        }
+        return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at",$total);
       }
     }
     public function topgain($block='')
