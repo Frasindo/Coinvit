@@ -1,7 +1,9 @@
 <?php
-function datatablesConvert($res=[],$select="")
+function datatablesConvert($res=[],$select="",$total=0)
 {
   $data = [];
+  $data["recordsTotal"] = $total;
+  $data["recordsFiltered"] = $total;
   $data["data"] = [];
   foreach ($res as $key => $value) {
     $inner = [];
