@@ -73,7 +73,8 @@ class Api extends Controller
         $getData = Token::where(["id_blockchain"=>1])->get();
         return response()->json($getData);
       }elseif ($id == 'stellar') {
-
+        $get = new StellarTrade();
+        
       }
     }
     public function orderbook($asset='',$address='')
@@ -142,6 +143,38 @@ class Api extends Controller
         return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at");
       }elseif ($block == "ardor") {
         $ardor = \Coinvit\Token::where(["id_blockchain"=>1])->get();
+        $data = [];
+        foreach ($ardor as $key => $value) {
+          $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();
+          $now = $getStat[0];
+          $vol = $now->volume;
+          if (!isset($getStat[1]->price)) {
+            $change = '<p class="text-default">0</p>';
+          }else {
+            $change = ($now->price - $getStat[1]->price);
+            if ($change > 0) {
+              $change = '<p class="text-green">'.number_format($change,2).' <i class="fa fa-caret-up"></i></p>';
+            }elseif($change < 0) {
+              $change = '<p class="text-red">'.number_format($change,2).' <i class="fa fa-caret-down"></i></p>';
+            }
+          }
+          if ($value->icon != null) {
+            $icon = '<img src="'.$value->icon.'" style="width: 20px; height: 20px;margin-right: 5px;" onerror="errorImg()" class="logo-icon">';
+          }else {
+            $icon = '<img src="'.$value->icon.'" style="width: 20px; height: 20px;margin-right: 5px;" onerror="errorImg()" class="logo-icon tokenachor">';
+          }
+          $cekFav = \Coinvit\TokenFavorite::where(["id_token"=>$value->id_token])->count();
+          $no = '<span class="fav" data-id="'.$value->id_token.'"><i class="fa fa-star-o text-yellow"></i></span>';
+          if ($cekFav > 0) {
+            $no = '<span class="fav" data-id="'.$value->id_token.'"><i class="fa fa-star text-yellow"></i></span>';
+          }
+          $data[] = ["no"=>$no,"name_market"=>$value->name.' - IGNIS',"name"=>$icon.$value->name,"volume"=>number_format($vol,4),"change"=>$change,"last_price"=>number_format($now->price,6),"h"=>number_format($now->price_high,4),"l"=>number_format($now->price_low,4),"spread"=>number_format($now->spread,4),"created_at"=>date("Y/m/d",strtotime($value->created_at))];
+        }
+        $vol = null;
+        usort($data,'sort_vol');
+        return datatablesConvert($data,"no,name_market,name,volume,change,last_price,h,l,spread,created_at");
+      }elseif ($block == "stellar") {
+        $ardor = \Coinvit\Token::where(["id_blockchain"=>2])->get();
         $data = [];
         foreach ($ardor as $key => $value) {
           $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();

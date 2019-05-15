@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
     {
       require_once app_path('Helpers/ArdorHelper.php');
       require_once app_path('Helpers/StellarHelper.php');
+      require_once app_path('Helpers/StellarTrade.php');
       require_once app_path('Helpers/ExchangeHelper.php');
       require_once app_path('Helpers/ArdorTrade.php');
       require_once app_path('Helpers/Main.php');

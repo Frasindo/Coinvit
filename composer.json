@@ -15,7 +15,8 @@
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
         "reliese/laravel": "^0.0.13",
-        "vittominacori/coinmarketcap-php": "^1.0"
+        "vittominacori/coinmarketcap-php": "^1.0",
+        "yosymfony/toml": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

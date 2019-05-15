@@ -1,5 +1,6 @@
 <?php
 use Helpers\ExchangeHelper;
+use Helpers\StellarTrade;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +14,9 @@ use Helpers\ExchangeHelper;
 Route::group(['middleware' => ['web']], function () {
   Route::get('/',"Front\Home@index");
   Route::get('/test',function(){
-    return response()->json();
+    $new = new StellarTrade();
+    $date  = $new->Tokenlist(200,30);
+    return response()->json($date);
   });
   Route::get('/api',"PublicAPI\Api@index");
   Route::post('/api/login',"PublicAPI\Api@login");
