@@ -29,6 +29,23 @@ class ArdorTrade
       return true;
     }
   }
+  public function isvalidacc()
+  {
+    if ($this->secret_key != '') {
+      $getaddr = $this->ardor->request("get","getAccountId",["secretPhrase"=>$this->secret_key]);
+      $getaddr = $getaddr->accountRS;
+    }elseif ($this->public_key !='') {
+      $getaddr = $this->public_key;
+    }else {
+      return ["status"=>0,"message"=>"You not Filled Anything"];
+    }
+    $check = $this->ardor->request("get","getAccount",["account"=>$getaddr]);
+    if (isset($check->errorDescription)) {
+      return ["status"=>0,"message"=>$check->errorDescription];
+    }else {
+      return ["status"=>1,"debug"=>$check,"pk"=>$getaddr];
+    }
+  }
   public function ask($price,$price_per,$fee=null)
   {
     $obj = $this->ardor;
