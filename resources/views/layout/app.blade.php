@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset("dist/css/custom-layout.css")}}">
     <!-- Carousel Tiny -->
     <link rel="stylesheet" type="text/css" href="{{asset("dist/css/tinycarousel.css")}}" media="screen">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -458,6 +459,7 @@
 <script src="{{asset("dist/js/redirect-mobile.js")}}"></script>
 <!-- Dropdown Hover -->
 <script src="{{asset("dist/js/dropdown-hover.js")}}"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script type="text/javascript">
     function errorImg(){
       $(".tokenachor").attr("src","{{url('assets/logo/blank.png')}}")
