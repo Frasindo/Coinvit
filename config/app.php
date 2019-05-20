@@ -169,13 +169,14 @@ return [
         /*
          * Application Service Providers...
          */
-        Coinvit\Providers\AppServiceProvider::class,
+       Coinvit\Providers\AppServiceProvider::class,
         Coinvit\Providers\AuthServiceProvider::class,
         // Coinvit\Providers\BroadcastServiceProvider::class,
         Coinvit\Providers\EventServiceProvider::class,
         Coinvit\Providers\RouteServiceProvider::class,
         Reliese\Coders\CodersServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        Coinvit\Providers\ValidateProvider::class,
 
     ],
 
