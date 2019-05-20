@@ -22,11 +22,12 @@
         </select>
       </div>
       <div class="form-group has-feedback" id="afterit">
-        <label>Type</label>
+        <label>Login With </label>
         <select class="form-control type" name="type">
           <option selected>== Choose Type ==</option>
-          <option value="ro">Read-only</option>
-          <option value="ft">Full Trade</option>
+          <option value="np">Nickname & Password</option>
+          <option value="bw">Blockchain Wallet Address (Readonly)</option>
+          <option value="sk">Secret Key & Blockchain Wallet Address</option>
         </select>
       </div>
 
@@ -47,13 +48,17 @@
     $(".type").on('change',function(event) {
       event.preventDefault();
       console.log(this.value);
-      var sk = '<div class="rm"><div class="form-group has-feedback"><label>Your Public Key</label><input type="text" name="pk" class="form-control" placeholder="Public Key"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group has-feedback"><label>Your Secret Keys</label><input type="password" name="sk" class="form-control" placeholder="Secret Key"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div></div>';
-      var pk = '<div class="rm"><div class="form-group has-feedback"><label>Your Public Key</label><input type="text" name="pk" class="form-control" placeholder="Public Key"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div></div>';
+      var sk = '<div class="rm"><div class="form-group has-feedback"><label>Your Public Key</label><input type="text" name="pk" class="form-control" required placeholder="Public Key"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group has-feedback"><label>Your Secret Keys</label><input required type="password" name="sk" class="form-control" placeholder="Secret Key"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div></div>';
+      var bw = '<div class="rm"><div class="form-group has-feedback"><label>Your Public Key</label><input type="text" name="pk" class="form-control" required placeholder="Public Key"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div></div>';
+      var np = '<div class="rm"><div class="form-group has-feedback"><label>Nickname</label><input type="text" name="username" class="form-control" required placeholder="Nickname"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group has-feedback"><label>Password</label><input required type="password" name="password" class="form-control" placeholder="Password"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div></div>';
       $("#afterit .rm").remove();
-      if (this.value == "ft") {
+      if (this.value == "np") {
+        $(this).after(np);
+        $("#afterit .rm input").attr("disabled",true);
+      }else if (this.value == "bw") {
+        $(this).after(bw);
+      }else if (this.value == "sk") {
         $(this).after(sk);
-      }else if (this.value == "ro") {
-        $(this).after(pk);
       }
     });
   });
