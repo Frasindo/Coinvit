@@ -46,6 +46,10 @@ return [
             'provider' => 'users',
             'hash' => true,
         ],
+        'trade_direct' => [
+            'driver' => 'session',
+            'provider' => 'direct_user'
+        ],
     ],
 
     /*
@@ -69,6 +73,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => Coinvit\User::class,
+        ],
+        'direct_user' => [
+            'driver' => 'directlogin',
+            'model' => Coinvit\DirectUser::class,
         ],
 
         // 'users' => [
