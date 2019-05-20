@@ -57,7 +57,7 @@ class Api extends Controller
           }else {
             $create = \Coinvit\DirectUser::create(["pk"=>$rs["pk"],"last_login"=>date("Y-m-d")]);
             if ($create) {
-              if (Auth::guard('trade-direct')->attempt(["pk"=>$rs["pk"]])) {
+              if (Auth::guard('trade_direct')->attempt(["pk"=>$rs["pk"]])) {
                 return response()->json(["status"=>1,"message"=>"Account Validated","path"=>$path]);
               }else {
                 return response()->json(["status"=>0,"message"=>"Technical Error Please Contact Adminitrator"],500);
