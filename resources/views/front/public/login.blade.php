@@ -50,9 +50,9 @@
       var sk = '<div class="rm"><div class="form-group has-feedback"><label>Your Public Key</label><input type="text" name="pk" class="form-control" placeholder="Public Key"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group has-feedback"><label>Your Secret Keys</label><input type="password" name="sk" class="form-control" placeholder="Secret Key"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div></div>';
       var pk = '<div class="rm"><div class="form-group has-feedback"><label>Your Public Key</label><input type="text" name="pk" class="form-control" placeholder="Public Key"><span class="glyphicon glyphicon-lock form-control-feedback"></span></div><div class="form-group"><button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button></div></div>';
       $("#afterit .rm").remove();
-      if (this.value == "ro") {
+      if (this.value == "ft") {
         $(this).after(sk);
-      }else if (this.value == "ft") {
+      }else if (this.value == "ro") {
         $(this).after(pk);
       }
     });
