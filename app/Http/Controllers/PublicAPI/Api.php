@@ -12,6 +12,8 @@ use Coinvit\Http\Controllers\Controller;
 use Coinvit\Token;
 use Coinvit\Blockchain;
 use Auth;
+use Coinvit\DirectUser;
+use \Illuminate\Contracts\Auth\Authenticatable;
 class Api extends Controller
 {
     public function index()
@@ -21,22 +23,64 @@ class Api extends Controller
     public function login(Request $req)
     {
         $this->validate($req,[
-          "email"=>"required|exists:users,email",
-          "password"=>"required",
+          "type"=>"required",
+          "dex"=>"required",
+          "email"=>"required_if:type,==,np|exists:users,email",
+          "password"=>"required_if:type,==,np",
+          "pk"=>"required_if:type,==,bw",
+          "sk"=>"required_if:type,==,sk"
         ]);
-        $credentials = $req->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-          return response()->json(["status"=>1,"msg"=>"Login Success","data"=>auth()->user()]);
+        if ($req->input("type") == "bw") {
+          $cek = new ArdorTrade($req->input("pk"));
+        }elseif ($req->input("type") == "sk") {
+          $cek = new ArdorTrade(null,$req->input("sk"));
         }else {
-          return response()->json(["status"=>0,"msg"=>"Invalid Credentials"]);
+          $credentials = $req->only('email', 'password');
+          if (Auth::attempt($credentials)) {
+            return response()->json(["status"=>1,"msg"=>"Login Success","data"=>auth()->user()]);
+          }else {
+            return response()->json(["status"=>0,"message"=>"Invalid Credentials"],422);
+          }
+        }
+        $rs = $cek->isvalidacc();
+        if ($req->input("dex") == "ardor") {
+          $path = url("exchange/ardor");
+        }
+        if ($rs["status"] == 1) {
+          $cred = ["pk"=>$rs["pk"]];
+          if (Auth::guard('trade_direct')->attempt($cred)) {
+            $update = \Coinvit\DirectUser::where(["pk"=>$rs["pk"]])->update(["last_login"=>date("Y-m-d")]);
+            if (!$update) {
+              return response()->json(["status"=>0,"message"=>"Technical Error Please Contact Adminitrator"],500);
+            }
+            return response()->json(["status"=>1,"message"=>"Account Validated","path"=>$path]);
+          }else {
+            $create = \Coinvit\DirectUser::create(["pk"=>$rs["pk"],"last_login"=>date("Y-m-d")]);
+            if ($create) {
+              if (Auth::guard('trade-direct')->attempt(["pk"=>$rs["pk"]])) {
+                return response()->json(["status"=>1,"message"=>"Account Validated","path"=>$path]);
+              }else {
+                return response()->json(["status"=>0,"message"=>"Technical Error Please Contact Adminitrator"],500);
+              }
+            }else {
+              return response()->json(["status"=>0,"message"=>"Technical Error Please Contact Adminitrator"],500);
+            }
+
+          }
+        }else {
+          return response()->json(["status"=>0,"message"=>$rs["message"],"debug"=>$cek->isvalidacc()],422);
         }
     }
     public function validation()
     {
       if (auth()->check()) {
-        return response()->json(["status"=>1,"msg"=>"Credential Valid","data"=>auth()->user()]);
+        return response()->json(["status"=>1,"msg"=>"Credential Valid [Normal Account]","data"=>auth()->user()]);
       }else {
-        return response()->json(["status"=>0,"msg"=>"Credential Expired"]);
+        if (auth::guard("trade_direct")->check()) {
+          return response()->json(["status"=>1,"msg"=>"Credential Valid [Direct Trade]","data"=>auth::guard("trade_direct")->user()]);
+        }else {
+          return response()->json(["status"=>0,"msg"=>"Credential Expired"]);
+        }
       }
     }
     public function listtoken($id='ardor',$add="")
