@@ -22,7 +22,6 @@ Route::group(['middleware' => ['web']], function () {
   });
   Route::get('/api',"PublicAPI\Api@index");
   Route::post('/api/login',"PublicAPI\Api@login");
-  Route::post('/api/directlogin',"PublicAPI\Api@directlogin");
   Route::get('/api/validation',"PublicAPI\Api@validation");
   Route::get('/api/token/{id?}/{add?}',"PublicAPI\Api@listtoken");
   Route::get('/api/orderbook/{asset?}/{address?}',"PublicAPI\Api@orderbook");
