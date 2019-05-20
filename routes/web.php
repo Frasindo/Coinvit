@@ -13,6 +13,8 @@ use Helpers\StellarTrade;
 */
 Route::group(['middleware' => ['web']], function () {
   Route::get('/',"Front\Home@index");
+  Route::get('/login',"Front\Login@index");
+  Route::get('/exchange',"Front\Exchange@index");
   Route::get('/test',function(){
     $new = new StellarTrade();
     $date  = $new->Tokenlist(200,30);
@@ -20,6 +22,7 @@ Route::group(['middleware' => ['web']], function () {
   });
   Route::get('/api',"PublicAPI\Api@index");
   Route::post('/api/login',"PublicAPI\Api@login");
+  Route::post('/api/directlogin',"PublicAPI\Api@directlogin");
   Route::get('/api/validation',"PublicAPI\Api@validation");
   Route::get('/api/token/{id?}/{add?}',"PublicAPI\Api@listtoken");
   Route::get('/api/orderbook/{asset?}/{address?}',"PublicAPI\Api@orderbook");
@@ -27,7 +30,7 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/api/topgain/{block?}',"PublicAPI\Api@topgain");
 });
 Route::group(['middleware' => ['member']], function () {
-  Route::get('/member',"AuthAPI\Api@index");
+  Route::post('/api/trade/{asset}',"AuthAPI\Api@trade");
 });
 Route::group(['middleware' => ['admin']], function () {
   Route::get('/middleware',"AuthAPI\Api@index");

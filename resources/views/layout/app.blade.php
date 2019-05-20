@@ -362,7 +362,9 @@
                     <li>
                         <!-- Image Hover -->
                         <!-- <img src="dist/img/button/btn-login-register-hover.png" width="130px" height="35px" type="button"  data-toggle="modal" data-target="#modal-lr"> -->
-                        <img src="{{asset("dist/img/button/btn-login-register.png")}}" width="130px" height="35px" type="button" data-toggle="modal" data-target="#modal-lr">
+                        <a style="padding:0px;width:130px;height:35px" href="{{url("login")}}">
+                          <img src="{{asset("dist/img/button/btn-login-register.png")}}" width="130px" height="35px" type="button" data-toggle="modal" data-target="#modal-lr">
+                        </a>
                     </li>
                 </ul>
             </nav>
