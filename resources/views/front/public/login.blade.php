@@ -73,6 +73,7 @@
             $.post(action, data, function(success) {
                 console.log(success);
                 toastr.success(success.message);
+                location.href = success.path;
             }).fail(function(fail) {
                 alert = fail.responseJSON;
                 console.log(alert.message);
