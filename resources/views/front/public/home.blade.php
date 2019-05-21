@@ -4,7 +4,7 @@
 <!-- Left side column. contains the logo and sidebar -->
 <section style="width: 100%;">
    <div class="jumbotron text-center hideline-asset" style=" height: 210%;  color: #fff; background-color: #273239;">
-      <p style="font-size: 64px; font-weight: 700;">Welcome to <img src="{{asset("logo/logocoinvit.png")}}" class="logo-coinvit-market">
+      <p style="font-size: 64px; font-weight: 700;">Welcome to <img src="{{asset("assets/logo/logocoinvit.png")}}" class="logo-coinvit-market">
       </h1>
       <p class="lead">The Exchange Free.</p>
       <div style="margin-right: 8px; margin-left: 8px;">
@@ -122,11 +122,11 @@
                <div class="text-center">
                   <!-- Image hover -->
                   <!-- <img src="dist/img/button/btn-token-hover.png" class="btn-token"> -->
-                  <img src="{{asset("dist/img/button/btn-token.png")}}" class="btn-token">
+                  <img src="{{asset("assets/dist/img/button/btn-token.png")}}" class="btn-token">
 
                   <!-- Image Hover -->
                   <!-- <img src="dist/img/button/btn-fiat-hover.png" class="btn-fiat"> -->
-                  <img src="{{asset("dist/img/button/btn-fiat.png")}}" class="btn-fiat">
+                  <img src="{{asset("assets/dist/img/button/btn-fiat.png")}}" class="btn-fiat">
                   <!-- END Choose Asset TOKEN / FIAT -->
                </div>
                <!-- Market History -->
