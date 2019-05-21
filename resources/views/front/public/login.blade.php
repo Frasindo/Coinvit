@@ -6,7 +6,7 @@
         <div class="login-box">
             <div class="login-logo">
                 <a href="{{url("")}}">
-                    <img src="{{asset("logo/logocoinvit.png")}}" class="logo-coinvit-market">
+                    <img src="{{asset("assets/logo/logocoinvit.png")}}" class="logo-coinvit-market">
                 </a>
             </div>
             <!-- /.login-logo -->
