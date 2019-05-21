@@ -8,19 +8,20 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
-    <link rel="stylesheet" href="{{asset("bower_components/bootstrap/dist/css/bootstrap.min.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/bower_components/bootstrap/dist/css/bootstrap.min.css")}}">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset("bower_components/font-awesome/css/font-awesome.min.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/bower_components/font-awesome/css/font-awesome.min.css")}}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{asset("dist/css/AdminLTE.css")}}">
+    <link rel="stylesheet" href="{{asset("assets/dist/css/AdminLTE.css")}}">
     <!-- Fixed Column -->
-    <link rel="stylesheet" type="text/css" href="{{asset("dist/css/column-fixed.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("assets/dist/css/column-fixed.css")}}">
     <!-- Scrollbar Custom -->
-    <link rel="stylesheet" type="text/css" href="{{asset("dist/css/scrollbar-custom.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("assets/dist/css/scrollbar-custom.css")}}">
     <!-- Custom Layout -->
-    <link rel="stylesheet" type="text/css" href="{{asset("dist/css/custom-layout.css")}}">
+    <link rel="stylesheet" type="text/css" href="{{asset("assets/dist/css/custom-layout.css")}}">
     <!-- Carousel Tiny -->
-    <link rel="stylesheet" type="text/css" href="{{asset("dist/css/tinycarousel.css")}}" media="screen">
+    <link rel="stylesheet" type="text/css" href="{{asset("assets/dist/css/tinycarousel.css")}}" media="screen">
+    <link rel="stylesheet" href="{{asset("assets/dist/css/skins/_all-skins.min.css")}}">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -209,8 +210,11 @@
 
     @yield("css")
 </head>
-
+@if(strpos(url()->current(),"exchange") !== false)
+<body class="skin-blue fixed sidebar-mini">
+@else
 <body>
+@endif
     <div id="overlay">
         <div id="text">
           <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
@@ -220,6 +224,9 @@
         <header class="main-header">
             <nav class="collapse navbar-collapse navbar-color">
                 <!-- Navbar Right Menu -->
+                @if(strpos(url()->current(),"exchange") !== false)
+                <img src="{{asset("assets/dist/img/button/btn-hide.png")}}" data-toggle="push-menu" role="button" width="100px" height="35px" id="icon-setup" class="hide-btn">
+                @endif
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a class="dropdown-toggle text-white" data-toggle="dropdown" href="#">
@@ -229,7 +236,7 @@
                             <li class="item">
                                 <a href="javascript:void(0)">
                                     <div class="product-img">
-                                        <img src="{{asset("dist/img/default-50x50.gif")}}" alt="Product Image">
+                                        <img src="{{asset("assets/dist/img/default-50x50.gif")}}" alt="Product Image">
                                     </div>
                                     <div class="product-info">
                                         <span class="product-title">Exchange</span>
@@ -307,7 +314,7 @@
                             <li class="item">
                                 <a href="javascript:void(0)">
                                     <div class="product-img">
-                                        <img src="{{asset("dist/img/default-50x50.gif")}}" alt="Product Image">
+                                        <img src="{{asset("assets/dist/img/default-50x50.gif")}}" alt="Product Image">
                                     </div>
                                     <div class="product-info">
                                         <span class="product-title">Marketing</span>
@@ -363,12 +370,36 @@
                     <li>
                         <!-- Image Hover -->
                         <!-- <img src="dist/img/button/btn-login-register-hover.png" width="130px" height="35px" type="button"  data-toggle="modal" data-target="#modal-lr"> -->
-                        <a style="padding:0px;width:130px;height:35px" href="{{url("login")}}">
-                          <img src="{{asset("dist/img/button/btn-login-register.png")}}" width="130px" height="35px" type="button" data-toggle="modal" data-target="#modal-lr">
+                        <!-- dist/img/button/btn-logout.png -->
+                        @if(auth()->check() || auth()->guard("trade_direct")->check())
+                        <a style="padding:0px;width:130px;height:35px" href="{{url("logout")}}">
+                          <img src="{{asset("assets/dist/img/button/btn-logout.png")}}" width="130px" height="35px" type="button" >
                         </a>
+                        @else
+                        <a style="padding:0px;width:130px;height:35px" href="{{url("login")}}">
+                          <img src="{{asset("assets/dist/img/button/btn-login-register.png")}}" width="130px" height="35px" type="button" data-toggle="modal" data-target="#modal-lr">
+                        </a>
+                        @endif
                     </li>
                 </ul>
             </nav>
+            @if(strpos(url()->current(),"exchange") !== false)
+            <nav class="navbar navbar-static-top" style="background-color: #232e32; z-index: -1;  min-height: 35px;">
+                <div class="scrollmenu" id="coin-slider">
+                    <a href="#home"><i class="fa fa-star text-yellow"></i>
+                        Only </a>
+                    <a href="#news">Stellar</a>
+                    <a href="#news">Ardor</a>
+                    <a href="#contact">Bitcoin</a>
+                    <a href="#about">Ethereum</a>
+                </div>
+
+
+                <ul class="nav navbar-nav navbar-right chat-btn hide-chat">
+                    <li><a href="#"><i class="glyphicon glyphicon-comment"></i></a></li>
+                </ul>
+            </nav>
+            @endif
         </header>
         @yield("content")
         <footer class="main-footer" style="margin-left: 0;">
@@ -434,31 +465,28 @@
         <!-- End Footer -->
 </body>
 <!-- jQuery 3 -->
-<script src="{{asset("bower_components/jquery/dist/jquery.min.js")}}"></script>
+<script src="{{asset("assets/bower_components/jquery/dist/jquery.min.js")}}"></script>
 <script type="text/javascript" src="//code.jquery.com/jquery-latest.min.js"></script>
 <!-- JS Carousel -->
-<script src="{{asset("dist/js/jquery.tinycarousel.js")}}"></script>
+<script src="{{asset("assets/dist/js/jquery.tinycarousel.js")}}"></script>
 
 <!-- Bootstrap 3.3.7 -->
-<script src="{{asset("bower_components/bootstrap/dist/js/bootstrap.min.js")}}"></script>
+<script src="{{asset("assets/bower_components/bootstrap/dist/js/bootstrap.min.js")}}"></script>
 <!-- DataTables -->
-<script src="{{asset("bower_components/datatables.net/js/jquery.dataTables.min.js")}}"></script>
-<script src="{{asset("bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js")}}"></script>
+<script src="{{asset("assets/bower_components/datatables.net/js/jquery.dataTables.min.js")}}"></script>
+<script src="{{asset("assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js")}}"></script>
 <!-- AdminLTE App -->
-<script src="{{asset("dist/js/adminlte.min.js")}}"></script>
+<script src="{{asset("assets/dist/js/adminlte.min.js")}}"></script>
 <!-- Sparkline -->
-<script src="{{asset("bower_components/jquery-sparkline/dist/jquery.sparkline.min.js")}}"></script>
-<!-- jvectormap  -->
-<script src="{{asset("plugins/jvectormap/jquery-jvectormap-1.2.2.min.js")}}"></script>
-<script src="{{asset("plugins/jvectormap/jquery-jvectormap-world-mill-en.js")}}"></script>
+<script src="{{asset("assets/bower_components/jquery-sparkline/dist/jquery.sparkline.min.js")}}"></script>
 <!-- SlimScroll -->
-<script src="{{asset("bower_components/jquery-slimscroll/jquery.slimscroll.min.js")}}"></script>
+<script src="{{asset("assets/bower_components/jquery-slimscroll/jquery.slimscroll.min.js")}}"></script>
 <!-- Pagination Setup Trade -->
-<script src="{{asset("dist/js/pagination-trade.js")}}"></script>
+<script src="{{asset("assets/dist/js/pagination-trade.js")}}"></script>
 <!-- Redirect Mobile Version -->
-<script src="{{asset("dist/js/redirect-mobile.js")}}"></script>
+<script src="{{asset("assets/dist/js/redirect-mobile.js")}}"></script>
 <!-- Dropdown Hover -->
-<script src="{{asset("dist/js/dropdown-hover.js")}}"></script>
+<script src="{{asset("assets/dist/js/dropdown-hover.js")}}"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script type="text/javascript">
     function errorImg(){
