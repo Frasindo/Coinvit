@@ -14,7 +14,12 @@ use Helpers\StellarTrade;
 Route::group(['middleware' => ['web']], function () {
   Route::get('/',"Front\Home@index");
   Route::get('/login',"Front\Login@index");
-  Route::get('/exchange',"Front\Exchange@index");
+  Route::get('/logout',function(){
+    auth()->logout();
+    session()->flush();
+    return redirect(url("/"));
+  });
+  Route::get('/exchange',"Front\ExchangeControl@index");
   Route::get('/test',function(){
     $new = new StellarTrade();
     $date  = $new->Tokenlist(200,30);
@@ -29,7 +34,8 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/api/topgain/{block?}',"PublicAPI\Api@topgain");
 });
 Route::group(['middleware' => ['member']], function () {
-  Route::post('/api/trade/{asset}',"AuthAPI\Api@trade");
+  Route::get('/exchange/{block}/{asset?}',"Front\ExchangeControl@block");
+  Route::post('/api/trade/{asset}/{chain}',"AuthAPI\Api@trade");
 });
 Route::group(['middleware' => ['admin']], function () {
   Route::get('/middleware',"AuthAPI\Api@index");
