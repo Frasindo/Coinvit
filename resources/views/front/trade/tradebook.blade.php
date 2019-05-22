@@ -1142,6 +1142,7 @@
     });
     $('#bid').DataTable({
       "scrollY"     : "320px",
+      "destroy":true,
       'paging'      : true,
       'searching'   : false,
       'ajax'         :"{{url("api/orderbook/".$block."/".$info["id_token"])."?type=buy"}}",
@@ -1158,6 +1159,7 @@
     })
     $('#ask').DataTable({
       "scrollY"     : "320px",
+      "destroy":true,
       'paging'      : true,
       'searching'   : false,
       'info'        : false,
@@ -1171,6 +1173,7 @@
     })
     $('#mh').DataTable({
       'paging'      : true,
+      "destroy":true,
       'searching'   : false,
       'info'        : false,
       'ordering'    : true,
@@ -1183,6 +1186,7 @@
     })
     $('#oo').DataTable({
       'paging'      : true,
+      "destroy":true,
       'searching'   : false,
       'info'        : false,
       'ordering'    : true,
@@ -1196,6 +1200,7 @@
       'paging'      : true,
       'searching'   : false,
       'info'        : false,
+      "destroy":true,
       'ordering'    : true,
       'lengthChange': false,
        'pagingType'  : 'full_numbers',
@@ -1206,6 +1211,7 @@
     $('#ro').DataTable({
       'paging'      : true,
       'searching'   : true,
+      "destroy":true,
       'info'        : false,
       'ordering'    : true,
       'lengthChange': false,
@@ -1217,6 +1223,7 @@
     $('#yth').DataTable({
       'paging'      : true,
       'searching'   : false,
+      "destroy":true,
       'info'        : false,
       'ordering'    : true,
       'lengthChange': false,
@@ -1231,6 +1238,7 @@
       'searching'   : false,
       'info'        : false,
       'ordering'    : true,
+      "destroy":true,
       "pageLength"  : 15,
       'lengthChange': false,
        'pagingType'  : 'full_numbers',
@@ -1241,6 +1249,7 @@
    $('#balanceTable').DataTable({
      'paging'      : false,
      'searching'   : true,
+     "destroy":true,
      'info'        : false,
      'lengthChange': false,
      'pagingType'  : 'full_numbers',
