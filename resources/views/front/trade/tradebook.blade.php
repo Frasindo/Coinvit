@@ -375,31 +375,25 @@
                     <table class="table table-hover box-trade display" id="bid" cellspacing="0" style="width:100%">
                         <thead class="head-column" style="width:100%">
                             <tr>
+                                @if(strpos(url()->current(),"ardor") !== "ardor")
+                                <th><i class="fa fa-angle-double-right text-green"></i></th>
+                                <th>SUM (IGNIS)</th>
+                                <th>TOTAL (IGNIS)</th>
+                                <th>PRICE (IGNIS)</th>
+                                <th>BID ({{$info["name"]}})</th>
+                                <th></th>
+                                @elseif(strpos(url()->current(),"ardor") !== "stellar")
                                 <th><i class="fa fa-angle-double-right text-green"></i></th>
                                 <th>SUM (XLM)</th>
                                 <th>TOTAL (XLM)</th>
                                 <th>PRICE (XLM)</th>
-                                <th>BID (FRAS)</th>
+                                <th>BID ({{$info["name"]}})</th>
                                 <th></th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="background: linear-gradient(to left, rgb(220, 246, 222) 94.1%, rgb(255, 255, 255) 94.1%);">
-                                <td><i class="fa fa-angle-double-right text-green"></i></td>
-                                <td>1.1697</td>
-                                <td>1.1697</td>
-                                <td>35252.525</td>
-                                <td>0.00003326</td>
-                                <td class="text-green">BUY</td>
-                            </tr>
-                            <tr style="background: linear-gradient(to left, rgb(220, 246, 222) 94.1%, rgb(255, 255, 255) 94.1%);">
-                                <td><i class="fa fa-angle-double-right text-green"></i></td>
-                                <td>1.1697</td>
-                                <td>1.1697</td>
-                                <td>35252.525</td>
-                                <td>0.00003326</td>
-                                <td class="text-green">BUY</td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -409,167 +403,25 @@
                     <table class="table table-hover box-trade" id="ask" width="100%" cellspacing="0">
                         <thead class="head-column">
                             <tr>
-                                <th></th>
-                                <th>ASK (FRAS)</th>
-                                <th>PRICE (XLM)</th>
-                                <th>TOTAL (XLM)</th>
-                                <th>SUM (XLM)</th>
-                                <th><i class="fa fa-angle-double-left text-red"></i></th>
+                              @if(strpos(url()->current(),"ardor") !== "ardor")
+                              <th></th>
+                              <th>ASK ({{$info["name"]}})</th>
+                              <th>PRICE (IGNIS)</th>
+                              <th>TOTAL (IGNIS)</th>
+                              <th>SUM (IGNIS)</th>
+                              <th><i class="fa fa-angle-double-left text-red"></i></th>
+                              @elseif(strpos(url()->current(),"ardor") !== "stellar")
+                              <th></th>
+                              <th>ASK ({{$info["name"]}})</th>
+                              <th>PRICE (XLM)</th>
+                              <th>TOTAL (XLM)</th>
+                              <th>SUM (XLM)</th>
+                              <th><i class="fa fa-angle-double-left text-red"></i></th>
+                              @endif
                             </tr>
                         </thead>
                         <tbody>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td><i class="fa fa-angle-double-left text-red"></i></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td><i class="fa fa-angle-double-left text-red"></i></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
-                            <tr style="background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) 89.7%);">
-                                <td class="text-red">SELL</td>
-                                <td>0.00003396</td>
-                                <td>3949.866</td>
-                                <td>0.1341</td>
-                                <td>0.1341</td>
-                                <td></td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -1301,6 +1153,116 @@
       });
     }
     loadasset(0,10000);
+    $('#bid').DataTable({
+      "scrollY"     : "320px",
+      'paging'      : true,
+      'searching'   : false,
+      'ajax'         :"{{url("api/orderbook/".$block."/".$info["id_token"])."?type=buy"}}",
+      'info'        : false,
+      'lengthChange': false,
+      'createdRow': function (row, data, index) {
+        console.log(data);
+      },
+      "pageLength"  : 15,
+      'pagingType'  : 'full_numbers',
+      'responsive'  : true,
+      "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+      'autoWidth'   : false
+    })
+    $('#ask').DataTable({
+      "scrollY"     : "320px",
+      'paging'      : true,
+      'searching'   : false,
+      'info'        : false,
+      'ajax'         :"{{url("api/orderbook/".$block."/".$info["id_token"])."?type=sell"}}",
+      'lengthChange': false,
+      "pageLength"  : 15,
+      'pagingType'  : 'full_numbers',
+      'responsive'  : true,
+      "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+      'autoWidth'   : false
+    })
+    $('#mh').DataTable({
+      'paging'      : true,
+      'searching'   : false,
+      'info'        : false,
+      'ordering'    : true,
+      'lengthChange': false,
+      "pageLength"  : 15,
+      'pagingType'  : 'full_numbers',
+      'responsive'  : true,
+      "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+      'autoWidth'   : false
+    })
+    $('#oo').DataTable({
+      'paging'      : true,
+      'searching'   : false,
+      'info'        : false,
+      'ordering'    : true,
+      'lengthChange': false,
+       'pagingType'  : 'full_numbers',
+      'responsive'  : true,
+      "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+      'autoWidth'   : false
+    })
+    $('#moo').DataTable({
+      'paging'      : true,
+      'searching'   : false,
+      'info'        : false,
+      'ordering'    : true,
+      'lengthChange': false,
+       'pagingType'  : 'full_numbers',
+      'responsive'  : true,
+      "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+      'autoWidth'   : false
+    })
+    $('#ro').DataTable({
+      'paging'      : true,
+      'searching'   : true,
+      'info'        : false,
+      'ordering'    : true,
+      'lengthChange': false,
+       'pagingType'  : 'full_numbers',
+      'responsive'  : true,
+      "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+      'autoWidth'   : false
+    })
+    $('#yth').DataTable({
+      'paging'      : true,
+      'searching'   : false,
+      'info'        : false,
+      'ordering'    : true,
+      'lengthChange': false,
+      "pageLength"  : 15,
+       'pagingType'  : 'full_numbers',
+      'responsive'  : true,
+      "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+      'autoWidth'   : false
+    })
+
+    $('#transferHistoryTable').DataTable({
+      'paging'      : true,
+      'searching'   : false,
+      'info'        : false,
+      'ordering'    : true,
+      "pageLength"  : 15,
+      'lengthChange': false,
+       'pagingType'  : 'full_numbers',
+      'responsive'  : true,
+      "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+      'autoWidth'   : false
+    })
+
+     $('#balanceTable').DataTable({
+     'paging'      : false,
+     'searching'   : true,
+     'info'        : false,
+     'lengthChange': false,
+     'pagingType'  : 'full_numbers',
+     'responsive'  : true,
+     "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
+     'autoWidth'   : false
+   })
   });
 </script>
 <!-- Login/Register Modal Popup -->
