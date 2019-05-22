@@ -13,3 +13,11 @@ function convertCrypto($from="",$to="",$all=false)
   }
   return $response->data->{$from}->quote->{$to}->price;
 }
+function line($type='',$percent)
+{
+  if ($type == "buy") {
+    return "background: linear-gradient(to left, rgb(220, 246, 222) 94.1%, rgb(255, 255, 255) ".$percent."%);";
+  }else {
+    return "background: linear-gradient(to right, rgb(254, 214, 216) 89.7%, rgb(249, 249, 249) ".$percent."%);";
+  }
+}
