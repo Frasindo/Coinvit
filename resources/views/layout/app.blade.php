@@ -388,10 +388,8 @@
                 <div class="scrollmenu" id="coin-slider">
                     <a href="#home"><i class="fa fa-star text-yellow"></i>
                         Only </a>
-                    <a href="#news">Stellar</a>
-                    <a href="#news">Ardor</a>
-                    <a href="#contact">Bitcoin</a>
-                    <a href="#about">Ethereum</a>
+                    <a href="{{url("exchange/stelar")}}">Stellar</a>
+                    <a href="{{url("exchange/ardor")}}">Ardor</a>
                 </div>
 
 
