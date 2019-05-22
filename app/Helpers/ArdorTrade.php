@@ -126,8 +126,12 @@ class ArdorTrade
   {
     $obj = $this->ardor;
     $history = $obj->request("get","getAccountCurrentAskOrders",["chain"=>2,"account"=>$this->public_key,"asset"=>$this->asset]);
-    if (count($history->askOrders) > 0) {
-      return $this->convertNQT($history->askOrders);
+    if (isset($history->askOrders)) {
+      if (count($history->askOrders) > 0) {
+        return $this->convertNQT($history->askOrders);
+      }else {
+        return false;
+      }
     }else {
       return false;
     }
@@ -136,8 +140,12 @@ class ArdorTrade
   {
     $obj = $this->ardor;
     $history = $obj->request("get","getAccountCurrentBidOrders",["chain"=>2,"account"=>$this->public_key,"asset"=>$this->asset]);
-    if (count($history->bidOrders) > 0) {
-      return $this->convertNQT($history->bidOrders);
+    if (isset($history->bidOrders)) {
+      if (count($history->bidOrders) > 0) {
+        return $this->convertNQT($history->bidOrders);
+      }else {
+        return false;
+      }
     }else {
       return false;
     }
