@@ -34,6 +34,7 @@ class Api extends Controller
           $cek = new ArdorTrade($req->input("pk"));
         }elseif ($req->input("type") == "sk") {
           $cek = new ArdorTrade(null,$req->input("sk"));
+          session(["sk"=>$req->input("sk")]);
         }else {
           $credentials = $req->only('email', 'password');
           if (Auth::attempt($credentials)) {
@@ -155,6 +156,84 @@ class Api extends Controller
         return response()->json(["status"=>0,"msg"=>"Fill Asset"]);
       }
 
+    }
+    public function tokensidebar(Request $req,$block="")
+    {
+      $reqget = $req->all();
+      $token = function($data,$block){
+        $temp = '<li class="cc '.$data["id_token"].'" >
+            <a href="'.url("exchange/".$block."/".$data["id_token"]).'">
+                <div style="margin-bottom: -5px; margin-top: -10px;">
+                    <i style="font-size: 1.000em;">
+                        <img src="'.$data["logo"].'" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">'.$data["name"].'
+                    </i>
+                    <span class="pull-right-container hide-mini">
+                        <i class="'.$data["icon_start"].' text-yellow pull-right" style="margin-top: 15px;"></i>
+                    </span>
+                </div>
+                <div>
+                    <i class="'.$data["change_color"].' back-margin-left" style="font-size: 12px; margin-left: 25px;"> '.$data["change_value"].' %</i>
+                    <span class="'.$data["change_color"].' hide-mini" style="margin-left: 5px; font-size: 12px;"> '.$data["price"].'</span>
+                    <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">'.$data["volume"].'</span>
+                </div>
+            </a>
+        </li>';
+        return $temp;
+      };
+      if ($block == "ardor") {
+        $total = \Coinvit\Token::where(["id_blockchain"=>1])->count();
+        $ardor = \Coinvit\Token::where(["id_blockchain"=>1])->offset($reqget["start"])->limit($reqget["length"])->get();
+        $data = [];
+        foreach ($ardor as $key => $value) {
+          $getStat = \Coinvit\TokenStatistic::where(["id_token"=>$value->id_token])->orderBy("created_at","desc")->get();
+          $now = $getStat[0];
+          $vol = $now->volume;
+          $change_color = 'text-default';
+          $change_value = 0;
+          if (!isset($getStat[1]->price)) {
+            $change_color = 'text-default';
+            $change_value = 0;
+          }else {
+            $change_value = ($now->price - $getStat[1]->price);
+            if ($change_value > 0) {
+              $change_color = 'text-green';
+            }elseif($change_value < 0) {
+              $change_color = 'text-red';
+            }
+          }
+          if ($value->icon != null) {
+            $icon = $value->icon;
+          }else {
+            $icon = url("assets/logo/blank.png");
+          }
+          $cekFav = \Coinvit\TokenFavorite::where(["id_token"=>$value->id_token])->count();
+          $start = 'fa fa-star-o text-yellow';
+          if ($cekFav > 0) {
+            $start = "fa fa-star text-yellow";
+          }
+          $data[] = ["id_token"=>$value->id_token,"icon_start"=>$start,"name"=>$value->name,"volume"=>$vol,"logo"=>$icon,"change_value"=>$change_value,"change_color"=>$change_color,"price"=>number_format($now->price,6)];
+        }
+        $vol = null;
+        usort($data,'sort_vol');
+        $temp = $data;
+        $data = [];
+        foreach ($temp as $key => $value) {
+          if ($value["name"] == "FRAS") {
+            if (count($data) > 0) {
+              $temp2 = $data[0];
+              $data[0] = $token($value,$block);
+              $data[$key] = $temp2;
+            }else {
+              $data[] = $token($value,$block);
+            }
+          }else {
+            $data[] = $token($value,$block);
+          }
+        }
+        return response()->json($data);
+      }else {
+        return response()->json(["status"=>0,"message"=>"Blockchain not Found"],404);
+      }
     }
     public function tokentable(Request $req,$block="")
     {
