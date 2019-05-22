@@ -8,13 +8,16 @@
 <aside class="main-sidebar">
     <!-- Loo asset then for maximize minimize sidebar left -->
     <div class="user-panel sidebar-toggle" data-toggle="push-menu" role="button">
+        @if(strpos(url()->current(),"ardor") !== false)
         <div class="pull-left">
-            <img src="https://bittrexblobstorage.blob.core.windows.net/public/c41db2ef-2635-4438-a1c1-0a680c8857e1.png" style="width: 100%; max-width: 45px; height: auto;">
+          <img src="{{asset("assets/logo/ardor.png")}}" style="width: 100%; max-width: 50px; height: auto;">
         </div>
         <div class="pull-left info">
-            <p style="font-size: 28px; font-style: italic;">STELLAR</p>
-            <b>Blockchain</b>
+          <p style="font-size: 28px; font-style: italic;">Ardor</p>
+          <b>Blockchain</b>
         </div>
+        @elsif(strpos(url()->current(),"stellar") !== false)
+        @endif
     </div>
     <!-- search form -->
     <form action="#" method="get" class="sidebar-form">
@@ -51,641 +54,12 @@
         <!-- End Button Token/Fiat -->
         <!-- List for sub asset i in Sidebar Left-->
         <ul class="sidebar-menu" data-widget="tree" id="asset">
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">FRAS
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Frasindo Rent</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;" id="fav-asset"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -800.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
-            <li class="cc" id="cc">
-                <a href="#">
-                    <div style="margin-bottom: -5px; margin-top: -10px;">
-                        <i style="font-size: 1.000em;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" style="width: 16px; height: 16px;margin-right: 5px;" class="logo-icon">XLM
-                        </i>
-                        <span style="font-size: 12px; font-color: grey;" class="hide-mini">Lumens</span>
-                        <span class="pull-right-container hide-mini">
-                            <i class="fa fa-star-o text-yellow pull-right" style="margin-top: 15px;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <i class="text-green back-margin-left" style="font-size: 12px; margin-left: 25px;"> -37.278 %</i>
-                        <span class="text-green hide-mini" style="margin-left: 5px; font-size: 12px;"> 0.09890</span>
-                        <span class="hide-mini" style="margin-left: 5px; font-size: 12px;">297.0876</span>
-                    </div>
-                </a>
-            </li>
+
         </ul>
         <ul class="sidebar-menu" data-widget="tree" style="background-color: #000;display: block;">
             <li>
                 <a href="#" style="padding: 12px 5px 12px 15px;">
-                    <i class="fa fa-wifi text-green"></i>
+                    <i  class="fa fa-wifi text-green"></i>
                     <span class="hide-text">Connected</span>
                 </a>
             </li>
@@ -709,12 +83,12 @@
                     <div class="dropdown">
                         <!-- col-sm-6 -->
                         <div class="col-sm-6" style="padding: 0px 0px 0px 0px;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" class="img-logo-asset text-left" style="float: left;">
+                            <img src="{{$info["logo"]}}" class="img-logo-asset text-left" style="float: left;">
                         </div>
                         <!-- End col-sm-6 -->
                         <!-- col-sm-6 -->
                         <div class="col-sm-6" style="padding: 15px 0px 0px 0px;">
-                            <span style="float: left;" class="font-c-asset text-black">FRAS</span>
+                            <span style="float: left;" class="font-c-asset text-black">{{$info["name"]}}</span>
                         </div>
                         <!-- End col-sm-6 -->
                         <div class="dropdown-content" id="content-base">
@@ -742,12 +116,22 @@
                     <div class="dropdown" style="float:right;">
                         <!-- col-sm-6 -->
                         <div class="col-sm-6" style="padding: 15px 0px 0px 0px;">
-                            <span class="font-c-asset text-black" style="float: right;">FRAS</span>
+                            <span class="font-c-asset text-black" style="float: right;">
+                              @if(strpos(url()->current(),"ardor") !== false)
+                              IGNIS
+                              @elseif(strpos(url()->current(),"stellar") !== false)
+                              STELLAR
+                              @endif
+                              </span>
                         </div>
                         <!-- End col-sm-6 -->
                         <!-- col-sm-6 -->
                         <div class="col-sm-6" style="padding: 0px 0px 0px 0px;">
-                            <img src="https://bittrexblobstorage.blob.core.windows.net/public/ddbdafb2-e267-4114-abc3-06316cf3bef9.png" class="img-logo-asset" style="float: right;">
+                          @if(strpos(url()->current(),"ardor") !== false)
+                          <img src="{{asset("assets/logo/ignis.png")}}" class="img-logo-asset" style="float: right;">
+                          @elseif(strpos(url()->current(),"stellar") !== false)
+                          <img src="{{asset("assets/logo/stellar.png")}}" class="img-logo-asset" style="float: right;">
+                          @endif
                         </div>
                         <!-- End col-sm-6 -->
                         <div class="dropdown-content" id="content-counter">
@@ -762,32 +146,46 @@
             </div>
             <div class="col-lg-2 col-md-2 col-sm-2 header-asset-panel space-margin-20">
                 <div class="description-block">
-                    <h6 class="description-header">0.4 USD</h6>
-                    <h6 class="description-header">0.00004000 XLM</h6>
-                    <span class="description-text">LAST PRICE</span>
+                  @if(strpos(url()->current(),"ardor") !== false)
+                  <h6 class="description-header">{{$info["price"]}} IGNIS</h6>
+                  <span class="description-text">LAST PRICE</span>
+                  @elseif(strpos(url()->current(),"stellar") !== false)
+                  <h6 class="description-header">{{$info["price"]}} XLM</h6>
+                  <span class="description-text">LAST PRICE</span>
+                  @endif
                 </div>
             </div>
             <!-- End column-6-header -->
             <div class="col-lg-2 col-md-2 col-sm-2 header-asset-panel space-margin-20">
                 <div class="description-block">
-                    <h6 class="description-header text-green" class="space-change"><i class="fa fa-caret-up text-green"></i> 17 %</h6>
+                    <h6 class="description-header {{$info["change_color"]}}" class="space-change"><i class="{{$info["change_icon"]}} {{$info["change_color"]}}"></i> {{$info["change_value"]}} %</h6>
                     <span class="description-text">% CHANGE</span>
                 </div>
             </div>
             <!-- End col-lg-2 -->
             <div class="col-lg-2 col-md-2 col-sm-2  header-asset-panel space-margin-20">
                 <div class="description-block">
-                    <h6 class="description-header text-green">0.00008000 XLM</h6>
-                    <h6 class="description-header text-red">0.00004000 XLM</h6>
-                    <span class="description-text">HIGH & LOW</span>
+                  @if(strpos(url()->current(),"ardor") !== false)
+                  <h6 class="description-header text-green">{{$info['h']}} IGNIS</h6>
+                  <h6 class="description-header text-red">{{$info['l']}} IGNIS</h6>
+                  <span class="description-text">HIGH & LOW</span>
+                  @elseif(strpos(url()->current(),"stellar") !== false)
+                  <h6 class="description-header text-green">{{$info['h']}} XLM</h6>
+                  <h6 class="description-header text-red">{{$info['l']}} XLM</h6>
+                  <span class="description-text">HIGH & LOW</span>
+                  @endif
                 </div>
             </div>
             <!-- End col-lg-2 -->
             <div class="col-lg-2 col-md-2 col-sm-2  header-asset-panel space-margin-20">
                 <div class="description-block">
-                    <h6 class="description-header">0.4 USD</h6>
-                    <h6 class="description-header">0.00004000 XLM</h6>
-                    <span class="description-text">VOLUME</span>
+                  @if(strpos(url()->current(),"ardor") !== false)
+                  <h6 class="description-header">{{$info["volume"]}} IGNIS</h6>
+                  <span class="description-text">VOLUME</span>
+                  @elseif(strpos(url()->current(),"stellar") !== false)
+                  <h6 class="description-header">{{$info["volume"]}} XLM</h6>
+                  <span class="description-text">VOLUME</span>
+                  @endif
                 </div>
             </div>
             <!-- End col-lg-2 -->
@@ -824,7 +222,7 @@
             <!-- Candle Stick Main -->
             <iframe src="http://127.0.0.1:9090/" class="candle-layout"></iframe>
             <div class="row" style="margin-top: 4px;">
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="box box-success box-trade height-info">
                         <form role="form" class="form-horizontal">
                             <div class="box-header">
@@ -898,7 +296,7 @@
                     <!-- End Box -->
                 </div>
                 <!-- End col-lg-4 -->
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="box box-danger box-trade height-info">
                         <form role="form" class="form-horizontal">
                             <div class="box-header">
@@ -968,102 +366,7 @@
                     <!-- End Box -->
                 </div>
                 <!-- End col-lg-4 -->
-                <div class="col-lg-6-info col-md-6-info col-sm-12">
-                    <div class="box box-warning box-trade">
-                        <form role="form" class="form-horizontal">
-                            <div class="box-header height-info-header">
-                                <h1 class="box-title text-orange">INFORMATION<b style="margin: 5px;"> FRAS/XLM</b></h1>
-                                <!-- Image Hover -->
-                                <!-- <img src="dist/img/button/btn-dept-hover.png" width="15%" height="10%" style="float: right;"> -->
-                                <img src="dist/img/button/btn-dept.png" width="15%" height="10%" style="float: right;" id="btn-depth">
 
-                                <!-- Image btn-information -->
-                                <!-- <img src="dist/img/button/btn-information.png" width="15%" height="10%" style="float: right;"> -->
-
-                                <!-- Image Hover -->
-                                <!-- <img src="dist/img/button/btn-information-hover.png" width="15%" height="10%" style="float: right;"> -->
-
-                            </div>
-                            <div id="chartdiv"></div>
-                            <div class="box-body" id="info-asset">
-                                <p><b>Verified by</b></p>
-                                <p class="text-justify font-for-desc info-margin">
-                                    <a href="https://Frasindo.com" class="text-blue">Frasindo.com</a>
-                                </p>
-                                <p><b>Issuing Account</b></p>
-                                <p class="text-justify font-for-desc info-margin">
-                                    GC75WHUIMU7LV6WURMCA5GGF2S5FWFOK7K5VLR2WGRKWKZQAJQEBM53M
-                                </p>
-                                <p><b>Description</b></p>
-                                <p class="text-justify font-for-desc info-margin">
-                                    FRAS COIN is the UBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is the UBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is
-                                    the UBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is the UBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is the UBER &
-                                    GRAB & GOCAR Official Partner, An asset released on multi-blockchainUBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is the UBER & GRAB & GOCAR Official Partner,
-                                    An asset released on multi-blockchainFRAS COIN is the UBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is the UBER & GRAB & GOCAR Official Partner, An asset
-                                    released on multi-blockchain
-                                </p>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <p><b>Total XLM Market Cap</b></p>
-                                        <p class="text-justify font-for-desc info-margin">
-                                            82.0M
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <p><b>Total Supply</b></p>
-                                        <p class="text-justify font-for-desc info-margin">
-                                            100M
-                                        </p>
-                                    </div>
-                                </div>
-                                <p><b>Conditions</b></p>
-                                <p class="text-justify font-for-desc info-margin">
-                                    There will only ever be 100,000,000 FRAS COIN/tokens in existence. We will distribute the revenue share monthly. at 15th
-                                </p>
-                                <div style="background: #f39c12;">
-                                    <p class="text-center font-16" style="padding: 10px; color: #fff;"><b>VERSUS</b></p>
-                                </div>
-                                <p><b>Verified by</b></p>
-                                <p class="text-justify font-for-desc info-margin">
-                                    <a href="https://Stellar.org">Stellar.org</a>
-                                </p>
-                                <p><b>Issuing Account</b></p>
-                                <p class="text-justify font-for-desc info-margin">
-                                    GC75WHUIMU7LV6WURMCA5GGF2S5FWFOK7K5VLR2WGRKWKZQAJQEBM53M
-                                </p>
-                                <p><b>Description</b></p>
-                                <p class="text-justify font-for-desc info-margin">
-                                    XLM COIN is the UBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is the UBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is
-                                    the UBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is the UBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is the UBER &
-                                    GRAB & GOCAR Official Partner, An asset released on multi-blockchainUBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is the UBER & GRAB & GOCAR Official Partner,
-                                    An asset released on multi-blockchainFRAS COIN is the UBER & GRAB & GOCAR Official Partner, An asset released on multi-blockchainFRAS COIN is the UBER & GRAB & GOCAR Official Partner, An asset
-                                    released on multi-blockchain
-                                </p>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <p><b>Total XLM Market Cap</b></p>
-                                        <p class="text-justify font-for-desc info-margin">
-                                            82.0M
-                                        </p>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <p><b>Total Supply</b></p>
-                                        <p class="text-justify font-for-desc info-margin">
-                                            100M
-                                        </p>
-                                    </div>
-                                </div>
-                                <p><b>Conditions</b></p>
-                                <p class="text-justify font-for-desc info-margin">
-                                    There will only ever be 100,000,000 FRAS COIN/tokens in existence. We will distribute the revenue share monthly. at 15th
-                                </p>
-                            </div>
-                            <!-- /.box-body -->
-                        </form>
-                    </div>
-                    <!-- End Box -->
-                </div>
-                <!-- End col-lg-4 -->
             </div>
             <!-- End Row -->
             <div class="row">
@@ -1932,7 +1235,7 @@
       else{
            $("#icon-setup").addClass('hide-btn');
            $("#icon-setup").removeClass('show-btn');
-           $("#icon-setup").attr("src","{{asset("assets/dist/img/button/btn-show.png")}}");
+           $("#icon-setup").attr("src","{{asset("assets/dist/img/button/btn-hide.png")}}");
 
            $("#btn-token").css('width', '95%');
            $("#btn-fiat").css('width', '95%');
@@ -1978,6 +1281,27 @@
 
 
     });
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    function loadasset(start,length,append=false) {
+      $.get("{{url("api/token_sidebar/ardor")}}?start="+start+"&length="+length,function(success){
+        if (append) {
+          $("#asset").append(success);
+        }else {
+          $("#asset").html(success);
+        }
+      }).fail(function (fail) {
+        alert = fail.responseJSON;
+        console.log(alert.message);
+        toastr.error(alert.message);
+        $.each(alert.errors,function(index, el) {
+          toastr.info(el[0]);
+        });
+      });
+    }
+    loadasset(0,10000);
+  });
 </script>
 <!-- Login/Register Modal Popup -->
 @endsection
