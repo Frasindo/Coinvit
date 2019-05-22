@@ -15,8 +15,28 @@ function datatablesConvert($res=[],$select="",$total=0)
   }
   return $data;
 }
+function datatables($res=[],$select="")
+{
+  $data = [];
+  $data["data"] = [];
+  foreach ($res as $key => $value) {
+    $inner = [];
+    $exp = explode(",",$select);
+    foreach ($exp as $k => $v) {
+      $inner[] = $value["$v"];
+    }
+    $data["data"][] = $inner;
+  }
+  return $data;
+}
 function sort_vol($a, $b) {
     return $a['volume'] < $b['volume'];
+}
+function bid_sort($a, $b) {
+    return $a->priceNQTPerShare < $b->priceNQTPerShare;
+}
+function ask_sort($a, $b) {
+    return $a->priceNQTPerShare > $b->priceNQTPerShare;
 }
 function sort_change($a, $b) {
     return $a['change'] < $b['change'];
