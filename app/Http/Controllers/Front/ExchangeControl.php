@@ -53,7 +53,7 @@ class ExchangeControl extends Controller
           }
           $data = ["id_token"=>$asset,"icon_start"=>$start,"name"=>$value->name,"volume"=>$vol,"logo"=>$icon,"change_value"=>$change_value,"change_icon"=>$change_icon,"change_color"=>$change_color,"price"=>number_format($now->price,6),"l"=>number_format($now->price_low,6),"h"=>number_format($now->price_high,6)];
 
-          return view("front.trade.tradebook",["title"=>$data["name"]." - IGNIS","info"=>$data]);
+          return view("front.trade.tradebook",["title"=>$data["name"]." - IGNIS","info"=>$data,"block"=>$block]);
         }else {
           return redirect("exchange");
         }
