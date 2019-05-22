@@ -29,14 +29,18 @@ Route::group(['middleware' => ['web']], function () {
   Route::post('/api/login',"PublicAPI\Api@login");
   Route::get('/api/validation',"PublicAPI\Api@validation");
   Route::get('/api/token/{id?}/{add?}',"PublicAPI\Api@listtoken");
-  Route::get('/api/orderbook/{asset?}/{address?}',"PublicAPI\Api@orderbook");
+  Route::get('/api/orderbook/{block}/{asset?}/{address?}',"PublicAPI\Api@orderbook");
   Route::get('/api/token_list/{block?}',"PublicAPI\Api@tokentable");
   Route::get('/api/token_sidebar/{block?}',"PublicAPI\Api@tokensidebar");
   Route::get('/api/topgain/{block?}',"PublicAPI\Api@topgain");
+  Route::get('/api/market_history/{asset}/{block?}',"PublicAPI\Api@markethistory");
 });
 Route::group(['middleware' => ['member']], function () {
   Route::get('/exchange/{block}/{asset?}',"Front\ExchangeControl@block");
   Route::post('/api/trade/{asset}/{chain}',"AuthAPI\Api@trade");
+  Route::get('/api/myhistory/{asset}/{chain}',"AuthAPI\Api@myhistory");
+  Route::get('/api/myorder/{asset}/{chain}',"AuthAPI\Api@myorder");
+  Route::get('/api/accouninfo/{asset}/{chain}',"AuthAPI\Api@accouninfo");
 });
 Route::group(['middleware' => ['admin']], function () {
   Route::get('/middleware',"AuthAPI\Api@index");
