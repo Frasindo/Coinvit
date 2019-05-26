@@ -14,7 +14,7 @@ class ArdorTrade
   {
     $this->secret_key = $secret_key;
     $this->public_key = $public_key;
-    $this->ardor = new ArdorHelper("http://178.150.207.53:27876");
+    $this->ardor = new ArdorHelper(env("PEER","http://178.150.207.53:27876"));
   }
   public function setAsset($assets='')
   {
@@ -214,6 +214,31 @@ class ArdorTrade
       return $obj->normalNum($last->trades[0]->priceNQTPerShare);
     }else {
       return 0;
+    }
+  }
+  public function MyOrder()
+  {
+    $obj = $this->ardor;
+    $historyBid = $obj->request("get","getAccountCurrentBidOrders",["chain"=>2,"account"=>$this->public_key,"asset"=>$this->asset]);
+    $historyAsk = $obj->request("get","getAccountCurrentAskOrders",["chain"=>2,"account"=>$this->public_key,"asset"=>$this->asset]);
+    if (isset($historyBid->bidOrders) || isset($historyAsk->askOrders)) {
+      $data = [];
+      if (count($historyBid->bidOrders) > 0) {
+        $bid =  $this->convertNQT($historyBid->bidOrders);
+        foreach ($bid as $key => $value) {
+          $data[] = $value;
+        }
+      }
+      if (count($historyAsk->askOrders) > 0) {
+        $ask =  $this->convertNQT($historyAsk->askOrders);
+        foreach ($ask as $key => $value) {
+          $data[] = $value;
+        }
+      }
+      usort($data,"order_sort");
+      return $data;
+    }else {
+      return false;
     }
   }
   public function loopDates($start_date,$end_date,$nxtmode = false)
