@@ -222,7 +222,7 @@
             <!-- Candle Stick Main -->
             <iframe src="http://127.0.0.1:9090/" class="candle-layout"></iframe>
             <div class="row" style="margin-top: 4px;">
-                <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="box box-success box-trade height-info">
                         <form role="form" class="form-horizontal">
                             <div class="box-header">
@@ -296,7 +296,7 @@
                     <!-- End Box -->
                 </div>
                 <!-- End col-lg-4 -->
-                <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="box box-danger box-trade height-info">
                         <form role="form" class="form-horizontal">
                             <div class="box-header">
@@ -366,7 +366,9 @@
                     <!-- End Box -->
                 </div>
                 <!-- End col-lg-4 -->
-
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <img class="img-responsive" style="width:100%;height:100%" src="https://www.mystellar.org/GALLERYALBUM/Stellar/Banner%206%20-%20RESERVED.png" alt="">
+                </div>
             </div>
             <!-- End Row -->
             <div class="row">
@@ -437,54 +439,20 @@
                         <thead class="head-column">
                             <tr>
                                 <th>ORDER</th>
-                                <th class="text-center">PRICE (XLM)</th>
-                                <th class="text-center">AMOUNT (FRAS)</th>
-                                <th class="text-center">TOTAL (XLM)</th>
-                                <th>DATE</th>
+                                @if(strpos(url()->current(),"ardor") !== false)
+                                <th>PRICE (IGNIS)</th>
+                                <th>AMOUNT ({{$info["name"]}})</th>
+                                <th>TOTAL (IGNIS)</th>
+                                @else
+                                <th>PRICE (XLM)</th>
+                                <th>AMOUNT ({{$info["name"]}})</th>
+                                <th>TOTAL (XLM)</th>
+                                @endif
                                 <th>ACTION</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-left text-green">BUY</td>
-                                <td class="text-center">0.00003348</td>
-                                <td class="text-center">296.38443478</td>
-                                <td class="text-center">0.00992295</td>
-                                <td>
-                                    <?php echo date("Y-m-d H:i:s"); ?>
-                                </td>
-                                <td><a href="#" class="text-orange"><b>Cancel</b></a></td>
-                            </tr>
-                            <tr>
-                                <td class="text-left text-green">BUY</td>
-                                <td class="text-center">0.00003348</td>
-                                <td class="text-center">296.38443478</td>
-                                <td class="text-center">0.00992295</td>
-                                <td>
-                                    <?php echo date("Y-m-d H:i:s"); ?>
-                                </td>
-                                <td><a href="#" class="text-orange"><b>Cancel</b></a></td>
-                            </tr>
-                            <tr>
-                                <td class="text-left text-red">SELL</td>
-                                <td class="text-center">0.00003348</td>
-                                <td class="text-center">296.38443478</td>
-                                <td class="text-center">0.00992295</td>
-                                <td>
-                                    <?php echo date("Y-m-d H:i:s"); ?>
-                                </td>
-                                <td><a href="#" class="text-orange"><b>Cancel</b></a></td>
-                            </tr>
-                            <tr>
-                                <td class="text-left text-red">SELL</td>
-                                <td class="text-center">0.00003348</td>
-                                <td class="text-center">296.38443478</td>
-                                <td class="text-center">0.00992295</td>
-                                <td>
-                                    <?php echo date("Y-m-d H:i:s"); ?>
-                                </td>
-                                <td><a href="#" class="text-orange"><b>Cancel</b></a></td>
-                            </tr>
+
                         </tbody>
                     </table>
                     <!-- End table for open orders -->
@@ -1191,7 +1159,8 @@
       'info'        : false,
       'ordering'    : true,
       'lengthChange': false,
-       'pagingType'  : 'full_numbers',
+      'ajax'         :"{{url("api/myorder/".$info["id_token"])}}",
+      'pagingType'  : 'full_numbers',
       'responsive'  : true,
       "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
       'autoWidth'   : false
