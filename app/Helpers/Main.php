@@ -38,6 +38,9 @@ function bid_sort($a, $b) {
 function ask_sort($a, $b) {
     return $a->priceNQTPerShare > $b->priceNQTPerShare;
 }
+function order_sort($a, $b) {
+    return $a->order > $b->order;
+}
 function sort_change($a, $b) {
     return $a['change'] < $b['change'];
 }
