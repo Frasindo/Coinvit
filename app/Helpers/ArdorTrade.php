@@ -86,6 +86,11 @@ class ArdorTrade
       return ["status"=>1,"data"=>$get];
     }
   }
+  public function transcation($hash='')
+  {
+    $get = $this->ardor->request("get","getTransaction",["chain"=>2,"fullHash"=>$hash]);
+    return $get;
+  }
   public function bid($price,$price_per,$fee=null)
   {
     $obj = $this->ardor;
@@ -180,6 +185,11 @@ class ArdorTrade
       }
     }
     return $data;
+  }
+  public function bridge($obj,$val)
+  {
+    $s = $this->ardor->{$obj}($val);
+    return $s;
   }
   public function AskHistory($asset = "")
   {
