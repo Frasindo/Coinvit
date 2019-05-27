@@ -212,7 +212,7 @@ class ArdorTrade
         return false;
       }
     }else {
-      return false
+      return false;
     }
   }
   public function Token($search='')
