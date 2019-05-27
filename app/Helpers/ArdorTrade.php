@@ -20,6 +20,27 @@ class ArdorTrade
   {
       $this->asset = (string) $assets;
   }
+  public function tradeHistory($timestamp="")
+  {
+    if ($this->asset != '') {
+      if ($this->public_key != '') {
+        if ($timestamp != "") {
+          $get = $this->ardor->request("get","getTrades",["chain"=>2,"asset"=>$this->asset,"account"=>$this->public_key,"timestamp"=>$this->convertTimestamp(strtotime($timestamp),true)]);
+        }else {
+          $get = $this->ardor->request("get","getTrades",["chain"=>2,"account"=>$this->public_key,"asset"=>$this->asset]);
+        }
+      }else {
+          if ($timestamp != "") {
+            $get = $this->ardor->request("get","getTrades",["chain"=>2,"asset"=>$this->asset,"timestamp"=>$this->convertTimestamp(strtotime($timestamp),true)]);
+          }else {
+            $get = $this->ardor->request("get","getTrades",["chain"=>2,"asset"=>$this->asset]);
+          }
+      }
+      return $this->convertNQT($get->trades);
+    }else {
+      return false;
+    }
+  }
   public function validation()
   {
     $check = $this->ardor->request("get","getAsset",["asset"=>$this->asset]);
