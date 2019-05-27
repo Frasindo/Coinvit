@@ -31,4 +31,38 @@ class ApiArdor extends Controller
       }
       return datatables($data,"order,price_share,ammount,total,action");
     }
+    public function history(Request $req,$asset,$timestamp="")
+    {
+      $type = $req->input("type");
+      $pk = Auth::guard("trade_direct")->user()->pk;
+      if ($type == "all") {
+        $all = new ArdorTrade();
+        $all->setAsset($asset);
+        $res = $all->tradeHistory($timestamp);
+        $data = [];
+        foreach ($res as $key => $value) {
+          $order = "<p class='text-red'>SELL</p>";
+          if ($value->tradeType == "buy") {
+            $order = "<p class='text-green'>BUY</p>";
+          }
+          $data[] = ["date"=>date("Y-m-d H:i:s",$all->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>($value->priceNQTPerShare*$value->quantityQNT)];
+        }
+        $data = datatables($data,"date,order,price_share,ammount,total");
+        return response()->json($data);
+      }else {
+        $my = new ArdorTrade($pk);
+        $my->setAsset($asset);
+        $res = $my->tradeHistory($timestamp);
+        $data = [];
+        foreach ($res as $key => $value) {
+          $order = "<p class='text-red'>SELL</p>";
+          if ($value->tradeType == "buy") {
+            $order = "<p class='text-green'>BUY</p>";
+          }
+          $data[] = ["date"=>date("Y-m-d H:i:s",$my->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>($value->priceNQTPerShare*$value->quantityQNT)];
+        }
+        $data = datatables($data,"date,order,price_share,ammount,total");
+        return response()->json($data);
+      }
+    }
 }
