@@ -541,134 +541,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-red">SELL</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-red">SELL</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-red">SELL</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-red">SELL</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
-                            <tr>
-                                <td>13:39:05</td>
-                                <td class="text-green">BUY</td>
-                                <td>0.00003348</td>
-                                <td>296.38443478</td>
-                                <td>0.00992295</td>
-                                <td>0.00992295</td>
-                            </tr>
+
                         </tbody>
                     </table>
                     <!-- End Your History -->
@@ -1207,6 +1080,7 @@
       'paging'      : true,
       'searching'   : false,
       "destroy":true,
+      'ajax'         :"{{url("api/historyardor/".$info["id_token"])."/".date("Y-m-d")."?type=self"}}",
       'info'        : false,
       'ordering'    : true,
       'lengthChange': false,
