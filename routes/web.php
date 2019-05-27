@@ -38,10 +38,10 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => ['member']], function () {
   Route::get('/exchange/{block}/{asset?}',"Front\ExchangeControl@block");
   //Ardor
-  Route::post('/api/trade/{asset}/{chain}',"AuthAPI\ApiArdor@trade");
-  Route::get('/api/myhistory/{asset}',"AuthAPI\ApiArdor@myhistory");
-  Route::get('/api/myorder/{asset}',"AuthAPI\ApiArdor@myorder");
-  Route::get('/api/accouninfo/{asset}',"AuthAPI\ApiArdor@accouninfo");
+  Route::post('/api/tradeardor/{asset}/{chain}',"AuthAPI\ApiArdor@trade");
+  Route::get('/api/historyardor/{asset}/{timestamp?}',"AuthAPI\ApiArdor@history");
+  Route::get('/api/myorderardor/{asset}',"AuthAPI\ApiArdor@myorder");
+  Route::get('/api/accouninfoardor/{asset}',"AuthAPI\ApiArdor@accouninfo");
   //Stellar
 });
 Route::group(['middleware' => ['admin']], function () {
