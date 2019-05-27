@@ -188,8 +188,12 @@ class ArdorTrade
     }
     $obj = $this->ardor;
     $history = $obj->request("get","getAskOrders",["chain"=>2,"asset"=>$asset]);
-    if (count($history->askOrders) > 0) {
-      return $this->convertNQT($history->askOrders);
+    if (isset($history->askOrders)) {
+      if (count($history->askOrders) > 0) {
+        return $this->convertNQT($history->askOrders);
+      }else {
+        return false;
+      }
     }else {
       return false;
     }
@@ -201,10 +205,14 @@ class ArdorTrade
     }
     $obj = $this->ardor;
     $history = $obj->request("get","getBidOrders",["chain"=>2,"asset"=>$asset]);
-    if (count($history->bidOrders) > 0) {
-      return $this->convertNQT($history->bidOrders);
+    if (isset($history->bidOrders)) {
+      if (count($history->bidOrders) > 0) {
+        return $this->convertNQT($history->bidOrders);
+      }else {
+        return false;
+      }
     }else {
-      return false;
+      return false
     }
   }
   public function Token($search='')
