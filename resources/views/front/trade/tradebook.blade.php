@@ -467,9 +467,15 @@
                             <tr>
                                 <th>DATE</th>
                                 <th>ORDER</th>
+                                @if(strpos(url()->current(),"ardor") !== false)
+                                <th>PRICE (IGNIS)</th>
+                                <th>TOTAL ({{$info["name"]}})</th>
+                                <th>TOTAL (IGNIS)</th>
+                                @elseif(strpos(url()->current(),"stellar") !== false)
                                 <th>PRICE (XLM)</th>
-                                <th>TOTAL (FRAS)</th>
+                                <th>TOTAL ({{$info["name"]}})</th>
                                 <th>TOTAL (XLM)</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -521,10 +527,17 @@
                             <tr>
                                 <th>CLOSED</th>
                                 <th>OPEN</th>
+                                @if(strpos(url()->current(),"ardor") !== false)
+                                <th>PRICE (IGNIS)</th>
+                                <th>FILLED ({{$info["name"]}})</th>
+                                <th>RATE (IGNIS)</th>
+                                <th>COST (IGNIS)</th>
+                                @elseif(strpos(url()->current(),"stellar") !== false)
                                 <th>PRICE (XLM)</th>
-                                <th>FILLED (FRAS)</th>
+                                <th>FILLED ({{$info["name"]}})</th>
                                 <th>RATE (XLM)</th>
                                 <th>COST (XLM)</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -1142,6 +1155,7 @@
     $('#mh').DataTable({
       'paging'      : true,
       "destroy":true,
+      'ajax'         :"{{url("api/historyardor/".$info["id_token"])."/".date("Y-m-d")."?type=all"}}",
       'searching'   : false,
       'info'        : false,
       'ordering'    : true,
@@ -1159,7 +1173,7 @@
       'info'        : false,
       'ordering'    : true,
       'lengthChange': false,
-      'ajax'         :"{{url("api/myorder/".$info["id_token"])}}",
+      'ajax'         :"{{url("api/myorderardor/".$info["id_token"])}}",
       'pagingType'  : 'full_numbers',
       'responsive'  : true,
       "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
