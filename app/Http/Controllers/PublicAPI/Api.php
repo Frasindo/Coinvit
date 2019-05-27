@@ -178,7 +178,7 @@ class Api extends Controller
           if ($cekFav > 0) {
             $start = "fa fa-star text-yellow";
           }
-          $data[] = ["id_token"=>$value->id_token,"icon_start"=>$start,"name"=>$value->name,"volume"=>$vol,"logo"=>$icon,"change_value"=>$change_value,"change_color"=>$change_color,"price"=>number_format($now->price,6)];
+          $data[] = ["id_token"=>$value->id_token,"icon_start"=>$start,"name"=>$value->name,"volume"=>$vol,"logo"=>$icon,"change_value"=>number_format($change_value,4),"change_color"=>$change_color,"price"=>number_format($now->price,2)];
         }
         $vol = null;
         usort($data,'sort_vol');
