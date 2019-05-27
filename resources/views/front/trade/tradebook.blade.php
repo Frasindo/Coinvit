@@ -1028,7 +1028,7 @@
     $('#mh').DataTable({
       'paging'      : true,
       "destroy":true,
-      'ajax'         :"{{url("api/historyardor/".$info["id_token"])."/".date("Y-m-d")."?type=all"}}",
+      'ajax'         :"{{url("api/historyardorall/".$info["id_token"])."/".date("Y-m-d")}}",
       'searching'   : false,
       'info'        : false,
       'ordering'    : true,

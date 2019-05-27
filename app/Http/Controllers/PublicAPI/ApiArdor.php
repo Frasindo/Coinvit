@@ -69,9 +69,10 @@ class ApiArdor extends Controller
           $bid = $obj->MyBidHistory();
           $myorderBid = [];
           $myorderAsk = [];
-          if (Auth::check()) {
-          }else {
+          if (Auth::guard('trade_direct')->check()) {
             $pk = Auth::guard("trade_direct")->user()->pk;
+          }else {
+            $pk = null;
           }
           if ($ask == false) {
             $ask = [];
@@ -101,9 +102,7 @@ class ApiArdor extends Controller
           $bid = $obj->BidHistory();
           $myorderBid = [];
           $myorderAsk = [];
-          if (Auth::check()) {
-
-          }else {
+          if (Auth::guard('trade_direct')->check()) {
             $pk = Auth::guard("trade_direct")->user()->pk;
             $new = new ArdorTrade($pk,null);
             $new->setAsset($asset);
@@ -117,6 +116,7 @@ class ApiArdor extends Controller
             }
             $myorderAsk = $askNew;
             $myorderBid = $bidNew;
+          }else {
             // return $myorderAsk;
           }
           if ($ask == false) {
@@ -148,5 +148,25 @@ class ApiArdor extends Controller
       return response()->json(["status"=>0,"message"=>"No Block Found"],404);
     }
 
+  }
+  public function history($asset,$timestamp="")
+  {
+    $all = new ArdorTrade();
+    $all->setAsset($asset);
+    $res = $all->tradeHistory($timestamp);
+    $data = [];
+    foreach ($res as $key => $value) {
+      $cost = 0;
+      $order = "<p class='text-red'>SELL</p>";
+      if ($value->tradeType == "buy") {
+        $hash = $value->bidOrderFullHash;
+        $order = "<p class='text-green'>BUY</p>";
+      }else {
+        $hash = $value->askOrderFullHash;
+      }
+      $data[] = ["date"=>date("H:i:s",$all->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>($value->priceNQTPerShare*$value->quantityQNT),"cost"=>$cost];
+    }
+    $data = datatables($data,"date,order,price_share,ammount,total");
+    return response()->json($data);
   }
 }

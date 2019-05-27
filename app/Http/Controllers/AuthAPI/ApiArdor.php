@@ -35,46 +35,26 @@ class ApiArdor extends Controller
     {
       $type = $req->input("type");
       $pk = Auth::guard("trade_direct")->user()->pk;
-      if ($type == "all") {
-        $all = new ArdorTrade();
-        $all->setAsset($asset);
-        $res = $all->tradeHistory($timestamp);
-        $data = [];
-        foreach ($res as $key => $value) {
-          $cost = 0;
-          $order = "<p class='text-red'>SELL</p>";
-          if ($value->tradeType == "buy") {
-            $hash = $value->bidOrderFullHash;
-            $order = "<p class='text-green'>BUY</p>";
-          }else {
-            $hash = $value->askOrderFullHash;
-          }
-          $data[] = ["date"=>date("H:i:s",$all->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>($value->priceNQTPerShare*$value->quantityQNT),"cost"=>$cost];
+      $my = new ArdorTrade($pk);
+      $my->setAsset($asset);
+      $res = $my->tradeHistory($timestamp);
+      $data = [];
+      foreach ($res as $key => $value) {
+        $cost = 0;
+        $order = "<p class='text-red'>SELL</p>";
+        if ($value->tradeType == "buy") {
+          $hash = $value->bidOrderFullHash;
+          $order = "<p class='text-green'>BUY</p>";
+        }else {
+          $hash = $value->askOrderFullHash;
         }
-        $data = datatables($data,"date,order,price_share,ammount,total");
-        return response()->json($data);
-      }else {
-        $my = new ArdorTrade($pk);
-        $my->setAsset($asset);
-        $res = $my->tradeHistory($timestamp);
-        $data = [];
-        foreach ($res as $key => $value) {
-          $cost = 0;
-          $order = "<p class='text-red'>SELL</p>";
-          if ($value->tradeType == "buy") {
-            $hash = $value->bidOrderFullHash;
-            $order = "<p class='text-green'>BUY</p>";
-          }else {
-            $hash = $value->askOrderFullHash;
-          }
-          $c = $my->transcation($hash);
-          if (isset($c->feeNQT)) {
-            $cost = $my->bridge("normalNum",$c->feeNQT);
-          }
-          $data[] = ["date"=>date("H:i:s",$my->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>($value->priceNQTPerShare*$value->quantityQNT),"cost"=>$cost];
+        $c = $my->transcation($hash);
+        if (isset($c->feeNQT)) {
+          $cost = $my->bridge("normalNum",$c->feeNQT);
         }
-        $data = datatables($data,"date,order,price_share,ammount,total,cost");
-        return response()->json($data);
+        $data[] = ["date"=>date("H:i:s",$my->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>($value->priceNQTPerShare*$value->quantityQNT),"cost"=>$cost];
       }
+      $data = datatables($data,"date,order,price_share,ammount,total,cost");
+      return response()->json($data);
     }
 }

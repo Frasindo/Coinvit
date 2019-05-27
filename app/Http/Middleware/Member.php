@@ -32,7 +32,7 @@ class Member
             return $next($request);
           }
         }
-        return response()->json(["status"=>0,"msg"=>"You not Member"],404);
+        return response()->json(["data"=>[]]);
       }
     }
 }

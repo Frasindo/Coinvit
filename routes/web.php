@@ -33,10 +33,10 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/api/token_list/{block?}',"PublicAPI\Api@tokentable");
   Route::get('/api/token_sidebar/{block?}',"PublicAPI\Api@tokensidebar");
   Route::get('/api/topgain/{block?}',"PublicAPI\Api@topgain");
-  Route::get('/api/market_history/{asset}/{block?}',"PublicAPI\Api@markethistory");
+  Route::get('/api/historyardorall/{asset}/{timestamp?}',"PublicAPI\ApiArdor@history");
+  Route::get('/exchange/{block}/{asset?}',"Front\ExchangeControl@block");
 });
 Route::group(['middleware' => ['member']], function () {
-  Route::get('/exchange/{block}/{asset?}',"Front\ExchangeControl@block");
   //Ardor
   Route::post('/api/tradeardor/{asset}/{chain}',"AuthAPI\ApiArdor@trade");
   Route::get('/api/historyardor/{asset}/{timestamp?}',"AuthAPI\ApiArdor@history");
