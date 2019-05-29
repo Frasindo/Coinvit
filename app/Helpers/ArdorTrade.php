@@ -183,13 +183,13 @@ class ArdorTrade
       if (!isset($x->balanceNQT)) {
         return 0;
       }
-      return $this->bridge("normalNum",$x->balanceNQT);
+      return $this->bridge("normalNum",($x->unconfirmedBalanceNQT));
     }elseif ($type == 'asset') {
       $x = $this->ardor->request("get","getAccountAssets",["asset"=>$this->asset,"account"=>$this->public_key]);
       if (!isset($x->quantityQNT)) {
         return 0;
       }
-      return $this->bridge("normalNum",$x->quantityQNT);
+      return $this->bridge("normalNum",($x->unconfirmedQuantityQNT));
     }else {
       return false;
     }
