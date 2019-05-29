@@ -110,7 +110,7 @@ class ApiArdor extends Controller
           $hash = $value->askOrderFullHash;
         }
         $cost = '<a target="_blank" href="https://ardor.tools/transaction/IGNIS/'.$hash.'" class="text-orange">DETAIL</a>';
-        $data[] = ["date"=>date("H:i:s",$my->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>round($value->priceNQTPerShare*$value->quantityQNT,1),"cost"=>$cost];
+        $data[] = ["date"=>date("H:i:s",$my->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>($value->priceNQTPerShare*$value->quantityQNT),"cost"=>$cost];
       }
       $data = datatables($data,"date,order,price_share,ammount,total,cost");
       return response()->json($data);

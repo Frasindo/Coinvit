@@ -170,7 +170,7 @@ class ApiArdor extends Controller
       }else {
         $hash = $value->askOrderFullHash;
       }
-      $data[] = ["date"=>date("H:i:s",$all->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>round($value->priceNQTPerShare*$value->quantityQNT,1),"cost"=>$cost];
+      $data[] = ["date"=>date("H:i:s",$all->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>($value->priceNQTPerShare*$value->quantityQNT),"cost"=>$cost];
     }
     $data = datatables($data,"date,order,price_share,ammount,total");
     return response()->json($data);
