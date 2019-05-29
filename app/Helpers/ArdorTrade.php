@@ -36,7 +36,7 @@ class ArdorTrade
             $get = $this->ardor->request("get","getTrades",["chain"=>2,"asset"=>$this->asset]);
           }
       }
-      return $this->convertNQT($get->trades);
+      return $this->convertNQT($get->trades,["quantityQNT","priceNQTPerShare"],getDigit($this->asset));
     }else {
       return false;
     }
@@ -71,14 +71,14 @@ class ArdorTrade
   {
     $obj = $this->ardor;
     if ($fee == null) {
-      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key]);
+      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true,getDigit($this->asset)),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key]);
       if (isset($get->errorDescription)) {
         return ["status"=>0,"msg"=>"Order Not Found"];
       }
       $fee = $obj->feeNQT($get);
-      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$fee]);
+      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true,getDigit($this->asset)),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$fee]);
     }else {
-      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$obj->normalNum($fee,true)]);
+      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true,getDigit($this->asset)),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$obj->normalNum($fee,true)]);
     }
     if (isset($get->errorDescription)) {
       return ["status"=>0,"data"=>$get];
@@ -183,23 +183,27 @@ class ArdorTrade
       if (!isset($x->balanceNQT)) {
         return 0;
       }
-      return $this->bridge("normalNum",($x->unconfirmedBalanceNQT));
+      return $this->ardor->normalNum($x->unconfirmedBalanceNQT);
     }elseif ($type == 'asset') {
       $x = $this->ardor->request("get","getAccountAssets",["asset"=>$this->asset,"account"=>$this->public_key]);
       if (!isset($x->quantityQNT)) {
         return 0;
       }
-      return $this->bridge("normalNum",($x->unconfirmedQuantityQNT));
+      return $this->ardor->normalNum($x->unconfirmedQuantityQNT,false,getDigit($this->asset));
     }else {
       return false;
     }
   }
-  public function convertNQT($data=[],$qnt=["quantityQNT","priceNQTPerShare"])
+  public function convertNQT($data=[],$qnt=["quantityQNT","priceNQTPerShare"],$digits=8)
   {
     $obj = $this->ardor;
     foreach ($data as $key => &$value) {
       foreach ($qnt as $k => $v) {
-        $value->{$v} = $obj->normalNum($value->{$v});
+        if ($v == "priceNQTPerShare") {
+          $value->{$v} = $obj->normalNum($value->{$v},false,8);
+        }else {
+          $value->{$v} = $obj->normalNum($value->{$v},false,$digits);
+        }
       }
     }
     return $data;
@@ -268,7 +272,7 @@ class ArdorTrade
     }
     $last = $obj->request("get","getTrades",["chain"=>2,"asset"=>$asset]);
     if (isset($last->trades[0]->priceNQTPerShare)) {
-      return $obj->normalNum($last->trades[0]->priceNQTPerShare);
+      return $obj->normalNum($last->trades[0]->priceNQTPerShare,false,getDigit($asset));
     }else {
       return 0;
     }

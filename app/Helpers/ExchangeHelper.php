@@ -3,6 +3,11 @@ function spread($up,$down)
 {
   return (($up-$down)*100)/$up;
 }
+function getDigit($id)
+{
+  $x = \Coinvit\Token::where(["id_token"=>$id])->first()->decimal;
+  return $x;
+}
 function convertCrypto($from="",$to="",$all=false)
 {
   // $cmc = new CoinMarketCap\Api('yourApiClient');

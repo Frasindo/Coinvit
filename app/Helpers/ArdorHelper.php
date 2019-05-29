@@ -8,7 +8,15 @@ use GuzzleHttp\Client;
 class ArdorHelper
 {
   public $ip;
-  public $cur = "100000000";
+  public $cur8 = "00000000";
+  public $cur7 = "0000000";
+  public $cur6 = "000000";
+  public $cur5 = "00000";
+  public $cur4 = "0000";
+  public $cur3 = "000";
+  public $cur2 = "00";
+  public $cur1 = "0";
+  public $cur0 = "";
   public $guzzle;
   public $config = ['connect_timeout' => 3.14];
   function __construct($ip="")
@@ -29,12 +37,13 @@ class ArdorHelper
   {
     return $get->transactionJSON->feeNQT;
   }
-  public function normalNum($val,$reverse=false)
+  public function normalNum($val,$reverse=false,$digit=8)
   {
+    $digit = "cur".$digit;
     if ($reverse) {
-      return $val*$this->cur;
+      return $val*("1".$this->{$digit});
     }else {
-      return $val/$this->cur;
+      return $val/("1".$this->{$digit});
     }
   }
   public function request($type,$method,$data=[])
