@@ -1048,6 +1048,9 @@
 <script src="{{asset("assets/dist/js/setup-table.js")}}"></script>
 <script type="text/javascript">
   $(document).ready(function() {
+    $("input[type=number]").keyup(function () {
+        // this.value = this.value.replace(/[^0-9.\.]/g,'');
+    });
     function loadasset(start,length,append=false) {
       $.get("{{url("api/token_sidebar/ardor")}}?start="+start+"&length="+length,function(success){
         if (append) {
@@ -1117,11 +1120,6 @@
     }
     statistic();
     balance();
-    setInterval(function () {
-      console.log("Reinitialize Statistic . . ");
-      statistic();
-      balance();
-    }, 60000);
     setTimeout(function(){
       $("body").addClass("sidebar-collapse");//ganti attribute dokumentasi jquery
         $("#icon-setup").attr("src","{{asset("assets/dist/img/button/btn-show.png")}}");
@@ -1165,13 +1163,35 @@
         instance[i].ajax.reload();
       }
     }
-    $("#baseAsset").on('change',function(event) {
+    function trade(type="bid",data={}) {
+      data._token = "{{csrf_token()}}";
+      if (type == "bid") {
+        data.type = type;
+        $.post("{{url("api/tradeardor/".$info["id_token"])}}",data,function(rs){
+          if (rs.status == 1) {
+            toastr.success("Bid Order Placed !");
+          }else {
+            toastr.error(rs.message);
+          }
+        }).fail(function (fail) {
+          alert = fail.responseJSON;
+          console.log(alert.message);
+          toastr.error(alert.message);
+          $.each(alert.errors,function(index, el) {
+            toastr.info(el[0]);
+          });
+        });
+      }else {
+        toastr.success("Ask Order Placed !");
+      }
+    }
+    $("#baseAsset").on('keyup change',function(event) {
       event.preventDefault();
       exc = parseFloat($(this).val());
       calc = parseFloat($("#bidPrice").val());
       $("#baseTotal").val((calc*exc));
     });
-    $("#counterAsset").on('change',function(event) {
+    $("#counterAsset").on('keyup change',function(event) {
       event.preventDefault();
       exc = parseFloat($(this).val());
       calc = parseFloat($("#askPrice").val());
@@ -1244,7 +1264,6 @@
       "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
       'autoWidth'   : false
     })
-
     $("#bid").on('click', 'tbody tr', function(event) {
       event.preventDefault();
       data = bidtabel.row(this).data();
@@ -1269,8 +1288,7 @@
       data = asktabel.row(this).data();
       $("#bidPrice").val(data[2]);
     });
-
-    $('#mh').DataTable({
+    mh = $('#mh').DataTable({
       'paging'      : true,
       "destroy":true,
       'ajax'         :"{{url("api/historyardorall/".$info["id_token"])."/".date("Y-m-d")}}",
@@ -1284,7 +1302,7 @@
       "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
       'autoWidth'   : false
     })
-    $('#oo').DataTable({
+    oo = $('#oo').DataTable({
       'paging'      : true,
       "destroy":true,
       'searching'   : false,
@@ -1321,7 +1339,7 @@
       "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
       'autoWidth'   : false
     })
-    $('#yth').DataTable({
+    yth = $('#yth').DataTable({
       'paging'      : true,
       'searching'   : false,
       "destroy":true,
@@ -1359,6 +1377,58 @@
      "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
      'autoWidth'   : false
    })
+    $("#bidButton").on('click',function(event) {
+      event.preventDefault();
+      total = parseFloat($("#baseTotal").val());
+      price = parseFloat($("#bidPrice").val());
+      console.log("Total BID :="+total);
+      console.log("Price BID :="+price);
+      if (price > 0 && total > 0) {
+        $.get("{{url("api/checkskardor")}}",function(r){
+          if (r.status == 1) {
+            toastr.info("Access Granted !");
+            var options = {
+                message: 'Order will Placed :<br><b>Price : '+price+'</b><br><b>Qty : '+total+'</b>',
+                title: 'Confirm Order',
+                size: eModal.size.sm,
+                label: 'Ok'
+            };
+            x = eModal.confirm(options).then(function(r){
+                trade("bid",{total:total,price:price});
+            });
+          }else {
+            toastr.error("You Logged in on Read-only Mode");
+            toastr.info("You Will Redirected into Login Page");
+            setTimeout(function () {
+              location.href = "{{url("login")}}";
+            }, 2000);
+          }
+        }).fail(function (fail) {
+          alert = fail.responseJSON;
+          console.log(alert.message);
+          toastr.error(alert.message);
+          $.each(alert.errors,function(index, el) {
+            toastr.info(el[0]);
+          });
+        });
+      }else {
+        toastr.error("Price not Lower from 0");
+      }
+    });
+    $("#askButton").on('click',function(event) {
+      event.preventDefault();
+      total = parseFloat($("#counterAsset").val());
+      price = parseFloat($("#askPrice").val());
+      console.log("Total BID :="+total);
+      console.log("Price ASK :="+price);
+      // $.get("{{url("api/checkskardor")}}")
+    });
+    setInterval(function () {
+      console.log("Reinitialize Statistic . . ");
+      statistic();
+      balance();
+      reloadDatatables([bidtabel,asktabel,ma,oo,yth]);
+    }, 60000);
   });
 </script>
 <!-- Login/Register Modal Popup -->
