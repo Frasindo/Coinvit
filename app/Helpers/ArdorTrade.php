@@ -272,7 +272,7 @@ class ArdorTrade
     }
     $last = $obj->request("get","getTrades",["chain"=>2,"asset"=>$asset]);
     if (isset($last->trades[0]->priceNQTPerShare)) {
-      return $obj->normalNum($last->trades[0]->priceNQTPerShare,false,getDigit($asset));
+      return $obj->normalNum($last->trades[0]->priceNQTPerShare,false);
     }else {
       return 0;
     }
