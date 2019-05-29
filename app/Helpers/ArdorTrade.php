@@ -176,6 +176,24 @@ class ArdorTrade
       return false;
     }
   }
+  public function getBalance($type='native')
+  {
+    if ($type == "native") {
+      $x = $this->ardor->request("get","getBalance",["chain"=>2,"account"=>$this->public_key]);
+      if (!isset($x->balanceNQT)) {
+        return 0;
+      }
+      return $this->bridge("normalNum",$x->balanceNQT);
+    }elseif ($type == 'asset') {
+      $x = $this->ardor->request("get","getAccountAssets",["asset"=>$this->asset,"account"=>$this->public_key]);
+      if (!isset($x->quantityQNT)) {
+        return 0;
+      }
+      return $this->bridge("normalNum",$x->quantityQNT);
+    }else {
+      return false;
+    }
+  }
   public function convertNQT($data=[],$qnt=["quantityQNT","priceNQTPerShare"])
   {
     $obj = $this->ardor;
