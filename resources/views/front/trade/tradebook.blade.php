@@ -16,7 +16,7 @@
           <p style="font-size: 28px; font-style: italic;">Ardor</p>
           <b>Blockchain</b>
         </div>
-        @elsif(strpos(url()->current(),"stellar") !== false)
+        @elseif(strpos(url()->current(),"stellar") !== false)
         @endif
     </div>
     <!-- search form -->
@@ -147,10 +147,10 @@
             <div class="col-lg-2 col-md-2 col-sm-2 header-asset-panel space-margin-20">
                 <div class="description-block">
                   @if(strpos(url()->current(),"ardor") !== false)
-                  <h6 class="description-header">{{$info["price"]}} IGNIS</h6>
+                  <h6 class="description-header" id="lastpriceToken">{{$info["price"]}} IGNIS</h6>
                   <span class="description-text">LAST PRICE</span>
                   @elseif(strpos(url()->current(),"stellar") !== false)
-                  <h6 class="description-header">{{$info["price"]}} XLM</h6>
+                  <h6 class="description-header" id="lastpriceToken">{{$info["price"]}} XLM</h6>
                   <span class="description-text">LAST PRICE</span>
                   @endif
                 </div>
@@ -158,7 +158,7 @@
             <!-- End column-6-header -->
             <div class="col-lg-2 col-md-2 col-sm-2 header-asset-panel space-margin-20">
                 <div class="description-block">
-                    <h6 class="description-header {{$info["change_color"]}}" class="space-change"><i class="{{$info["change_icon"]}} {{$info["change_color"]}}"></i> {{$info["change_value"]}} %</h6>
+                    <h6 id="cToken" class="description-header {{$info["change_color"]}} space-change" ><i class="{{$info["change_icon"]}} {{$info["change_color"]}}"></i> {{$info["change_value"]}} %</h6>
                     <span class="description-text">% CHANGE</span>
                 </div>
             </div>
@@ -166,12 +166,12 @@
             <div class="col-lg-2 col-md-2 col-sm-2  header-asset-panel space-margin-20">
                 <div class="description-block">
                   @if(strpos(url()->current(),"ardor") !== false)
-                  <h6 class="description-header text-green">{{$info['h']}} IGNIS</h6>
-                  <h6 class="description-header text-red">{{$info['l']}} IGNIS</h6>
+                  <h6 class="description-header text-green" id="hToken">{{$info['h']}} IGNIS</h6>
+                  <h6 class="description-header text-red" id="lToken">{{$info['l']}} IGNIS</h6>
                   <span class="description-text">HIGH & LOW</span>
                   @elseif(strpos(url()->current(),"stellar") !== false)
-                  <h6 class="description-header text-green">{{$info['h']}} XLM</h6>
-                  <h6 class="description-header text-red">{{$info['l']}} XLM</h6>
+                  <h6 class="description-header text-green" id="hToken">{{$info['h']}} XLM</h6>
+                  <h6 class="description-header text-red" id="lToken">{{$info['l']}} XLM</h6>
                   <span class="description-text">HIGH & LOW</span>
                   @endif
                 </div>
@@ -180,11 +180,11 @@
             <div class="col-lg-2 col-md-2 col-sm-2  header-asset-panel space-margin-20">
                 <div class="description-block">
                   @if(strpos(url()->current(),"ardor") !== false)
-                  <h6 class="description-header">{{$info["volume"]}} IGNIS</h6>
+                  <h6 class="description-header" id="vToken">{{$info["volume"]}} IGNIS</h6>
                   <span class="description-text">VOLUME</span>
                   @elseif(strpos(url()->current(),"stellar") !== false)
                   <h6 class="description-header">{{$info["volume"]}} XLM</h6>
-                  <span class="description-text">VOLUME</span>
+                  <span class="description-text" id="vToken">VOLUME</span>
                   @endif
                 </div>
             </div>
@@ -222,13 +222,159 @@
             <!-- Candle Stick Main -->
             <iframe src="http://127.0.0.1:9090/" class="candle-layout"></iframe>
             <div class="row" style="margin-top: 4px;">
+              @if(auth()->guard("trade_direct")->check())
+                @if(strpos(url()->current(),"ardor") !== false)
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="box box-success box-trade height-info">
                         <form role="form" class="form-horizontal">
                             <div class="box-header">
-                                <h1 class="box-title text-green">BUY FRAS</h1>
+                                <h1 class="box-title text-green">BUY {{$info["name"]}}</h1>
                                 <div class="text-right">
-                                    <h5 style="margin-top: -5px;">You have : <b>0.00000000 FRAS</b></h5>
+                                    <h5 style="margin-top: -5px;" >You have : <b id="nativeBalance">0.00000000 </b><b> IGNIS</b></h5>
+                                </div>
+                            </div>
+                            <div class="box-body" style="height: auto;">
+                                <div class="form-group meet-margin" style="margin-top: -25px;">
+                                    <div class="col-sm-2 custom-sm-2">
+                                        <label class="control-label text-left font-for-desc">AMOUNT</label>
+                                    </div>
+                                    <!-- End Amount col-sm-2 -->
+                                    <div class="col-sm-10" style="margin-bottom: 10px;">
+                                        <div class="input-group input-trade-form">
+                                            <input type="number" id="baseAsset" class="form-control text-right input-trade-form">
+                                            <span class="input-group-addon font-for-desc" style="width: 64px;">IGNIS</span>
+                                        </div>
+                                        <!-- End input-group -->
+                                    </div>
+                                    <!-- End col-sm-10 -->
+                                    <div class="col-sm-2  custom-sm-2"></div>
+                                    <div class="col-sm-10" style="margin-top: -5px;">
+                                        <div class="col-sm-3 setup-btn-persen">
+                                            <button type="button" class="btn btn-default btn-flat setup-btn-padding">25%</button>
+                                        </div>
+                                        <div class="col-sm-3 setup-btn-persen">
+                                            <button type="button" class="btn btn-default btn-flat setup-btn-padding">50%</button>
+                                        </div>
+                                        <div class="col-sm-3 setup-btn-persen">
+                                            <button type="button" class="btn btn-default btn-flat setup-btn-padding">75%</button>
+                                        </div>
+                                        <div class="col-sm-3 setup-btn-persen">
+                                            <button type="button" class="btn btn-default btn-flat setup-btn-padding">100%</button>
+                                        </div>
+                                    </div>
+                                    <!-- End col-sm-10 -->
+                                    <div class="col-sm-2 meet-margin custom-sm-2">
+                                        <label  class="control-label text-left font-for-desc">PRICE</label>
+                                    </div>
+                                    <!-- End Price col-sm-2 -->
+                                    <div class="col-sm-10 meet-margin">
+                                        <div class="input-group input-trade-form">
+                                            <input id="bidPrice" type="number" class="form-control text-right input-trade-form">
+                                            <span class="input-group-addon font-for-desc" style="width: 64px;">IGNIS</span>
+                                        </div>
+                                        <!-- End input-group -->
+                                    </div>
+                                    <!-- End col-sm-10 -->
+                                    <div class="col-sm-2 custom-sm-2">
+                                        <label class="control-label text-left font-for-desc">TOTAL</label>
+                                    </div>
+                                    <!-- End Total col-sm-2 -->
+                                    <div class="col-sm-10">
+                                        <div class="input-group input-trade-form">
+                                            <input type="number" id="baseTotal" readonly class="form-control text-right input-trade-form">
+                                            <span class="input-group-addon font-for-desc" style="width: 64px;">{{$info["name"]}}</span>
+                                        </div>
+                                        <!-- End input-group -->
+                                    </div>
+                                    <!-- End col-sm-10 -->
+                                </div>
+                                <div class="text-right" style="margin-top: 20px;">
+                                    <button type="button" id="bidButton" class="btn btn-success btn-block">BUY</button>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                        </form>
+                    </div>
+                    <!-- End Box -->
+                  </div>
+                  <!-- End col-lg-4 -->
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="box box-danger box-trade height-info">
+                      <form role="form" class="form-horizontal">
+                        <div class="box-header">
+                          <h1 class="box-title text-red">SELL {{$info["name"]}}</h1>
+                          <div class="text-right">
+                            <h5 style="margin-top: -5px;">You have : <b id="assetBalance">0.00000000 </b><b> {{$info["name"]}}</b></h5>
+                          </div>
+                        </div>
+                        <div class="box-body" style="height: auto;">
+                          <div class="form-group meet-margin" style="margin-top: -25px;">
+                            <div class="col-sm-2 custom-sm-2">
+                              <label class="control-label text-left font-for-desc">AMOUNT</label>
+                            </div>
+                            <div class="col-sm-10" style="margin-bottom: 10px;">
+                              <div class="input-group input-trade-form">
+                                <input type="number" id="counterAsset" class="form-control text-right input-trade-form">
+                                <span class="input-group-addon font-for-desc" style="width: 64px;">{{$info["name"]}}</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group meet-margin" style="margin-top:-40px;">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10" style="margin-top: -5px;">
+                              <div class="col-sm-3 setup-btn-persen">
+                                <button type="button" class="btn btn-default btn-flat setup-btn-padding">25%</button>
+                              </div>
+                              <div class="col-sm-3 setup-btn-persen">
+                                <button type="button" class="btn btn-default btn-flat setup-btn-padding">50%</button>
+                              </div>
+                              <div class="col-sm-3 setup-btn-persen">
+                                <button type="button" class="btn btn-default btn-flat setup-btn-padding">75%</button>
+                              </div>
+                              <div class="col-sm-3 setup-btn-persen">
+                                <button type="button" class="btn btn-default btn-flat setup-btn-padding">100%</button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group meet-margin">
+                            <div class="col-sm-2 custom-sm-2">
+                              <label class="control-label text-left font-for-desc">PRICE</label>
+                            </div>
+                            <div class="col-sm-10">
+                              <div class="input-group input-trade-form">
+                                <input id="askPrice" type="number" class="form-control text-right input-trade-form">
+                                <span class="input-group-addon font-for-desc" style="width: 64px;">IGNIS</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group meet-margin">
+                            <div class="col-sm-2 custom-sm-2">
+                              <label class="control-label text-left font-for-desc">TOTAL</label>
+                            </div>
+                            <div class="col-sm-10">
+                              <div class="input-group input-trade-form">
+                                <input readonly id="counterTotal" type="number" class="form-control text-right input-trade-form">
+                                <span class="input-group-addon font-for-desc" style="width: 64px;">IGNIS</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right" style="margin-top: 20px;">
+                            <button type="button" id="askButton" class="btn btn-danger btn-block">SELL</button>
+                          </div>
+                        </div>
+                        <!-- /.box-body -->
+                      </form>
+                    </div>
+                    <!-- End Box -->
+                  </div>
+                @elseif(strpos(url()->current(),"stellar") !== false)
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="box box-success box-trade height-info">
+                        <form role="form" class="form-horizontal">
+                            <div class="box-header">
+                                <h1 class="box-title text-green">BUY {{$info["name"]}}</h1>
+                                <div class="text-right">
+                                    <h5 style="margin-top: -5px;">You have :<b id="nativeBalance">0.00000000 </b><b> XLM</b></h5>
                                 </div>
                             </div>
                             <div class="box-body" style="height: auto;">
@@ -280,91 +426,104 @@
                                     <div class="col-sm-10">
                                         <div class="input-group input-trade-form">
                                             <input type="number" class="form-control text-right input-trade-form">
-                                            <span class="input-group-addon font-for-desc" style="width: 64px;">FRAS</span>
+                                            <span class="input-group-addon font-for-desc" style="width: 64px;">{{$info["name"]}}</span>
                                         </div>
                                         <!-- End input-group -->
                                     </div>
                                     <!-- End col-sm-10 -->
                                 </div>
                                 <div class="text-right" style="margin-top: 20px;">
-                                    <button type="button" class="btn btn-success btn-block">BUY</button>
+                                    <button type="button" id="askButton" class="btn btn-success btn-block">BUY</button>
                                 </div>
                             </div>
                             <!-- /.box-body -->
                         </form>
                     </div>
                     <!-- End Box -->
-                </div>
-                <!-- End col-lg-4 -->
+                  </div>
+                  <!-- End col-lg-4 -->
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="box box-danger box-trade height-info">
-                        <form role="form" class="form-horizontal">
-                            <div class="box-header">
-                                <h1 class="box-title text-red">SELL FRAS</h1>
-                                <div class="text-right">
-                                    <h5 style="margin-top: -5px;">You have : <b>0.00000000 FRAS</b></h5>
-                                </div>
+                      <form role="form" class="form-horizontal">
+                        <div class="box-header">
+                          <h1 class="box-title text-red">SELL {{$info["name"]}}</h1>
+                          <div class="text-right">
+                            <h5 style="margin-top: -5px;">You have : <b id="assetBalance">0.00000000 </b><b> {{$info["name"]}}</b></h5>
+                          </div>
+                        </div>
+                        <div class="box-body" style="height: auto;">
+                          <div class="form-group meet-margin" style="margin-top: -25px;">
+                            <div class="col-sm-2 custom-sm-2">
+                              <label class="control-label text-left font-for-desc">AMOUNT</label>
                             </div>
-                            <div class="box-body" style="height: auto;">
-                                <div class="form-group meet-margin" style="margin-top: -25px;">
-                                    <div class="col-sm-2 custom-sm-2">
-                                        <label class="control-label text-left font-for-desc">AMOUNT</label>
-                                    </div>
-                                    <div class="col-sm-10" style="margin-bottom: 10px;">
-                                        <div class="input-group input-trade-form">
-                                            <input type="number" class="form-control text-right input-trade-form">
-                                            <span class="input-group-addon font-for-desc" style="width: 64px;">FRAS</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group meet-margin" style="margin-top:-40px;">
-                                    <div class="col-sm-2"></div>
-                                    <div class="col-sm-10" style="margin-top: -5px;">
-                                        <div class="col-sm-3 setup-btn-persen">
-                                            <button type="button" class="btn btn-default btn-flat setup-btn-padding">25%</button>
-                                        </div>
-                                        <div class="col-sm-3 setup-btn-persen">
-                                            <button type="button" class="btn btn-default btn-flat setup-btn-padding">50%</button>
-                                        </div>
-                                        <div class="col-sm-3 setup-btn-persen">
-                                            <button type="button" class="btn btn-default btn-flat setup-btn-padding">75%</button>
-                                        </div>
-                                        <div class="col-sm-3 setup-btn-persen">
-                                            <button type="button" class="btn btn-default btn-flat setup-btn-padding">100%</button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group meet-margin">
-                                    <div class="col-sm-2 custom-sm-2">
-                                        <label class="control-label text-left font-for-desc">PRICE</label>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <div class="input-group input-trade-form">
-                                            <input type="number" class="form-control text-right input-trade-form">
-                                            <span class="input-group-addon font-for-desc" style="width: 64px;">XLM</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group meet-margin">
-                                    <div class="col-sm-2 custom-sm-2">
-                                        <label class="control-label text-left font-for-desc">TOTAL</label>
-                                    </div>
-                                    <div class="col-sm-10">
-                                        <div class="input-group input-trade-form">
-                                            <input type="number" class="form-control text-right input-trade-form">
-                                            <span class="input-group-addon font-for-desc" style="width: 64px;">XLM</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="text-right" style="margin-top: 20px;">
-                                    <button type="button" class="btn btn-danger btn-block">SELL</button>
-                                </div>
+                            <div class="col-sm-10" style="margin-bottom: 10px;">
+                              <div class="input-group input-trade-form">
+                                <input type="number" class="form-control text-right input-trade-form">
+                                <span class="input-group-addon font-for-desc" style="width: 64px;">{{$info["name"]}}</span>
+                              </div>
                             </div>
-                            <!-- /.box-body -->
-                        </form>
+                          </div>
+                          <div class="form-group meet-margin" style="margin-top:-40px;">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-10" style="margin-top: -5px;">
+                              <div class="col-sm-3 setup-btn-persen">
+                                <button type="button" class="btn btn-default btn-flat setup-btn-padding">25%</button>
+                              </div>
+                              <div class="col-sm-3 setup-btn-persen">
+                                <button type="button" class="btn btn-default btn-flat setup-btn-padding">50%</button>
+                              </div>
+                              <div class="col-sm-3 setup-btn-persen">
+                                <button type="button" class="btn btn-default btn-flat setup-btn-padding">75%</button>
+                              </div>
+                              <div class="col-sm-3 setup-btn-persen">
+                                <button type="button" class="btn btn-default btn-flat setup-btn-padding">100%</button>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group meet-margin">
+                            <div class="col-sm-2 custom-sm-2">
+                              <label class="control-label text-left font-for-desc">PRICE</label>
+                            </div>
+                            <div class="col-sm-10">
+                              <div class="input-group input-trade-form">
+                                <input type="number" class="form-control text-right input-trade-form">
+                                <span class="input-group-addon font-for-desc" style="width: 64px;">XLM</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="form-group meet-margin">
+                            <div class="col-sm-2 custom-sm-2">
+                              <label class="control-label text-left font-for-desc">TOTAL</label>
+                            </div>
+                            <div class="col-sm-10">
+                              <div class="input-group input-trade-form">
+                                <input type="number" class="form-control text-right input-trade-form">
+                                <span class="input-group-addon font-for-desc" style="width: 64px;">XLM</span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="text-right" style="margin-top: 20px;">
+                            <button type="button" id="askButton" class="btn btn-danger btn-block">SELL</button>
+                          </div>
+                        </div>
+                        <!-- /.box-body -->
+                      </form>
                     </div>
                     <!-- End Box -->
-                </div>
+                  </div>
+                @endif
+              @else
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div style="margin-top:20%">
+                    <center>
+                      <div style="margin-right: 8px; margin-left: 8px;">
+                        <button type="button" onclick="location.href='{{url("login")}}'" class="btn btn-lg btn-market-lr btn-primary">Login</button>
+                        <button type="button" class="btn btn-lg btn-market-lr btn-success">Register</button>
+                      </div>
+                    </center>
+                  </div>
+              </div>
+              @endif
                 <!-- End col-lg-4 -->
                 <div class="col-lg-6 col-md-6 col-sm-6">
                   <img class="img-responsive" style="width:100%;height:100%" src="https://www.mystellar.org/GALLERYALBUM/Stellar/Banner%206%20-%20RESERVED.png" alt="">
@@ -620,7 +779,7 @@
         <span class='fa fa-caret-down'></span></button>
         <ul class='dropdown-menu'>
         <li><a href='#'>CVIT</a></li>
-        <li><a href='#'>FRAS</a></li>
+        <li><a href='#'>{{$info["name"]}}</a></li>
         </ul>
         <button class='btn btn-danger text-white'>Send</button>
         </div>
@@ -906,6 +1065,63 @@
       });
     }
     loadasset(0,10000);
+    function statistic() {
+      var native = "";
+      @if(strpos(url()->current(),"ardor") !== false)
+      var native = "IGNIS";
+      $.get("{{url("api/statistic/".$info["id_token"])}}",function(success){
+        data = success;
+        $("#vToken").html(success.volume);
+        $("#lastpriceToken").html(success.price);
+        // $("#cToken").html(success.price);
+        $("#lToken").html(success.price_low);
+        $("#hToken").html(success.price_high);
+      }).fail(function(fail) {
+          alert = fail.responseJSON;
+          console.log(alert.message);
+          toastr.error(alert.message);
+          $.each(alert.errors,function(index, el) {
+            toastr.info(el[0]);
+          });
+      })
+      @elseif(strpos(url()->current(),"stellar") !== false)
+      var native = "STELLAR";
+      @endif
+
+    }
+    function balance() {
+      @if(strpos(url()->current(),"ardor") !== false)
+      $.get("{{url("api/balanceardor")}}",function(s){
+        $("#nativeBalance").html(s);
+      }).fail(function (fail) {
+        alert = fail.responseJSON;
+        console.log(alert.message);
+        toastr.error(alert.message);
+        $.each(alert.errors,function(index, el) {
+          toastr.info(el[0]);
+        });
+      });
+      $.get("{{url("api/balanceardor/".$info["id_token"])}}",function(s){
+        $("#assetBalance").html(s);
+      }).fail(function (fail) {
+        alert = fail.responseJSON;
+        console.log(alert.message);
+        toastr.error(alert.message);
+        $.each(alert.errors,function(index, el) {
+          toastr.info(el[0]);
+        });
+      });
+      @elseif(strpos(url()->current(),"stellar") !== false)
+
+      @endif
+    }
+    statistic();
+    balance();
+    setInterval(function () {
+      console.log("Reinitialize Statistic . . ");
+      statistic();
+      balance();
+    }, 60000);
     setTimeout(function(){
       $("body").addClass("sidebar-collapse");//ganti attribute dokumentasi jquery
         $("#icon-setup").attr("src","{{asset("assets/dist/img/button/btn-show.png")}}");
@@ -944,6 +1160,23 @@
          height: 'calc(100vh - 240px)'
        });
     }, 2000);// 5 detik
+    function reloadDatatables(instance = []) {
+      for (var i = 0; i < instance.length; i++) {
+        instance[i].ajax.reload();
+      }
+    }
+    $("#baseAsset").on('change',function(event) {
+      event.preventDefault();
+      exc = parseFloat($(this).val());
+      calc = parseFloat($("#bidPrice").val());
+      $("#baseTotal").val((calc*exc));
+    });
+    $("#counterAsset").on('change',function(event) {
+      event.preventDefault();
+      exc = parseFloat($(this).val());
+      calc = parseFloat($("#askPrice").val());
+      $("#counterTotal").val((calc*exc));
+    });
     $("#icon-setup").click(function(e) {
     e.preventDefault();
         if ($("#icon-setup").hasClass('hide-btn')){
@@ -994,7 +1227,7 @@
        $("#info-asset").hide();
 
     });
-    $('#bid').DataTable({
+    bidtabel = $('#bid').DataTable({
       "scrollY"     : "320px",
       "destroy":true,
       'paging'      : true,
@@ -1011,7 +1244,13 @@
       "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
       'autoWidth'   : false
     })
-    $('#ask').DataTable({
+
+    $("#bid").on('click', 'tbody tr', function(event) {
+      event.preventDefault();
+      data = bidtabel.row(this).data();
+      $("#askPrice").val(data[3]);
+    });
+    asktabel = $('#ask').DataTable({
       "scrollY"     : "320px",
       "destroy":true,
       'paging'      : true,
@@ -1025,6 +1264,12 @@
       "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
       'autoWidth'   : false
     })
+    $("#ask").on('click', 'tbody tr', function(event) {
+      event.preventDefault();
+      data = asktabel.row(this).data();
+      $("#bidPrice").val(data[2]);
+    });
+
     $('#mh').DataTable({
       'paging'      : true,
       "destroy":true,
@@ -1103,7 +1348,7 @@
       "dom": '<"row view-filter"<"col-sm-12"<"pull-left"l><"pull-right"f><"clearfix">>>t<"row view-pager"<"col-sm-12"<"text-center"ip>>>',
       'autoWidth'   : false
     })
-   $('#balanceTable').DataTable({
+    $('#balanceTable').DataTable({
      'paging'      : false,
      'searching'   : true,
      "destroy":true,
