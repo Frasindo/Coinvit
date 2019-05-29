@@ -17,6 +17,11 @@ use Coinvit\DirectUser;
 use \Illuminate\Contracts\Auth\Authenticatable;
 class ApiArdor extends Controller
 {
+  public function statistic($asset)
+  {
+    $obj = new ArdorTrade();
+    return response()->json($obj->Statistic($asset,date("Y-m-d"),false)[0]);
+  }
   public function orderbook(Request $req,$block='',$asset='',$address='')
   {
     $sum = function($data,$myorder=[],$type=''){
