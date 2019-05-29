@@ -17,14 +17,14 @@ class ApiArdor extends Controller
       $send = new ArdorTrade($pk,session()->get("sk"));
       $send->setAsset($asset);
       if ($req->input("type") == "bid") {
-        $bid = $send->bid($req->input("total"),$req->input("price"));
+        $bid = $send->bid($req->input("price"),$req->input("total"));
         if ($bid["status"] == 1) {
           return response()->json(["status"=>1,"data"=>$bid["data"]]);
         }else {
           return response()->json(["status"=>0,"message"=>"Failed to Submit Trasaction","debug"=>$bid],500);
         }
       }elseif ($req->input("type") == "ask") {
-        $ask = $send->ask($req->input("total"),$req->input("price"));
+        $ask = $send->ask($req->input("price"),$req->input("total"));
         if ($ask["status"] == 1) {
           return response()->json(["status"=>1,"data"=>$ask["data"]]);
         }else {
