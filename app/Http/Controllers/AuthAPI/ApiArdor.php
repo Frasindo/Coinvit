@@ -13,7 +13,35 @@ class ApiArdor extends Controller
     }
     public function trade(Request $req,$asset)
     {
-
+      $pk = Auth::guard("trade_direct")->user()->pk;
+      $send = new ArdorTrade($pk,session()->get("sk"));
+      $send->setAsset($asset);
+      if ($req->input("type") == "bid") {
+        $bid = $send->bid($req->input("total"),$req->input("price"));
+        if ($bid["status"] == 1) {
+          return response()->json(["status"=>1,"data"=>$bid["data"]]);
+        }else {
+          return response()->json(["status"=>0,"message"=>"Failed to Submit Trasaction","debug"=>$bid],500);
+        }
+      }elseif ($req->input("type") == "ask") {
+        $ask = $send->ask($req->input("total"),$req->input("price"));
+        if ($ask["status"] == 1) {
+          return response()->json(["status"=>1,"data"=>$ask["data"]]);
+        }else {
+          return response()->json(["status"=>0,"message"=>"Failed to Submit Trasaction"],500);
+        }
+      }else {
+        return response(["status"=>0,"message"=>"Failed to Send Transaction"],500);
+      }
+    }
+    public function checksk()
+    {
+      $sk = session()->get("sk");
+      if ($sk == null) {
+        return response()->json(["status"=>0]);
+      }else {
+        return response()->json(["status"=>1]);
+      }
     }
     public function balance($asset='')
     {
