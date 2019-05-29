@@ -33,6 +33,7 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/api/token_list/{block?}',"PublicAPI\Api@tokentable");
   Route::get('/api/token_sidebar/{block?}',"PublicAPI\Api@tokensidebar");
   Route::get('/api/topgain/{block?}',"PublicAPI\Api@topgain");
+  Route::get('/api/statistic/{asset}',"PublicAPI\ApiArdor@statistic");
   Route::get('/api/historyardorall/{asset}/{timestamp?}',"PublicAPI\ApiArdor@history");
   Route::get('/exchange/{block}/{asset?}',"Front\ExchangeControl@block");
 });
@@ -41,6 +42,7 @@ Route::group(['middleware' => ['member']], function () {
   Route::post('/api/tradeardor/{asset}/{chain}',"AuthAPI\ApiArdor@trade");
   Route::get('/api/historyardor/{asset}/{timestamp?}',"AuthAPI\ApiArdor@history");
   Route::get('/api/myorderardor/{asset}',"AuthAPI\ApiArdor@myorder");
+  Route::get('/api/balanceardor/{asset?}',"AuthAPI\ApiArdor@balance");
   Route::get('/api/accouninfoardor/{asset}',"AuthAPI\ApiArdor@accouninfo");
   //Stellar
 });
