@@ -22,6 +22,7 @@ class ApiArdor extends Controller
     $obj = new ArdorTrade();
     return response()->json($obj->Statistic($asset,date("Y-m-d"),false)[0]);
   }
+  
   public function orderbook(Request $req,$block='',$asset='',$address='')
   {
     $sum = function($data,$myorder=[],$type=''){
