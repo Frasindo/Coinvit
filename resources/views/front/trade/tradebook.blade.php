@@ -690,12 +690,12 @@
                                 <th>PRICE (IGNIS)</th>
                                 <th>FILLED ({{$info["name"]}})</th>
                                 <th>RATE (IGNIS)</th>
-                                <th>COST (IGNIS)</th>
+                                <th>PROOF</th>
                                 @elseif(strpos(url()->current(),"stellar") !== false)
                                 <th>PRICE (XLM)</th>
                                 <th>FILLED ({{$info["name"]}})</th>
                                 <th>RATE (XLM)</th>
-                                <th>COST (XLM)</th>
+                                <th>PROOF</th>
                                 @endif
                             </tr>
                         </thead>
@@ -1182,7 +1182,21 @@
           });
         });
       }else {
-        toastr.success("Ask Order Placed !");
+        data.type = type;
+        $.post("{{url("api/tradeardor/".$info["id_token"])}}",data,function(rs){
+          if (rs.status == 1) {
+            toastr.success("Ask Order Placed !");
+          }else {
+            toastr.error(rs.message);
+          }
+        }).fail(function (fail) {
+          alert = fail.responseJSON;
+          console.log(alert.message);
+          toastr.error(alert.message);
+          $.each(alert.errors,function(index, el) {
+            toastr.info(el[0]);
+          });
+        });
       }
     }
     $("#baseAsset").on('keyup change',function(event) {
@@ -1196,6 +1210,51 @@
       exc = parseFloat($(this).val());
       calc = parseFloat($("#askPrice").val());
       $("#counterTotal").val((calc*exc));
+    });
+    $("#oo").on('click', '.cancelOrder', function(event) {
+      event.preventDefault();
+      tipe = $(this).data("type");
+      id = $(this).data("id");
+      $.get("{{url("api/checkskardor")}}",function(r){
+        if (r.status == 1) {
+          toastr.info("Access Granted !");
+          var options = {
+              message: 'Order with ID '+id+' will be canceled',
+              title: 'Confirm Cancelation Order',
+              size: eModal.size.sm,
+              label: 'Ok'
+          };
+          x = eModal.confirm(options).then(function(r){
+            $.post('{{url("api/cancelorderardor/".$info["id_token"])}}', {_token:"{{csrf_token()}}",type:tipe,id:id}, function(data) {
+              if (data.status == 1) {
+                toastr.success("Order ID "+id+" Canceled");
+              }else {
+                toastr.error(data.message);
+              }
+            }).fail(function (fail) {
+              alert = fail.responseJSON;
+              console.log(alert.message);
+              toastr.error(alert.message);
+              $.each(alert.errors,function(index, el) {
+                toastr.info(el[0]);
+              });
+            });
+          });
+        }else {
+          toastr.error("You Logged in on Read-only Mode");
+          toastr.info("You Will Redirected into Login Page");
+          setTimeout(function () {
+            location.href = "{{url("login")}}";
+          }, 2000);
+        }
+      }).fail(function (fail) {
+        alert = fail.responseJSON;
+        console.log(alert.message);
+        toastr.error(alert.message);
+        $.each(alert.errors,function(index, el) {
+          toastr.info(el[0]);
+        });
+      });
     });
     $("#icon-setup").click(function(e) {
     e.preventDefault();
@@ -1421,13 +1480,43 @@
       price = parseFloat($("#askPrice").val());
       console.log("Total BID :="+total);
       console.log("Price ASK :="+price);
-      // $.get("{{url("api/checkskardor")}}")
+      if (price > 0 && total > 0) {
+        $.get("{{url("api/checkskardor")}}",function(r){
+          if (r.status == 1) {
+            toastr.info("Access Granted !");
+            var options = {
+                message: 'Order will Placed :<br><b>Price : '+price+'</b><br><b>Qty : '+total+'</b>',
+                title: 'Confirm Order',
+                size: eModal.size.sm,
+                label: 'Ok'
+            };
+            x = eModal.confirm(options).then(function(r){
+                trade("ask",{total:total,price:price});
+            });
+          }else {
+            toastr.error("You Logged in on Read-only Mode");
+            toastr.info("You Will Redirected into Login Page");
+            setTimeout(function () {
+              location.href = "{{url("login")}}";
+            }, 2000);
+          }
+        }).fail(function (fail) {
+          alert = fail.responseJSON;
+          console.log(alert.message);
+          toastr.error(alert.message);
+          $.each(alert.errors,function(index, el) {
+            toastr.info(el[0]);
+          });
+        });
+      }else {
+        toastr.error("Price not Lower from 0");
+      }
     });
     setInterval(function () {
       console.log("Reinitialize Statistic . . ");
       statistic();
       balance();
-      reloadDatatables([bidtabel,asktabel,ma,oo,yth]);
+      reloadDatatables([bidtabel,asktabel,mh,oo,yth]);
     }, 60000);
   });
 </script>

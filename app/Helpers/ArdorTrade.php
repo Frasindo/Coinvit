@@ -71,14 +71,14 @@ class ArdorTrade
   {
     $obj = $this->ardor;
     if ($fee == null) {
-      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price,true),"secretPhrase"=>$this->secret_key]);
+      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key]);
       if (isset($get->errorDescription)) {
         return ["status"=>0,"msg"=>"Order Not Found"];
       }
       $fee = $obj->feeNQT($get);
-      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$fee]);
+      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$fee]);
     }else {
-      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$obj->normalNum($fee,true)]);
+      $get = $obj->request("post","placeAskOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$obj->normalNum($fee,true)]);
     }
     if (isset($get->errorDescription)) {
       return ["status"=>0,"data"=>$get];
@@ -95,14 +95,14 @@ class ArdorTrade
   {
     $obj = $this->ardor;
     if ($fee == null) {
-      $get = $obj->request("post","placeBidOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price,true),"secretPhrase"=>$this->secret_key]);
+      $get = $obj->request("post","placeBidOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key]);
       if (isset($get->errorDescription)) {
         return ["status"=>0,"msg"=>"Order Not Found"];
       }
       $fee = $obj->feeNQT($get);
-      $get = $obj->request("post","placeBidOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$fee]);
+      $get = $obj->request("post","placeBidOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$fee]);
     }else {
-      $get = $obj->request("post","placeBidOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$obj->normalNum($fee,true)]);
+      $get = $obj->request("post","placeBidOrder",["chain"=>"2","asset"=>$this->asset,"quantityQNT"=>$obj->normalNum($price,true),"priceNQTPerShare"=>$obj->normalNum($price_per,true),"secretPhrase"=>$this->secret_key,"feeNQT"=>$obj->normalNum($fee,true)]);
     }
     if (isset($get->errorDescription)) {
       return ["status"=>0,"data"=>$get];

@@ -11,20 +11,40 @@ class ApiArdor extends Controller
     {
       return response()->json(["status"=>1,"msg"=>"You Logged In"]);
     }
+    public function cancelorder(Request $req,$asset)
+    {
+      $type = $req->input("type");
+      $id = $req->input("id");
+      $pk = Auth::guard("trade_direct")->user()->pk;
+      $send = new ArdorTrade($pk,session()->get("sk"));
+      $send->setAsset($asset);
+      if ($type == "bid") {
+        $s = $send->cancelBid($id);
+      }elseif ($type == "ask") {
+        $s = $send->cancelAsk($id);
+      }else {
+        return response()->json(["status"=>1,"message"=>"Cannot Submit Transaction"],500);
+      }
+      if ($s["status"] == 1) {
+        return response()->json(["status"=>1]);
+      }else {
+        return response()->json(["status"=>0,"message"=>$s["data"]->errorDescription],500);
+      }
+    }
     public function trade(Request $req,$asset)
     {
       $pk = Auth::guard("trade_direct")->user()->pk;
       $send = new ArdorTrade($pk,session()->get("sk"));
       $send->setAsset($asset);
       if ($req->input("type") == "bid") {
-        $bid = $send->bid($req->input("price"),$req->input("total"));
+        $bid = $send->bid($req->input("total"),$req->input("price"));
         if ($bid["status"] == 1) {
           return response()->json(["status"=>1,"data"=>$bid["data"]]);
         }else {
-          return response()->json(["status"=>0,"message"=>"Failed to Submit Trasaction","debug"=>$bid],500);
+          return response()->json(["status"=>0,"message"=>$bid["data"]->errorDescription,"debug"=>$bid],500);
         }
       }elseif ($req->input("type") == "ask") {
-        $ask = $send->ask($req->input("price"),$req->input("total"));
+        $ask = $send->ask($req->input("total"),$req->input("price"));
         if ($ask["status"] == 1) {
           return response()->json(["status"=>1,"data"=>$ask["data"]]);
         }else {
@@ -89,10 +109,8 @@ class ApiArdor extends Controller
         }else {
           $hash = $value->askOrderFullHash;
         }
-        $c = $my->transcation($hash);
-        if (isset($c->feeNQT)) {
-          $cost = $my->bridge("normalNum",$c->feeNQT);
-        }
+
+        $cost = '<a href="https://ardor.tools/transaction/IGNIS/'.$hash.'" class="text-orange">DETAIL</a>';
         $data[] = ["date"=>date("H:i:s",$my->convertTimestamp($value->timestamp)),"order"=>$order,"price_share"=>$value->priceNQTPerShare,"ammount"=>$value->quantityQNT,"total"=>($value->priceNQTPerShare*$value->quantityQNT),"cost"=>$cost];
       }
       $data = datatables($data,"date,order,price_share,ammount,total,cost");

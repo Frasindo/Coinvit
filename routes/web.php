@@ -40,6 +40,7 @@ Route::group(['middleware' => ['web']], function () {
 Route::group(['middleware' => ['member']], function () {
   //Ardor
   Route::post('/api/tradeardor/{asset}',"AuthAPI\ApiArdor@trade");
+  Route::post('/api/cancelorderardor/{asset}',"AuthAPI\ApiArdor@cancelorder");
   Route::get('/api/checkskardor',"AuthAPI\ApiArdor@checksk");
   Route::get('/api/historyardor/{asset}/{timestamp?}',"AuthAPI\ApiArdor@history");
   Route::get('/api/myorderardor/{asset}',"AuthAPI\ApiArdor@myorder");
