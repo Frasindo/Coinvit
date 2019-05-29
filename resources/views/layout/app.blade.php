@@ -136,7 +136,14 @@
             transform: translate(-50%, -50%);
             -ms-transform: translate(-50%, -50%);
         }
+        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
 
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
         .nav-tabs-custom>.nav-tabs {
             border-bottom-color: #000;
         }
