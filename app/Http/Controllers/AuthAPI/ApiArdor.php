@@ -15,6 +15,19 @@ class ApiArdor extends Controller
     {
 
     }
+    public function balance($asset='')
+    {
+      if ($asset == '') {
+        $pk = Auth::guard("trade_direct")->user()->pk;
+        $set = new ArdorTrade($pk);
+        return $set->getBalance("native");
+      }else {
+        $pk = Auth::guard("trade_direct")->user()->pk;
+        $set = new ArdorTrade($pk);
+        $set->setAsset($asset);
+        return $set->getBalance("asset");
+      }
+    }
     public function myorder(Request $req,$asset)
     {
       $pk = Auth::guard("trade_direct")->user()->pk;
