@@ -690,12 +690,12 @@
                                 <th>PRICE (IGNIS)</th>
                                 <th>FILLED ({{$info["name"]}})</th>
                                 <th>RATE (IGNIS)</th>
-                                <th>PROOF</th>
+                                <th>HASH</th>
                                 @elseif(strpos(url()->current(),"stellar") !== false)
                                 <th>PRICE (XLM)</th>
                                 <th>FILLED ({{$info["name"]}})</th>
                                 <th>RATE (XLM)</th>
-                                <th>PROOF</th>
+                                <th>HASH</th>
                                 @endif
                             </tr>
                         </thead>
