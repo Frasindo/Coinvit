@@ -1064,6 +1064,7 @@
     $("input[type=number]").keyup(function () {
         // this.value = this.value.replace(/[^0-9.\.]/g,'');
     });
+
     function loadasset(start,length,append=false) {
       $.get("{{url("api/token_sidebar/ardor")}}?start="+start+"&length="+length,function(success){
         if (append) {
@@ -1559,6 +1560,7 @@
           data: data
         }]
       });
+      $("#chart_basic .highcharts-credits").remove();
     });
   });
 </script>
