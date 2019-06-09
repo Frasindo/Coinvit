@@ -35,6 +35,7 @@ Route::group(['middleware' => ['web']], function () {
   Route::get('/api/topgain/{block?}',"PublicAPI\Api@topgain");
   Route::get('/api/statistic/{asset}',"PublicAPI\ApiArdor@statistic");
   Route::get('/api/historyardorall/{asset}/{timestamp?}',"PublicAPI\ApiArdor@history");
+  Route::get('/api/chartardor/{asset}',"PublicAPI\ApiArdor@chart");
   Route::get('/exchange/{block}/{asset?}',"Front\ExchangeControl@block");
 });
 Route::group(['middleware' => ['member']], function () {

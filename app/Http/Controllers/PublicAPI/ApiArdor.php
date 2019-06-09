@@ -22,7 +22,23 @@ class ApiArdor extends Controller
     $obj = new ArdorTrade();
     return response()->json($obj->Statistic($asset,date("Y-m-d"),false)[0]);
   }
-
+  public function chart($asset)
+  {
+    $obj = new ArdorTrade();
+    $obj->setAsset($asset);
+    $res = $obj->chart();
+    return response()->json($res);
+    // $res = [
+    //   [
+    //     1559970408000,
+    //     2,
+    //     2,
+    //     0.1,
+    //     0.4
+    //   ]
+    // ];
+    // return response()->json($res);
+  }
   public function orderbook(Request $req,$block='',$asset='',$address='')
   {
     $sum = function($data,$myorder=[],$type=''){

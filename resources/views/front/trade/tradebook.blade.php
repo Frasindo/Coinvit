@@ -220,7 +220,11 @@
         <!-- End box-header -->
         <div class="box-body" style="margin-top: -15px;">
             <!-- Candle Stick Main -->
-            <iframe src="http://127.0.0.1:9090/" class="candle-layout"></iframe>
+            <div class="candle-layout">
+              <div id="chart_basic" style="width:98%">
+
+              </div>
+            </div>
             <div class="row" style="margin-top: 4px;">
               @if(auth()->guard("trade_direct")->check())
                 @if(strpos(url()->current(),"ardor") !== false)
@@ -1031,6 +1035,13 @@
 <link rel="stylesheet" href="{{asset("assets//bower_components/Ionicons/css/ionicons.min.css")}}">
 <link rel="stylesheet" type="text/css" href="{{asset("assets//dist/css/menu-asset.css")}}">
 <link rel="stylesheet" type="text/css" href="{{asset("assets//dist/css/flag-icon.css")}}">
+<link rel="stylesheet" href="//code.highcharts.com/css/highcharts.css">
+<style media="screen">
+  #chart_basic {
+    min-width: 310px;
+	   max-width: 1000px;
+  }
+</style>
 @endsection
 @section('js')
 <script src="{{asset("assets//dist/js/chat-function.js")}}"></script>
@@ -1046,6 +1057,8 @@
 <script src="{{asset("assets/dist/js/fav-asset-trade.js")}}"></script>
 <!-- Pagination Setup Trade -->
 <script src="{{asset("assets/dist/js/setup-table.js")}}"></script>
+<script src="//code.highcharts.com/stock/highstock.js"></script>
+<script src="//code.highcharts.com/stock/modules/exporting.js"></script>
 <script type="text/javascript">
   $(document).ready(function() {
     $("input[type=number]").keyup(function () {
@@ -1315,7 +1328,6 @@
       'info'        : false,
       'lengthChange': false,
       'createdRow': function (row, data, index) {
-        console.log(data);
       },
       "pageLength"  : 15,
       'pagingType'  : 'full_numbers',
@@ -1518,6 +1530,36 @@
       balance();
       reloadDatatables([bidtabel,asktabel,mh,oo,yth]);
     }, 60000);
+    //Basic Chart
+    $.getJSON("{{url("api/chartardor/".$info["id_token"])}}", function(data) {
+      Highcharts.stockChart('chart_basic', {
+        chart: {},
+        rangeSelector: {
+          selected: 4,
+         inputEnabled: false,
+         buttonTheme: {
+             visibility: 'hidden'
+         },
+         labelStyle: {
+             visibility: 'hidden'
+         }
+        },
+        plotOptions: {
+            candlestick: {
+                color: 'green',
+                upColor: 'red'
+            }
+        },
+        series: [{
+          type: 'candlestick',
+          name: '{{$title}}',
+          credits:{
+            enabled:false
+          },
+          data: data
+        }]
+      });
+    });
   });
 </script>
 <!-- Login/Register Modal Popup -->

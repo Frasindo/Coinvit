@@ -41,6 +41,45 @@ class ArdorTrade
       return false;
     }
   }
+  public function chart()
+  {
+    $lt = $this->ardor->request("get","getTrades",["chain"=>2,"asset"=>$this->asset]);
+    if ($lt != FALSE) {
+      $data = [];
+      $temp = $lt->trades;
+      usort($temp, function($a, $b) {
+          return $a->timestamp <=> $b->timestamp;
+      });
+      $time = [];
+      foreach ($temp as $key => $value) {
+        $time[] = $value->timestamp;
+      }
+      $tempdata = [];
+      foreach ($temp as $key => $value) {
+        foreach ($time as $x) {
+          if ($x == $value->timestamp) {
+            $tempdata[$x."-".$value->tradeType][] =  $this->ardor->normalNum($value->quantityQNT,false,getDigit($this->asset));
+          }
+        }
+      }
+      foreach ($tempdata as $k => $v) {
+        $s = explode("-",$k);
+        $timestamp = $this->convertTimestamp($s[0]);
+        $open = max($v);
+        $high = max($v);
+        $low = min($v);
+        if ($s[1] == "buy") {
+          $data[] = [($timestamp),$open,$high,$low,$high];
+        }else {
+          $data[] = [($timestamp),$open,$high,$low,$low];
+        }
+      }
+      // $data = [$tempdata];
+      return $data;
+    }else {
+      return [];
+    }
+  }
   public function validation()
   {
     $check = $this->ardor->request("get","getAsset",["asset"=>$this->asset]);
