@@ -43,7 +43,7 @@ class ArdorTrade
   }
   public function chart()
   {
-    $lt = $this->ardor->request("get","getTrades",["chain"=>2,"asset"=>$this->asset]);
+    $lt = $this->ardor->request("get","getTrades",["chain"=>2,"asset"=>$this->asset,"firstIndex"=>0,"lastIndex"=>200,"adminPassword"=>env("passwordNode","")]);
     if ($lt != FALSE) {
       $data = [];
       $temp = $lt->trades;
